@@ -1,0 +1,6 @@
+[submodule "src/lidar_team/velodyne"]
+	path = src/lidar_team/velodyne
+	url = https://github.com/ros-drivers/velodyne.git
+[submodule "src/morai_msgs"]
+	path = src/morai_msgs
+	url = https://github.com/morai-developergroup/morai_msgs.git

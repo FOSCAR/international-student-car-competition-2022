@@ -1,0 +1,8 @@
+prefix=/home/foscar/ISCC_2022/devel
+
+Name: stanley
+Description: Description of stanley
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/foscar/ISCC_2022/install
+
+Name: delivery_mission
+Description: Description of delivery_mission
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

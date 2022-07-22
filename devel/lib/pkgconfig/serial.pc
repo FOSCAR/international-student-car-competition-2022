@@ -1,0 +1,8 @@
+prefix=/home/foscar/ISCC_2022/devel
+
+Name: serial
+Description: Description of serial
+Version: 0.0.0
+Cflags: -I/home/foscar/ISCC_2022/src/gps_team/serial/include
+Libs: -L${prefix}/lib -lserial -lrt -lpthread
+Requires: 

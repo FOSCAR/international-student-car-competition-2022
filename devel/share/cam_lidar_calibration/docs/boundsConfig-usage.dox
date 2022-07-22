@@ -1,0 +1,12 @@
+\subsubsection usage Usage
+\verbatim
+<node name="cam_lidar_calibration" pkg="cam_lidar_calibration" type="cam_lidar_calibration">
+  <param name="x_min" type="double" value="-10.0" />
+  <param name="x_max" type="double" value="10.0" />
+  <param name="y_min" type="double" value="-8.0" />
+  <param name="y_max" type="double" value="8.0" />
+  <param name="z_min" type="double" value="-6.0" />
+  <param name="z_max" type="double" value="5.0" />
+</node>
+\endverbatim
+

@@ -1,0 +1,8 @@
+prefix=/home/foscar/ISCC_2022/install
+
+Name: rviz_visualization
+Description: Description of rviz_visualization
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

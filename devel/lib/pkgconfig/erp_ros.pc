@@ -1,0 +1,8 @@
+prefix=/home/foscar/ISCC_2022/devel
+
+Name: erp_ros
+Description: Description of erp_ros
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

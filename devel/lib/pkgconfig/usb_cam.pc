@@ -1,0 +1,8 @@
+prefix=/home/foscar/ISCC_2022/devel
+
+Name: usb_cam
+Description: Description of usb_cam
+Version: 0.3.6
+Cflags: -I/home/foscar/ISCC_2022/src/vision_team/usb_cam/include
+Libs: -L${prefix}/lib -lusb_cam
+Requires: 
