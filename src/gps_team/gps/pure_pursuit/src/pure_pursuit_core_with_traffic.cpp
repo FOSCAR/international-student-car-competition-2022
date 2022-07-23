@@ -45,6 +45,8 @@ float min_dist = 1.0;
 int obs_cnt = 0;
 std::chrono::system_clock::time_point obs_start;
 
+float steering_memory = 0;
+
 /* traffic Index manager */
 // 1,2,3,4,7 직진
 // 5(비보호 좌회전), 6(좌회전)
@@ -197,31 +199,31 @@ void PurePursuitNode::run(char** argv) {
     publishCurrentPointVisualizationMsg();
 
     if(pp_.mode != 7){ 
+
+      //동적장애물 멀리서 장애물 감지 -> 감속
+      if(pp_.is_dynamic_obstacle_detected_long){
+        while(pp_.is_dynamic_obstacle_detected_long){
+          if (const_velocity_ > 3) {
+            const_velocity_ -= 0.1;
+          }
+          pulishControlMsg(const_velocity_ , steering_memory);
+          ROS_INFO_STREAM("LONG OBSTACLE DETECT");
+          ros::spinOnce();
+          loop_rate.sleep();
+        }
+      }
+
       // 동적장애물 멈춰야하는 거리
       if(pp_.is_dynamic_obstacle_detected_short){
         while(pp_.is_dynamic_obstacle_detected_short){
-          pulishControlMsg(0 , 0);
+          pulishControlMsg(0 , steering_memory);
           ROS_INFO_STREAM("OBSTACLE DETECT");
           // 1초
           //usleep(1000000);
           ros::spinOnce();
           loop_rate.sleep();
         }
-        const_velocity_ = 8;
-      }
-
-      //동적장애물 멀리서 장애물 감지 -> 감속
-      if(pp_.is_dynamic_obstacle_detected_long){
-        ROS_INFO_STREAM("LONG OBSTACLE DETECT");
-        if (const_velocity_ >= 0.5)
-        {
-          const_velocity_ -= 0.5;
-          continue;
-        }
-        else
-        {
-          continue;
-        }
+        const_velocity_ = 3;
       }
     }
 
@@ -242,7 +244,7 @@ void PurePursuitNode::run(char** argv) {
       
     }
 
-    // ROS_INFO("MODE=%d, MISSION_FLAG=%d", pp_.mode, pp_.mission_flag);
+    ROS_INFO("MODE=%d, MISSION_FLAG=%d", pp_.mode, pp_.mission_flag);
 
 
     // Normal 직진구간
@@ -458,11 +460,7 @@ void PurePursuitNode::run(char** argv) {
         pulishControlMsg(4, -28);
         continue;
       }
-      //  && (std::chrono::duration<double>(std::chrono::system_clock::now() - obs_start)).count() > 10.0
       else if (pp_.mission_flag == 3 && !pp_.is_static_obstacle_detected_short) {
-        // if (double((clock() - obs_time) /CLOCKS_PER_SEC) < 3) {
-        //   continue;
-        // }
         pp_.setWaypoints(global_path);
         pp_.mission_flag = 4;
         const_lookahead_distance_ = 4;
@@ -657,7 +655,7 @@ void PurePursuitNode::run(char** argv) {
 
     // 마지막 waypoint 에 다다랐으면 점차 속도를 줄이기
     if(pp_.is_finish && pp_.mode == 38){
-      while(const_velocity_ >= 0)
+      while(const_velocity_ > 0)
       {
         const_velocity_ -= 1;
         pulishControlMsg(const_velocity_,0);
@@ -701,6 +699,8 @@ void PurePursuitNode::pulishControlMsg(double throttle, double steering) const
   drive_msg.throttle = throttle;
   drive_msg.steering = steering;
   drive_msg_pub.publish(drive_msg);
+
+  steering_memory = drive_msg.steering;
 }
 
 

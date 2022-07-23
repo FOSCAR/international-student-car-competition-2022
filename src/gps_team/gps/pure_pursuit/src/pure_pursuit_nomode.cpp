@@ -45,6 +45,8 @@ float min_dist = 1.0;
 int obs_cnt = 0;
 std::chrono::system_clock::time_point obs_start;
 
+float steering_memory = 0;
+
 /* traffic Index manager */
 // 1,2,3,4,7 직진
 // 5(비보호 좌회전), 6(좌회전)
@@ -192,31 +194,31 @@ void PurePursuitNode::run(char** argv) {
     publishCurrentPointVisualizationMsg();
 
     if(pp_.mode != 7){ 
+
+      //동적장애물 멀리서 장애물 감지 -> 감속
+      if(pp_.is_dynamic_obstacle_detected_long){
+        while(pp_.is_dynamic_obstacle_detected_long){
+          if (const_velocity_ > 3) {
+            const_velocity_ -= 0.1;
+          }
+          pulishControlMsg(const_velocity_ , steering_memory);
+          ROS_INFO_STREAM("LONG OBSTACLE DETECT");
+          ros::spinOnce();
+          loop_rate.sleep();
+        }
+      }
+
       // 동적장애물 멈춰야하는 거리
       if(pp_.is_dynamic_obstacle_detected_short){
         while(pp_.is_dynamic_obstacle_detected_short){
-          pulishControlMsg(0 , 0);
+          pulishControlMsg(0 , steering_memory);
           ROS_INFO_STREAM("OBSTACLE DETECT");
           // 1초
           //usleep(1000000);
           ros::spinOnce();
           loop_rate.sleep();
         }
-        const_velocity_ = 8;
-      }
-
-      //동적장애물 멀리서 장애물 감지 -> 감속
-      if(pp_.is_dynamic_obstacle_detected_long){
-        ROS_INFO_STREAM("LONG OBSTACLE DETECT");
-        if (const_velocity_ >= 0.5)
-        {
-          const_velocity_ -= 0.5;
-          continue;
-        }
-        else
-        {
-          continue;
-        }
+        const_velocity_ = 3;
       }
     }
 
@@ -450,11 +452,7 @@ void PurePursuitNode::run(char** argv) {
         pulishControlMsg(4, -28);
         continue;
       }
-      //  && (std::chrono::duration<double>(std::chrono::system_clock::now() - obs_start)).count() > 10.0
       else if (pp_.mission_flag == 3 && !pp_.is_static_obstacle_detected_short) {
-        // if (double((clock() - obs_time) /CLOCKS_PER_SEC) < 3) {
-        //   continue;
-        // }
         pp_.setWaypoints(global_path);
         pp_.mission_flag = 4;
         const_lookahead_distance_ = 4;
@@ -652,7 +650,7 @@ void PurePursuitNode::run(char** argv) {
 
     // 마지막 waypoint 에 다다랐으면 점차 속도를 줄이기
     if(pp_.is_finish && pp_.mode == 30){
-      while(const_velocity_ >= 0)
+      while(const_velocity_ > 0)
       {
         const_velocity_ -= 1;
         pulishControlMsg(const_velocity_,0);
@@ -674,7 +672,7 @@ void PurePursuitNode::run(char** argv) {
 void PurePursuitNode::publishPurePursuitDriveMsg(const bool& can_get_curvature, const double& kappa) {
   //double throttle_ = can_get_curvature ? const_velocity_ : 0;
   double throttle_;
-  double min_velocity = 5;
+  double min_velocity = 2;
   if(can_get_curvature == true){
     throttle_ = const_velocity_ - abs(15 * kappa) + min_velocity;
   }else{
@@ -703,6 +701,8 @@ void PurePursuitNode::pulishControlMsg(double throttle, double steering) const
   drive_msg.throttle = throttle;
   drive_msg.steering = steering;
   drive_msg_pub.publish(drive_msg);
+
+  steering_memory = drive_msg.steering;
 }
 
 
@@ -807,25 +807,28 @@ void PurePursuitNode::callbackFromStaticObstacleLong(const std_msgs::Bool& msg) 
 }
 
 
+// for delivery obstacle (calc) - 멈추는 곳에 도달했나? 판단 로직
+void PurePursuitNode::callbackFromDeliveryObstacleCalc(const lidar_team_erp42::Delivery& msg) {
+  if (pp_.is_delivery_obs_calc_detected && (msg.x < 0.1 || msg.angle >= 95) && pp_.is_delivery_obs_stop_detected == 0)
+    pp_.is_delivery_obs_stop_detected = 1;
+  
+  else if (msg.x > 1 && msg.x <= 4 ) {
+    pp_.is_delivery_obs_calc_detected = 1;
+  }
+
+  else if (pp_.is_delivery_obs_stop_detected) {
+    pp_.is_delivery_obs_calc_detected = 0;
+  }
+}
+
 // for delivery obstacle (stop) - 멈추는 로직
 void PurePursuitNode::callbackFromDeliveryObstacleStop(const lidar_team_erp42::Delivery& msg) {
   if(msg.x < 0.1 || msg.angle >= 95) 
-    pp_.is_delivery_obs_stop_detected = 1;
+    pp_.is_delivery_obs_stop_detected = 1; //o
 
   if(pp_.is_delivery_obs_stop_detected)
     pp_.is_delivery_obs_calc_detected = 0;
   //std::cout << "msg.detected : " << msg.detected << std::endl;
-}
-
-// for delivery obstacle (calc) - 멈추는 곳에 도달했나? 판단 로직
-void PurePursuitNode::callbackFromDeliveryObstacleCalc(const lidar_team_erp42::Delivery& msg) {
-  if (msg.x > 1 && msg.x <= 4 ) {
-    pp_.is_delivery_obs_calc_detected = 1;
-  }
-
-  if (pp_.is_delivery_obs_stop_detected) {
-    pp_.is_delivery_obs_calc_detected = 0;
-  }
 }
 
 

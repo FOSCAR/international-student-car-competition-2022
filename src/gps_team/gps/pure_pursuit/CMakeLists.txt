@@ -49,6 +49,7 @@ add_executable(
   #src/pure_pursuit_core_for_track.cpp
   src/pure_pursuit_core_with_traffic.cpp
   #src/pure_pursuit_nomode.cpp
+  #src/pure_pursuit_core_semi_final.cpp
 )
 
 # add_executable(

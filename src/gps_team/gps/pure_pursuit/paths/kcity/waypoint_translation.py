@@ -26,7 +26,7 @@ def parse_txt(path):
 
 if __name__ == "__main__":
     file_name = sys.argv[1]
-    scale = 1.0
+    scale = 0.25
 
     if len(file_name) == 0:
         print('The file is not exist')
@@ -39,12 +39,12 @@ if __name__ == "__main__":
     path = parse_txt(file_name)
 
     k_city_start_position = path[0]
-    # k_city_start_position = np.array([955537.894297, 1956944.4206, 0],np.float64) # for parking
+    #k_city_start_position = np.array([955537.894297, 1956944.4206, 0],np.float64) # for parking
 
 
-    # school_start_position = np.array([955566.644773, 1956921.99891, 0],np.float64) # school(center)
+    school_start_position = np.array([955566.644773, 1956921.99891, 0],np.float64) # school(center)
     # school_start_position = np.array([955576.601804, 1956925.47369, 0],np.float64) # school(corner-up)
-    school_start_position = np.array([955560.312455, 1956901.52949, 0],np.float64) # school(corner-down)
+    #school_start_position = np.array([955560.312455, 1956901.52949, 0],np.float64) # school(corner-down)
     # school_start_position = np.array([955534.497699, 1956946.82466, 0],np.float64)  # avoid path start point
 
     print("k_city_start_position : {}".format(k_city_start_position))

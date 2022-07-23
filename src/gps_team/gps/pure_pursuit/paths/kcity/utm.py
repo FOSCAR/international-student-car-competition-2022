@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from pyproj import Proj, transform
 
-f = open("test2.txt", 'r')
+f = open("semi_final_avoidance.txt", 'r')
 data = f.read()
 f.close()
 
