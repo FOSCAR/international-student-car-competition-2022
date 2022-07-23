@@ -115,6 +115,7 @@ void PurePursuitNode::run(char** argv) {
   const_velocity_ = atof(argv[3]);
   final_constant = atof(argv[4]);
   parking_num = atoi(argv[5]);
+  lr = atoi(argv[6]);
 
   ros::Rate loop_rate(LOOP_RATE_);
   while (ros::ok()) {
@@ -236,66 +237,107 @@ void PurePursuitNode::run(char** argv) {
 
     //  MODE 5 : 정적장애물 감지되면 avoidance path로 진로변경 후 원래 global path로 복귀 (드럼통)
     if (pp_.mode == 5) {
-
-      if (pp_.mission_flag == 0) {
-        const_lookahead_distance_ = 3;
-        const_velocity_ = 5;
-        final_constant = 1.2;
-      }
-      if (pp_.mission_flag >= 1) {
-        std::cout << "************************" << std::endl;
-        std::cout << "TIME : " << (std::chrono::duration<double>(std::chrono::system_clock::now() - obs_start)).count() << std::endl;
-        std::cout << "mission flag :" << pp_.mission_flag << std::endl;
-        std::cout << "obstacles_detected : " << pp_.is_static_obstacle_detected_short << std::endl;
-      }
-      if (pp_.mission_flag == 0 && pp_.is_static_obstacle_detected_short) {
-        const_lookahead_distance_ = 4;
-        const_velocity_ = 5;
-        pp_.mission_flag = 1;
-        pulishControlMsg(4, -24);
-        continue;
-      }
-      
-      else if (pp_.mission_flag == 1 && !pp_.is_static_obstacle_detected_short) {
-        const_lookahead_distance_ = 5.5;
-        pp_.setWaypoints(avoidance_path);
-        pp_.mission_flag = 2;
-        ROS_INFO("PAITH SWITCHNG");
-        pulishControlMsg(4, 28);
-        continue;
-      }
-
-      else if (pp_.mission_flag == 1 && pp_.is_static_obstacle_detected_short) {
-        //pp_.mission_flag = 2;
-        const_lookahead_distance_ = 4;
-        pulishControlMsg(4, -24);
-        continue;
-      }
-      else if (pp_.mission_flag == 2 && pp_.is_static_obstacle_detected_short) {
-        pp_.mission_flag = 3;
-        const_lookahead_distance_ = 4;
-        pulishControlMsg(4, 28);
-        continue;
-      }
-      else if(pp_.mission_flag == 3 && pp_.is_static_obstacle_detected_short)
+      if (lr == 0) //오왼
       {
-        const_lookahead_distance_ = 4;
-        pulishControlMsg(4, 28);
-        continue;
+        if (pp_.mission_flag == 0) {
+          pp_.setWaypoints(left_path);
+          const_lookahead_distance_ = 3;
+          const_velocity_ = 5;
+          final_constant = 1.2;
+          pp_.mission_flag = 1;
+        }
+        if (pp_.mission_flag >= 1) {
+          std::cout << "************************" << std::endl;
+          std::cout << "TIME : " << (std::chrono::duration<double>(std::chrono::system_clock::now() - obs_start)).count() << std::endl;
+          std::cout << "mission flag :" << pp_.mission_flag << std::endl;
+          std::cout << "obstacles_detected : " << pp_.is_static_obstacle_detected_short << std::endl;
+        }
+        if (pp_.mission_flag == 1 && pp_.is_static_obstacle_detected_short) {
+          const_lookahead_distance_ = 4;
+          const_velocity_ = 5;
+          pp_.mission_flag = 2;
+          pulishControlMsg(4, 28);
+          continue;
+        }
+        else if (pp_.mission_flag == 2 && !pp_.is_static_obstacle_detected_short) {
+          const_lookahead_distance_ = 5.5;
+          pp_.setWaypoints(right_path);
+          pp_.mission_flag = 3;
+          ROS_INFO("PAIH SWITCHNG");
+          //오류시 삭제요망
+          pulishControlMsg(4, -24);
+          continue;
+        }
+        else if(pp_.mission_flag == 3 && !pp_.is_finish)
+        {
+          const_lookahead_distance_ = 4;
+          const_velocity_ = 5;
+          final_constant = 1.5;
+          continue;
+        }
+        else if(pp_.mission_flag == 3 && pp_.is_finish)
+        {
+          pp_.setWaypoints(global_path);
+          pp_.mission_flag = 4;
+          const_lookahead_distance_ = 4;
+          const_velocity_ = 5;
+          final_constant = 1.5;
+          continue;
+        }
       }
-      else if (pp_.mission_flag == 3 && !pp_.is_static_obstacle_detected_short) {
-        const_lookahead_distance_ = 5.5;
-        pp_.setWaypoints(global_path);
-        pp_.mission_flag = 4;
-        //const_velocity_ = 8;
-        const_velocity_ = 4;
-        final_constant = 1.5;
+      else if (lr == 1) //왼오
+      {
+        if (pp_.mission_flag == 0) {
+          pp_.setWaypoints(right_path);
+          const_lookahead_distance_ = 3;
+          const_velocity_ = 5;
+          final_constant = 1.2;
+          pp_.mission_flag = 1;
+        }
+        if (pp_.mission_flag >= 1) {
+          std::cout << "************************" << std::endl;
+          std::cout << "TIME : " << (std::chrono::duration<double>(std::chrono::system_clock::now() - obs_start)).count() << std::endl;
+          std::cout << "mission flag :" << pp_.mission_flag << std::endl;
+          std::cout << "obstacles_detected : " << pp_.is_static_obstacle_detected_short << std::endl;
+        }
+        if (pp_.mission_flag == 1 && pp_.is_static_obstacle_detected_short) {
+          const_lookahead_distance_ = 4;
+          const_velocity_ = 5;
+          pp_.mission_flag = 2;
+          pulishControlMsg(4, -24);
+          continue;
+        }
+        else if (pp_.mission_flag == 2 && !pp_.is_static_obstacle_detected_short) {
+          const_lookahead_distance_ = 5.5;
+          pp_.setWaypoints(left_path);
+          pp_.mission_flag = 3;
+          ROS_INFO("PAIH SWITCHNG");
+          //오류시 삭제요망
+          pulishControlMsg(4, 28);
+          continue;
+        }
+        else if(pp_.mission_flag == 3 && !pp_.is_finish)
+        {
+          const_lookahead_distance_ = 4;
+          const_velocity_ = 5;
+          final_constant = 1.5;
+          continue;
+        }
+        else if(pp_.mission_flag == 3 && pp_.is_finish)
+        {
+          pp_.setWaypoints(global_path);
+          pp_.mission_flag = 4;
+          const_lookahead_distance_ = 4;
+          const_velocity_ = 5;
+          final_constant = 1.5;
+          continue;
+        }
       }
     }
 
 
     // 마지막 waypoint 에 다다랐으면 점차 속도를 줄이기
-    if(pp_.is_finish){
+    if(pp_.is_finish && pp_.mode != 5){
       while(const_velocity_ > 0)
       {
         const_velocity_ -= 1;
@@ -370,29 +412,20 @@ void PurePursuitNode::setPath(char** argv) {
     global_path.push_back(std::make_pair(p, mode));
     //std::cout << "global_path : " << global_path.back().x << ", " << global_path.back().y << std::endl;
   }
-//   if (paths.size() == 3) {
-//     std::ifstream parking_path_file(ROS_HOME + "/paths/" + paths[1] + ".txt");
-//     while(parking_path_file >> x >> y >> mode) {
-//       p.x = x;
-//       p.y = y;
-//       parking_path.push_back(std::make_pair(p, mode));
-//       //std::cout << "parking_path : " << parking_path.back().x << ", " << parking_path.back().y << std::endl;
-//     }
-
-//     std::ifstream avoidance_path_file(ROS_HOME + "/paths/" + paths[2] + ".txt");
-//     while(avoidance_path_file >> x >> y >> mode) {
-//       p.x = x;
-//       p.y = y;
-//       avoidance_path.push_back(std::make_pair(p, mode));
-//       // std::cout << "avoidance_path : " << avoidance_path.back().x << ", " << parking_path.back().y << std::endl;
-//     }
-//   }
-if (paths.size() == 2) {
-    std::ifstream avoidance_path_file(ROS_HOME + "/paths/" + paths[1] + ".txt");
-    while(avoidance_path_file >> x >> y >> mode) {
+  if (paths.size() == 3) {
+    std::ifstream left_path_file(ROS_HOME + "/paths/" + paths[1] + ".txt");
+    while(left_path_file >> x >> y >> mode) {
       p.x = x;
       p.y = y;
-      avoidance_path.push_back(std::make_pair(p, mode));
+      left_path.push_back(std::make_pair(p, mode));
+      //std::cout << "parking_path : " << parking_path.back().x << ", " << parking_path.back().y << std::endl;
+    }
+
+    std::ifstream right_path_file(ROS_HOME + "/paths/" + paths[2] + ".txt");
+    while(right_path_file >> x >> y >> mode) {
+      p.x = x;
+      p.y = y;
+      right_path.push_back(std::make_pair(p, mode));
       // std::cout << "avoidance_path : " << avoidance_path.back().x << ", " << parking_path.back().y << std::endl;
     }
   }

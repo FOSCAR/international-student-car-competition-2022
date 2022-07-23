@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from pyproj import Proj, transform
 
-f = open("semi_final_avoidance.txt", 'r')
+f = open("semi_left_avoidance.txt", 'r')
 data = f.read()
 f.close()
 
@@ -9,7 +9,7 @@ data = data.rstrip().split('\n')
 data = [x.split(' ') for x in data]
 #print(data)
 
-f2 = open("utmk.txt", 'w')
+f2 = open("semi_left_avoidance.txt", 'w')
 outstr = ''
 for d in data:
 	print(d)

@@ -98,6 +98,7 @@ class TargetCourse:
             d = np.hypot(dx, dy)
 
             ind = np.argmin(d)
+            # print(ind)
             self.old_nearest_point_index = ind
         else:
             ind = self.old_nearest_point_index
@@ -127,6 +128,7 @@ class TargetCourse:
         # search look ahead target point index
         while Lf > state.calc_distance(self.cx[ind], self.cy[ind]):
             if (ind + 1) >= len(self.cx):
+                print("&&&&&&&&&&&&&&&&&&&&&&&&&")
                 break  # not exceed goal
             ind += 1
 
@@ -234,14 +236,14 @@ if __name__ == '__main__':
                 start = time.time()
                 while time.time() - start < 1:
                     print("1")
-                    ctrl_msg.steering = -0.13
+                    ctrl_msg.steering = -0.3
                     ctrl_msg.velocity = 10
                     ctrl_pub.publish(ctrl_msg)
 
                 start = time.time()
-                while time.time() - start < 1.15:
+                while time.time() - start < 0.5:
                     print("2")
-                    ctrl_msg.steering = 0.13
+                    ctrl_msg.steering = 0.15
                     ctrl_msg.velocity = 10
                     ctrl_pub.publish(ctrl_msg)
                     count = 2
@@ -252,12 +254,12 @@ if __name__ == '__main__':
                 start = time.time()
                 while time.time() - start < 1:
                     print("3")
-                    ctrl_msg.steering = 0.13
+                    ctrl_msg.steering = 0.3
                     ctrl_msg.velocity = 10
                     ctrl_pub.publish(ctrl_msg)
 
                 start = time.time()
-                while time.time() - start < 1:
+                while time.time() - start < 0.5:
                     print("4")
                     ctrl_msg.steering = -0.15
                     ctrl_msg.velocity = 10
