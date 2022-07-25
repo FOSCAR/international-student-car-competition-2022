@@ -98,7 +98,9 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
 
   //KD-Tree
   pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>);
-  tree->setInputCloud(cloud_xyzf);
+  if (cloud_xyzf->size() > 0) {
+    tree->setInputCloud(cloud_xyzf);
+  }
 
   //Segmentation
   vector<pcl::PointIndices> cluster_indices;

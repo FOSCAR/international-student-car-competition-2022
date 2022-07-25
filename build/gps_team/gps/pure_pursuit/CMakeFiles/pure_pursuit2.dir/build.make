@@ -105,42 +105,42 @@ gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit.cpp.o.pr
 gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit.cpp.o.provides.build: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit.cpp.o
 
 
-gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/flags.make
-gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o: /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/src/pure_pursuit_core_semi_final.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o"
-	cd /home/foscar/ISCC_2022/build/gps_team/gps/pure_pursuit && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o -c /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/src/pure_pursuit_core_semi_final.cpp
+gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/flags.make
+gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o: /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/src/pure_pursuit_core_with_traffic.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o"
+	cd /home/foscar/ISCC_2022/build/gps_team/gps/pure_pursuit && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o -c /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/src/pure_pursuit_core_with_traffic.cpp
 
-gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.i"
-	cd /home/foscar/ISCC_2022/build/gps_team/gps/pure_pursuit && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/src/pure_pursuit_core_semi_final.cpp > CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.i
+gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.i"
+	cd /home/foscar/ISCC_2022/build/gps_team/gps/pure_pursuit && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/src/pure_pursuit_core_with_traffic.cpp > CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.i
 
-gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.s"
-	cd /home/foscar/ISCC_2022/build/gps_team/gps/pure_pursuit && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/src/pure_pursuit_core_semi_final.cpp -o CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.s
+gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.s"
+	cd /home/foscar/ISCC_2022/build/gps_team/gps/pure_pursuit && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/src/pure_pursuit_core_with_traffic.cpp -o CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.s
 
-gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o.requires:
+gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o.requires:
 
-.PHONY : gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o.requires
+.PHONY : gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o.requires
 
-gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o.provides: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o.requires
-	$(MAKE) -f gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/build.make gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o.provides.build
-.PHONY : gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o.provides
+gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o.provides: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o.requires
+	$(MAKE) -f gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/build.make gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o.provides.build
+.PHONY : gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o.provides
 
-gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o.provides.build: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o
+gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o.provides.build: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o
 
 
 # Object files for target pure_pursuit2
 pure_pursuit2_OBJECTS = \
 "CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_node.cpp.o" \
 "CMakeFiles/pure_pursuit2.dir/src/pure_pursuit.cpp.o" \
-"CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o"
+"CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o"
 
 # External object files for target pure_pursuit2
 pure_pursuit2_EXTERNAL_OBJECTS =
 
 /home/foscar/ISCC_2022/devel/lib/pure_pursuit/pure_pursuit2: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_node.cpp.o
 /home/foscar/ISCC_2022/devel/lib/pure_pursuit/pure_pursuit2: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit.cpp.o
-/home/foscar/ISCC_2022/devel/lib/pure_pursuit/pure_pursuit2: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o
+/home/foscar/ISCC_2022/devel/lib/pure_pursuit/pure_pursuit2: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o
 /home/foscar/ISCC_2022/devel/lib/pure_pursuit/pure_pursuit2: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/build.make
 /home/foscar/ISCC_2022/devel/lib/pure_pursuit/pure_pursuit2: /opt/ros/melodic/lib/libroslib.so
 /home/foscar/ISCC_2022/devel/lib/pure_pursuit/pure_pursuit2: /opt/ros/melodic/lib/librospack.so
@@ -181,7 +181,7 @@ gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/build: /home/foscar/ISCC_
 
 gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/requires: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_node.cpp.o.requires
 gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/requires: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit.cpp.o.requires
-gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/requires: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o.requires
+gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/requires: gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_with_traffic.cpp.o.requires
 
 .PHONY : gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/requires
 

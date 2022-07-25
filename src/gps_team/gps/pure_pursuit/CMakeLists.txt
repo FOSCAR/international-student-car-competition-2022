@@ -47,9 +47,9 @@ add_executable(
   src/pure_pursuit.cpp
   #src/pure_pursuit_core2.cpp
   #src/pure_pursuit_core_for_track.cpp
-  #src/pure_pursuit_core_with_traffic.cpp
+  src/pure_pursuit_core_with_traffic.cpp
   #src/pure_pursuit_nomode.cpp
-  src/pure_pursuit_core_semi_final.cpp
+  # src/pure_pursuit_core_semi_final.cpp
 )
 
 # add_executable(
@@ -66,6 +66,7 @@ add_executable(
 #   src/pure_pursuit_core2_vision.cpp
 # )
 
+# target_link_libraries(pure_pursuit_core_with_traffic ${catkin_LIBRARIES})
 target_link_libraries(pure_pursuit ${catkin_LIBRARIES})
 add_dependencies(pure_pursuit ${catkin_EXPORTED_TARGETS})
 

@@ -492,62 +492,6 @@ void PurePursuitNode::callbackFromStaticObstacleLong(const std_msgs::Bool& msg) 
   pp_.is_static_obstacle_detected_long = msg.data;
 }
 
-// for delivery obstacle (calc) - 멈추는 곳에 도달했나? 판단 로직
-void PurePursuitNode::callbackFromDeliveryObstacleCalc(const lidar_team_erp42::Delivery& msg) {
-  if (pp_.is_delivery_obs_calc_detected && (msg.x < 0.1 || msg.angle >= 95) && pp_.is_delivery_obs_stop_detected == 0)
-    pp_.is_delivery_obs_stop_detected = 1;
-  
-  else if (msg.x > 1 && msg.x <= 4 ) {
-    pp_.is_delivery_obs_calc_detected = 1;
-  }
-
-  else if (pp_.is_delivery_obs_stop_detected) {
-    pp_.is_delivery_obs_calc_detected = 0;
-  }
-}
-
-// for delivery obstacle (stop) - 멈추는 로직
-void PurePursuitNode::callbackFromDeliveryObstacleStop(const lidar_team_erp42::Delivery& msg) {
-  if(msg.x < 0.1 || msg.angle >= 95) 
-    pp_.is_delivery_obs_stop_detected = 1; //o
-
-  if(pp_.is_delivery_obs_stop_detected)
-    pp_.is_delivery_obs_calc_detected = 0;
-  //std::cout << "msg.detected : " << msg.detected << std::endl;
-}
-
-
-/*************************************************************************************************************/
-
-void PurePursuitNode::callbackFromDelivery(const vision_distance::DeliveryArray& msg){
-  std::vector<vision_distance::Delivery> deliverySign = msg.visions;
-
-  // B Area
-  if (pp_.mode == 20 && (pp_.mission_flag == 1 || pp_.mission_flag == 2 || pp_.mission_flag == 3)){
-    sort(deliverySign.begin(), deliverySign.end(), compare2);
-    
-    if(deliverySign.size() > 0){
-      if(deliverySign[0].flag < 4){
-        //std::cout << pp_.b_cnt << std::endl;
-        pp_.b_cnt[deliverySign[0].flag-1] += 1;
-      }
-    }
-  }
-
-  // A Area
-  if (pp_.mode == 10 && pp_.mission_flag == 0){
-    sort(deliverySign.begin(), deliverySign.end(), compare2);
-    
-    if(deliverySign.size() > 0){
-      if(deliverySign[0].flag >= 4){
-        pp_.a_cnt[deliverySign[0].flag-4] += 1;
-        std::cout << "deliverySign: " << deliverySign[0].flag-4 << '\n';
-        std::cout << "a_cnt: " << pp_.a_cnt[deliverySign[0].flag-4] << '\n';
-      }
-    }
-  }
-}
-
 
 void PurePursuitNode::callbackFromTrafficLight(const darknet_ros_msgs::BoundingBoxes& msg) {
   // std::vector<darknet_ros_msgs::BoundingBox> traffic_lights = msg.bounding_boxes;

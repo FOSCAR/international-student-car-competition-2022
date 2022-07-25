@@ -148,8 +148,7 @@ void PurePursuitNode::initForROS()
 
   traffic_light_sub = nh_.subscribe("darknet_ros/bounding_boxes",1, &PurePursuitNode::callbackFromTrafficLight, this);
 
-  delivery_obs_sub1 = nh_.subscribe("delivery_obs_calc", 1, &PurePursuitNode::callbackFromDeliveryObstacleCalc, this);
-  //delivery_obs_sub2 = nh_.subscribe("delivery_obs_stop", 1, &PurePursuitNode::callbackFromDeliveryObstacleStop, this);
+  delivery_obs_sub1 = nh_.subscribe("delivery_information", 1, &PurePursuitNode::callbackFromDeliveryObstacleStop, this);
  
   // obstacle_sub = nh_.subscribe("{lane_topic_name}", 1,
   //   &PurePursuitNode::callbackFromLane, this);
@@ -170,10 +169,7 @@ void PurePursuitNode::initForROS()
 void PurePursuitNode::run(char** argv) {
   ROS_INFO_STREAM("pure pursuit2 start");
   // temp
-  const_lookahead_distance_ = atof(argv[2]);
-  const_velocity_ = atof(argv[3]);
-  final_constant = atof(argv[4]);
-  parking_num = atoi(argv[5]);
+  parking_num = atoi(argv[2]);
 
   ros::Rate loop_rate(LOOP_RATE_);
   while (ros::ok()) {
@@ -543,22 +539,24 @@ void PurePursuitNode::run(char** argv) {
       const_velocity_ = 4;
       final_constant = 1.2;
 
-      // ROS_INFO("DELIVERY_A STOP FLAG=%d", pp_.is_delivery_obs_calc_detected);
-
-      // if(pp_.is_delivery_obs_stop_detected) ROS_INFO("DELIVERY OBSTACLE DETECT!!!");
-      if(pp_.mission_flag == 0 && pp_.is_delivery_obs_stop_detected) { // msg.x <= 0
+      if(pp_.mission_flag == 0 && pp_.is_delivery_obs_stop_detected == 1) { // msg.x <= 0
         // ROS_INFO("DELIVERY OBSTACLE DETECT!!!");
         pp_.mission_flag = 1;
+
+        std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << '\n';
         
         for (int i = 0; i < 55; i++)
         {
           pulishControlMsg(0, 0);
           // 0.1초
           usleep(100000);
+          std::cout << "############################" << '\n';
+         
         }
         continue;
       }
       if(pp_.mission_flag == 1){
+        ROS_INFO("a_cnt_flag&&&&&&&&&&&&&&&&&&&& : %d", a_cnt_flag);
         const_velocity_ = 6; // if not calculated a_max_index
       }
     }
@@ -581,6 +579,7 @@ void PurePursuitNode::run(char** argv) {
     // MODE 19 : 배달 B 전 진입구간
     if (pp_.mode == 19){
       pp_.mission_flag = 0;
+      pp_.is_delivery_obs_stop_detected = 0;
       const_lookahead_distance_ = 4;
       //const_velocity_ = 6;
       const_velocity_ = 4;
@@ -597,31 +596,31 @@ void PurePursuitNode::run(char** argv) {
       const_velocity_ = 4;
       final_constant = 1.2;
       
-      // ROS_INFO("MISSION_FLAG=%d) A_INDEX(%d)  B_INDEX(%d)", pp_.mission_flag, a_max_index, b_max_index);
-      // ROS_INFO("B1=%d, B2=%d, B3=%d", pp_.b_cnt[0],pp_.b_cnt[1], pp_.b_cnt[2]);
-      ROS_INFO("CALC_FLAG=%d, STOP_FLAG=%d", pp_.is_delivery_obs_calc_detected, pp_.is_delivery_obs_stop_detected);
-
+      ROS_INFO("MISSION_FLAG=(%d) A_INDEX(%d)  B_INDEX(%d)", pp_.mission_flag, a_max_index, b_max_index);
+      ROS_INFO("B1=%d, B2=%d, B3=%d", pp_.b_cnt[0],pp_.b_cnt[1], pp_.b_cnt[2]);
       
       // case 2) vision_distance + gps 로직
       //0
 
-      if(pp_.mission_flag == 0 && pp_.is_delivery_obs_calc_detected){
+      if(pp_.mission_flag == 0){
         pp_.mission_flag = 1;
       }
-      else if(pp_.mission_flag == 22 && pp_.is_delivery_obs_calc_detected){
+      else if(pp_.mission_flag == 22){
         pp_.mission_flag = 2;
       }
-      else if(pp_.mission_flag == 33 && pp_.is_delivery_obs_calc_detected){
+      else if(pp_.mission_flag == 33){
         pp_.mission_flag = 3;
       }
 
       
       if((pp_.mission_flag == 1 || pp_.mission_flag == 2 || pp_.mission_flag == 3) && pp_.is_delivery_obs_stop_detected){
-        b_max_index = max_element(pp_.b_cnt.begin(), pp_.b_cnt.end()) - pp_.b_cnt.begin(); // => 0
-        // ROS_INFO("MISSION_FLAG_FINAL=%d) A_INDEX_FINAL(%d)  B_INDEX_FINAL(%d)", pp_.mission_flag, a_max_index, b_max_index);
-        if (a_max_index == b_max_index) { //o
-          // ROS_INFO("B DELIVEY STOP");
-          //std::cout << pp_.b_cnt << std::endl;
+        pp_.is_delivery_obs_stop_detected = 0;
+        b_max_index = max_element(pp_.b_cnt.begin(), pp_.b_cnt.end()) - pp_.b_cnt.begin();
+        ROS_INFO("MISSION_FLAG_FINAL=(%d) A_INDEX_FINAL(%d)  B_INDEX_FINAL(%d)", pp_.mission_flag, a_max_index, b_max_index);
+        ROS_INFO("HOW MANY B COUNT=%d",  pp_.b_cnt[b_max_index] );
+        if (a_max_index == b_max_index) {
+          ROS_INFO("@@@@@@@@@@@@@@@ DELIVERY COMPLETE @@@@@@@@@@@@@@");
+          // std::cout << pp_.b_cnt << std::endl;
           // Max flag on
           for (int i = 0; i < 55; i++)
           {
@@ -629,7 +628,7 @@ void PurePursuitNode::run(char** argv) {
             usleep(100000);  // 0.1초
           }
           pp_.mission_flag = 100;
-        }else{
+        } else {
           pp_.b_cnt = {0, 0, 0};
           if(pp_.mission_flag == 1){ pp_.mission_flag = 22; }
           else if(pp_.mission_flag == 2){ pp_.mission_flag = 33; }
@@ -804,30 +803,16 @@ void PurePursuitNode::callbackFromStaticObstacleLong(const std_msgs::Bool& msg) 
   pp_.is_static_obstacle_detected_long = msg.data;
 }
 
-// for delivery obstacle (calc) - 멈추는 곳에 도달했나? 판단 로직
-void PurePursuitNode::callbackFromDeliveryObstacleCalc(const lidar_team_erp42::Delivery& msg) {
-  //
-  if (msg.x != 0 && masg.angle != 0) {
-    if (pp_.is_delivery_obs_calc_detected && (msg.x < 0.1 || msg.angle >= 95) && pp_.is_delivery_obs_stop_detected == 0)
-      pp_.is_delivery_obs_stop_detected = 1;
-    
-    else if (msg.x > 1 && msg.x <= 4 ) {
-      pp_.is_delivery_obs_calc_detected = 1;
-    }
-
-    else if (pp_.is_delivery_obs_stop_detected) {
-      pp_.is_delivery_obs_calc_detected = 0;
-    }
-}
 
 // for delivery obstacle (stop) - 멈추는 로직
 void PurePursuitNode::callbackFromDeliveryObstacleStop(const lidar_team_erp42::Delivery& msg) {
-  if(msg.x < 0.1 || msg.angle >= 95) 
-    pp_.is_delivery_obs_stop_detected = 1; //o
-
-  if(pp_.is_delivery_obs_stop_detected)
-    pp_.is_delivery_obs_calc_detected = 0;
-  //std::cout << "msg.detected : " << msg.detected << std::endl;
+  if ((msg.x != 0 &&  msg.angle != 0) && (pp_.mode == 10 || pp_.mode == 20)) {
+    // msg.angle >=95 수정
+    if (msg.x > -0.05 && msg.x < 0.16) {
+      pp_.is_delivery_obs_stop_detected = 1;
+      std::cout << "STOP CHANGE !!!!!!!!" << pp_.is_delivery_obs_stop_detected << '\n';
+    }
+  }
 }
 
 
@@ -842,8 +827,9 @@ void PurePursuitNode::callbackFromDelivery(const vision_distance::DeliveryArray&
     
     if(deliverySign.size() > 0){
       if(deliverySign[0].flag < 4){
-        //std::cout << pp_.b_cnt << std::endl;
         pp_.b_cnt[deliverySign[0].flag-1] += 1;
+        std::cout << "deliverySign: " << deliverySign[0].flag-1 << '\n';
+        std::cout << "b_cnt: " << pp_.b_cnt[deliverySign[0].flag-1] << '\n';
       }
     }
   }
