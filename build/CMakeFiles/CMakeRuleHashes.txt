@@ -23,6 +23,7 @@ b0c755be394d1c7876d3dd00a038aaaa /home/foscar/ISCC_2022/devel/include/darknet_ro
 edb535f0abc65111965a8ca1d19206af /home/foscar/ISCC_2022/devel/include/darknet_ros_msgs/CheckForObjectsGoal.h
 74ebf3bceb828e64d5508bff718adfab /home/foscar/ISCC_2022/devel/include/darknet_ros_msgs/CheckForObjectsResult.h
 5468e7d6eb033efb6e6aac266fbe3776 /home/foscar/ISCC_2022/devel/include/darknet_ros_msgs/ObjectCount.h
+79b333eb3fa82f94447df93b05234e96 /home/foscar/ISCC_2022/devel/include/delivery_mission/drive_values.h
 c33e0fe9f2aacae3f6a114803b1fd18b /home/foscar/ISCC_2022/devel/include/gps_common/GPSFix.h
 f725f3585a9827838952ffa3f47684af /home/foscar/ISCC_2022/devel/include/gps_common/GPSStatus.h
 49c80fa7805c0cbbf7180bb6eb7d74ae /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/Boundingbox.h
@@ -254,6 +255,8 @@ e9b5d98da4d748a6b1dc6051a1fbe3eb /home/foscar/ISCC_2022/devel/lib/python2.7/dist
 d69903452efd904ae89af05dc16e5ed4 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/darknet_ros_msgs/msg/_CheckForObjectsResult.py
 ebc4c8e5f8ddebe7090174b37d6728af /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/darknet_ros_msgs/msg/_ObjectCount.py
 bd088f7f81ff4300c5a54531cdf2ff46 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/darknet_ros_msgs/msg/__init__.py
+73acad7fd1855647b6bde6ee2af1c0c5 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/delivery_mission/msg/__init__.py
+6ef5f6b0085d776d7ccad0d410435470 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/delivery_mission/msg/_drive_values.py
 75045063bc18106bdd5ee5d5184b5de8 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/gps_common/msg/_GPSFix.py
 d4eed85179299fa58ade8e14b51f47f0 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/gps_common/msg/_GPSStatus.py
 7c0ceedeaecb8f28f3c283785720ca80 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/gps_common/msg/__init__.py
@@ -476,6 +479,7 @@ d486604802c8bbd78aa1fe2e109a9cb7 /home/foscar/ISCC_2022/devel/share/common-lisp/
 802d654d8cbbc126be25d9fa34187d37 /home/foscar/ISCC_2022/devel/share/common-lisp/ros/darknet_ros_msgs/msg/CheckForObjectsGoal.lisp
 6b69e0c11c4f7118a9ca9e47e65085d8 /home/foscar/ISCC_2022/devel/share/common-lisp/ros/darknet_ros_msgs/msg/CheckForObjectsResult.lisp
 34091da29275d67c04a72d9006dbe339 /home/foscar/ISCC_2022/devel/share/common-lisp/ros/darknet_ros_msgs/msg/ObjectCount.lisp
+0ab2eded14b06aea21bfef1bb45d0acf /home/foscar/ISCC_2022/devel/share/common-lisp/ros/delivery_mission/msg/drive_values.lisp
 b192eef83c36e85dc13cf8e0b863d3aa /home/foscar/ISCC_2022/devel/share/common-lisp/ros/gps_common/msg/GPSFix.lisp
 378642bbbc3aa9cb215b451631dd9e7c /home/foscar/ISCC_2022/devel/share/common-lisp/ros/gps_common/msg/GPSStatus.lisp
 94a009b5b51cd6e32764f5cd463db091 /home/foscar/ISCC_2022/devel/share/common-lisp/ros/lidar_team_erp42/msg/Boundingbox.lisp
@@ -685,6 +689,7 @@ b457253bdb022083915887d64fc17ed0 /home/foscar/ISCC_2022/devel/share/gennodejs/ro
 7adc50b5bfc33d0ee4b8bfeb972a2ba0 /home/foscar/ISCC_2022/devel/share/gennodejs/ros/darknet_ros_msgs/msg/CheckForObjectsGoal.js
 63d5d50a364e095be05c7cff893a8b56 /home/foscar/ISCC_2022/devel/share/gennodejs/ros/darknet_ros_msgs/msg/CheckForObjectsResult.js
 f0733da1483caabefce0aeb273f097f3 /home/foscar/ISCC_2022/devel/share/gennodejs/ros/darknet_ros_msgs/msg/ObjectCount.js
+95d997c095002966123ae3f2495289b4 /home/foscar/ISCC_2022/devel/share/gennodejs/ros/delivery_mission/msg/drive_values.js
 0938d12471f91a1f64bd20588072245a /home/foscar/ISCC_2022/devel/share/gennodejs/ros/gps_common/msg/GPSFix.js
 ebd803b824fc0b8d3ade6ff535030643 /home/foscar/ISCC_2022/devel/share/gennodejs/ros/gps_common/msg/GPSStatus.js
 e8be0b5ef94026f53cfe8ed2a5b93d0e /home/foscar/ISCC_2022/devel/share/gennodejs/ros/lidar_team_erp42/msg/Boundingbox.js
@@ -898,6 +903,8 @@ f9717bc2942529a7cf8d2e1feb3d3e11 /home/foscar/ISCC_2022/devel/share/roseus/ros/d
 d7aff9df5a6d9a2eb5b9c8b8ad58260d /home/foscar/ISCC_2022/devel/share/roseus/ros/darknet_ros_msgs/msg/CheckForObjectsGoal.l
 f07c48596fd79685a640251377b5df7f /home/foscar/ISCC_2022/devel/share/roseus/ros/darknet_ros_msgs/msg/CheckForObjectsResult.l
 5e58a4ffb72bad19c777182251872006 /home/foscar/ISCC_2022/devel/share/roseus/ros/darknet_ros_msgs/msg/ObjectCount.l
+e1128c8a509d0823baf1ba90b5bdb3d7 /home/foscar/ISCC_2022/devel/share/roseus/ros/delivery_mission/manifest.l
+029065afe0c7878574a34a994c267237 /home/foscar/ISCC_2022/devel/share/roseus/ros/delivery_mission/msg/drive_values.l
 d11bfa780b16097d2e9a3d0d5c25918f /home/foscar/ISCC_2022/devel/share/roseus/ros/gps_common/manifest.l
 b1c371e30596edfe1a7830e304b508bb /home/foscar/ISCC_2022/devel/share/roseus/ros/gps_common/msg/GPSFix.l
 928ba41c121d4011c5de90e2cb4c2851 /home/foscar/ISCC_2022/devel/share/roseus/ros/gps_common/msg/GPSStatus.l
@@ -1408,6 +1415,12 @@ d2fe4180c771412fe1e830a0a6242832 vision_team/darknet_ros/darknet_ros_msgs/CMakeF
 d2fe4180c771412fe1e830a0a6242832 vision_team/darknet_ros/darknet_ros_msgs/CMakeFiles/darknet_ros_msgs_generate_messages_lisp
 d2fe4180c771412fe1e830a0a6242832 vision_team/darknet_ros/darknet_ros_msgs/CMakeFiles/darknet_ros_msgs_generate_messages_nodejs
 d2fe4180c771412fe1e830a0a6242832 vision_team/darknet_ros/darknet_ros_msgs/CMakeFiles/darknet_ros_msgs_generate_messages_py
+a72cce34b681a62a43f3c63409e3c7b8 vision_team/delivery_mission/CMakeFiles/_delivery_mission_generate_messages_check_deps_drive_values
+d0a5e74f546b64ee6ff02f14aeb54650 vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_cpp
+d0a5e74f546b64ee6ff02f14aeb54650 vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus
+d0a5e74f546b64ee6ff02f14aeb54650 vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_lisp
+d0a5e74f546b64ee6ff02f14aeb54650 vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_nodejs
+d0a5e74f546b64ee6ff02f14aeb54650 vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_py
 9f29d920466d2c4b7b9b19164c05557f vision_team/video_stream_opencv-master/CMakeFiles/_run_tests_video_stream_opencv_rostest_test_test_mjpg_stream.test
 b6c36aa4004797efad1148d0ee8310ea vision_team/video_stream_opencv-master/CMakeFiles/_run_tests_video_stream_opencv_rostest_test_test_rtsp_stream.test
 99e89108c9f0341955eda48ead20924a vision_team/video_stream_opencv-master/CMakeFiles/_run_tests_video_stream_opencv_rostest_test_test_video_file.test

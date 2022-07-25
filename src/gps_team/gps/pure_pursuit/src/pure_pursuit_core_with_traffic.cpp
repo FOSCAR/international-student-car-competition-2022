@@ -88,20 +88,20 @@ int end_parking_backward_idx = 0;
 int end_parking_full_steer_backward_idx = 0;
 
 // For kcity (kcity 주차 좌표)
-// const float pk_coord1[2] = {935534.247324, 1915849.29071};
-// const float pk_coord2[2] = {935536.127777, 1915852.74891};
-// const float pk_coord3[2] = {935537.027791, 1915854.43949};
-// const float pk_coord4[2] = {935539.530479, 1915859.22427};
-// const float pk_coord5[2] = {935540.465801, 1915860.89238};
-// const float pk_coord6[2] = {935541.86021, 1915863.43345};
+const float pk_coord1[2] = {935534.247324, 1915849.29071};
+const float pk_coord2[2] = {935536.127777, 1915852.74891};
+const float pk_coord3[2] = {935537.027791, 1915854.43949};
+const float pk_coord4[2] = {935539.530479, 1915859.22427};
+const float pk_coord5[2] = {935540.465801, 1915860.89238};
+const float pk_coord6[2] = {935541.86021, 1915863.43345};
 
 // For School Test (학교 주차 좌표)
-const float pk_coord1[2] = {955565.3630135682, 1956933.4946035568};
-const float pk_coord2[2] = {955564.96476695, 1956933.8079647133};
-const float pk_coord3[2] = {955564.6498305532, 1956934.0536339642};
-const float pk_coord4[2] = {955564.018495136, 1956934.5500655076};
-const float pk_coord5[2] = {955563.8305732157, 1956934.6975132197};
-const float pk_coord6[2] = {955563.4789975542, 1956934.971366751};
+// const float pk_coord1[2] = {955565.3630135682, 1956933.4946035568};
+// const float pk_coord2[2] = {955564.96476695, 1956933.8079647133};
+// const float pk_coord3[2] = {955564.6498305532, 1956934.0536339642};
+// const float pk_coord4[2] = {955564.018495136, 1956934.5500655076};
+// const float pk_coord5[2] = {955563.8305732157, 1956934.6975132197};
+// const float pk_coord6[2] = {955563.4789975542, 1956934.971366751};
 /*************************/
 
 // Delivery Distance
@@ -149,7 +149,7 @@ void PurePursuitNode::initForROS()
   traffic_light_sub = nh_.subscribe("darknet_ros/bounding_boxes",1, &PurePursuitNode::callbackFromTrafficLight, this);
 
   delivery_obs_sub1 = nh_.subscribe("delivery_obs_calc", 1, &PurePursuitNode::callbackFromDeliveryObstacleCalc, this);
-  delivery_obs_sub2 = nh_.subscribe("delivery_obs_stop", 1, &PurePursuitNode::callbackFromDeliveryObstacleStop, this);
+  //delivery_obs_sub2 = nh_.subscribe("delivery_obs_stop", 1, &PurePursuitNode::callbackFromDeliveryObstacleStop, this);
  
   // obstacle_sub = nh_.subscribe("{lane_topic_name}", 1,
   //   &PurePursuitNode::callbackFromLane, this);
@@ -256,8 +256,8 @@ void PurePursuitNode::run(char** argv) {
     if(pp_.mode == 0 || pp_.mode == 2 || pp_.mode == 4 || pp_.mode == 6 || pp_.mode == 27 || pp_.mode == 32 || pp_.mode == 34 || pp_.mode == 36){
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 6;
-      //const_velocity_ = 11;
-      const_velocity_ = 7;
+      const_velocity_ = 11;
+      // const_velocity_ = 7;
       final_constant = 1.2;
     }
 
@@ -265,8 +265,8 @@ void PurePursuitNode::run(char** argv) {
     if(pp_.mode == 22){
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 6;
-      // const_velocity_ = 10;
-      const_velocity_ = 7;
+      const_velocity_ = 10;
+      // const_velocity_ = 7;
       final_constant = 1.2;
     }
 
@@ -274,8 +274,8 @@ void PurePursuitNode::run(char** argv) {
     if(pp_.mode == 34 || pp_.mode == 36){
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 6;
-      // const_velocity_ = 11;
-      const_velocity_ = 7;
+      const_velocity_ = 11;
+      // const_velocity_ = 7;
       final_constant = 1.2;
     }
 
@@ -283,8 +283,8 @@ void PurePursuitNode::run(char** argv) {
     if(pp_.mode == 11 || pp_.mode == 13 || pp_.mode == 15 || pp_.mode == 17 || pp_.mode == 25 || pp_.mode == 30){
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 6;
-      //const_velocity_ = 13;
-      const_velocity_ = 4;
+      const_velocity_ = 13;
+      // const_velocity_ = 4;
       final_constant = 1.2;
     }
 
@@ -292,8 +292,8 @@ void PurePursuitNode::run(char** argv) {
     if (pp_.mode == 12 || pp_.mode == 14 || pp_.mode == 16 || pp_.mode == 18 || pp_.mode == 24 || pp_.mode == 26 || pp_.mode == 29 || pp_.mode == 31) {
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 4;
-      // const_velocity_ = 11;
-      const_velocity_ = 7;
+      const_velocity_ = 11;
+      // const_velocity_ = 7;
       final_constant = 1.5;
     }
 
@@ -546,7 +546,7 @@ void PurePursuitNode::run(char** argv) {
       // ROS_INFO("DELIVERY_A STOP FLAG=%d", pp_.is_delivery_obs_calc_detected);
 
       // if(pp_.is_delivery_obs_stop_detected) ROS_INFO("DELIVERY OBSTACLE DETECT!!!");
-      if(pp_.mission_flag == 0 && pp_.is_delivery_obs_stop_detected) {
+      if(pp_.mission_flag == 0 && pp_.is_delivery_obs_stop_detected) { // msg.x <= 0
         // ROS_INFO("DELIVERY OBSTACLE DETECT!!!");
         pp_.mission_flag = 1;
         
@@ -599,7 +599,7 @@ void PurePursuitNode::run(char** argv) {
       
       // ROS_INFO("MISSION_FLAG=%d) A_INDEX(%d)  B_INDEX(%d)", pp_.mission_flag, a_max_index, b_max_index);
       // ROS_INFO("B1=%d, B2=%d, B3=%d", pp_.b_cnt[0],pp_.b_cnt[1], pp_.b_cnt[2]);
-      // ROS_INFO("CALC_FLAG=%d, STOP_FLAG=%d", pp_.is_delivery_obs_calc_detected, pp_.is_delivery_obs_stop_detected);
+      ROS_INFO("CALC_FLAG=%d, STOP_FLAG=%d", pp_.is_delivery_obs_calc_detected, pp_.is_delivery_obs_stop_detected);
 
       
       // case 2) vision_distance + gps 로직
@@ -806,16 +806,18 @@ void PurePursuitNode::callbackFromStaticObstacleLong(const std_msgs::Bool& msg) 
 
 // for delivery obstacle (calc) - 멈추는 곳에 도달했나? 판단 로직
 void PurePursuitNode::callbackFromDeliveryObstacleCalc(const lidar_team_erp42::Delivery& msg) {
-  if (pp_.is_delivery_obs_calc_detected && (msg.x < 0.1 || msg.angle >= 95) && pp_.is_delivery_obs_stop_detected == 0)
-    pp_.is_delivery_obs_stop_detected = 1;
-  
-  else if (msg.x > 1 && msg.x <= 4 ) {
-    pp_.is_delivery_obs_calc_detected = 1;
-  }
+  //
+  if (msg.x != 0 && masg.angle != 0) {
+    if (pp_.is_delivery_obs_calc_detected && (msg.x < 0.1 || msg.angle >= 95) && pp_.is_delivery_obs_stop_detected == 0)
+      pp_.is_delivery_obs_stop_detected = 1;
+    
+    else if (msg.x > 1 && msg.x <= 4 ) {
+      pp_.is_delivery_obs_calc_detected = 1;
+    }
 
-  else if (pp_.is_delivery_obs_stop_detected) {
-    pp_.is_delivery_obs_calc_detected = 0;
-  }
+    else if (pp_.is_delivery_obs_stop_detected) {
+      pp_.is_delivery_obs_calc_detected = 0;
+    }
 }
 
 // for delivery obstacle (stop) - 멈추는 로직

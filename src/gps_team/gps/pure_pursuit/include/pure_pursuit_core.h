@@ -82,6 +82,7 @@ private:
   double final_constant;
   int parking_num;
   int obs_is_left;
+  int left_right;
 
   std::vector<std::pair<geometry_msgs::Point, int>> global_path;
   std::vector<std::pair<geometry_msgs::Point, int>> parking_path;

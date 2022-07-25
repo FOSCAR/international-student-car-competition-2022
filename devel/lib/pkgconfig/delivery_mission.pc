@@ -3,6 +3,6 @@ prefix=/home/foscar/ISCC_2022/devel
 Name: delivery_mission
 Description: Description of delivery_mission
 Version: 0.0.0
-Cflags: 
+Cflags: -I/home/foscar/ISCC_2022/devel/include
 Libs: -L${prefix}/lib 
 Requires: 

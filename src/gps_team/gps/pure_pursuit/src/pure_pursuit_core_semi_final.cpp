@@ -24,6 +24,7 @@ PurePursuitNode::PurePursuitNode()
   , const_velocity_(3.0)
   , final_constant(1.5)
   , parking_num(1)
+  , left_right()
 {
   initForROS();
 }
@@ -54,7 +55,9 @@ int tf_idx_1 = 1000; // 1180
 int tf_idx_2 = 1000; // 1455
 
 const float tf_coord1[2] = {935574.25, 1915924.125};
-const float tf_coord2[2] = {935625.375, 1915922.75};
+//const float tf_coord2[2] = {935625.375, 1915922.75};  Old position
+const float tf_coord2[2] = {935635.015829, 1915940.86975};
+
 
 bool index_flag = false;
  
@@ -114,8 +117,8 @@ void PurePursuitNode::run(char** argv) {
   const_lookahead_distance_ = atof(argv[2]);
   const_velocity_ = atof(argv[3]);
   final_constant = atof(argv[4]);
-  parking_num = atoi(argv[5]);
-  lr = atoi(argv[6]);
+  parking_num = atoi(argv[6]);
+  left_right = atoi(argv[7]);
 
   ros::Rate loop_rate(LOOP_RATE_);
   while (ros::ok()) {
@@ -157,7 +160,7 @@ void PurePursuitNode::run(char** argv) {
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 6;
       //const_velocity_ = 12;
-      const_velocity_ = 6;
+      const_velocity_ = 7;
       final_constant = 1.2;
     }
 
@@ -166,7 +169,7 @@ void PurePursuitNode::run(char** argv) {
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 4;
       //const_velocity_ = 10;
-      const_velocity_ = 4;
+      const_velocity_ = 6;
       final_constant = 1.5;
     }
 
@@ -175,7 +178,7 @@ void PurePursuitNode::run(char** argv) {
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 5;
       //const_velocity_ = 8;
-      const_velocity_ = 4;
+      const_velocity_ = 7;
       final_constant = 1.2;
 
       // 첫 신호등 인덱스 : tf_idx_1
@@ -190,7 +193,7 @@ void PurePursuitNode::run(char** argv) {
         const_lookahead_distance_ = 6;
         final_constant = 1.2;
 
-        if(pp_.mission_flag == 0) const_velocity_ = 6;
+        if(pp_.mission_flag == 0) const_velocity_ = 7;
         //동적장애물 멀리서 장애물 감지 -> 감속
         if(pp_.is_dynamic_obstacle_detected_long){
             while(pp_.is_dynamic_obstacle_detected_long){
@@ -230,19 +233,20 @@ void PurePursuitNode::run(char** argv) {
     if (pp_.mode == 4){
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 6;
-      const_velocity_ = 6;
+      const_velocity_ = 7;
       final_constant = 1.2;
     }
    
 
     //  MODE 5 : 정적장애물 감지되면 avoidance path로 진로변경 후 원래 global path로 복귀 (드럼통)
     if (pp_.mode == 5) {
-      if (lr == 0) //오왼
+      std::cout << "LEFT_RIGHT: " << left_right << '\n';
+      if (left_right == 0) //오왼
       {
         if (pp_.mission_flag == 0) {
           pp_.setWaypoints(left_path);
           const_lookahead_distance_ = 3;
-          const_velocity_ = 5;
+          const_velocity_ = 7;
           final_constant = 1.2;
           pp_.mission_flag = 1;
         }
@@ -254,43 +258,47 @@ void PurePursuitNode::run(char** argv) {
         }
         if (pp_.mission_flag == 1 && pp_.is_static_obstacle_detected_short) {
           const_lookahead_distance_ = 4;
-          const_velocity_ = 5;
+          const_velocity_ = 3.1;
           pp_.mission_flag = 2;
-          pulishControlMsg(4, 28);
+          pulishControlMsg(3.1, 28);
+          continue;
+        }
+        else if (pp_.mission_flag == 2 && pp_.is_static_obstacle_detected_short)
+        {
+          pulishControlMsg(3.2, 28);
           continue;
         }
         else if (pp_.mission_flag == 2 && !pp_.is_static_obstacle_detected_short) {
           const_lookahead_distance_ = 5.5;
           pp_.setWaypoints(right_path);
+          //pp_.setWaypoints(global_path);
           pp_.mission_flag = 3;
           ROS_INFO("PAIH SWITCHNG");
           //오류시 삭제요망
           pulishControlMsg(4, -24);
-          continue;
+          //continue;
         }
         else if(pp_.mission_flag == 3 && !pp_.is_finish)
         {
           const_lookahead_distance_ = 4;
-          const_velocity_ = 5;
+          const_velocity_ = 7;
           final_constant = 1.5;
-          continue;
         }
         else if(pp_.mission_flag == 3 && pp_.is_finish)
         {
           pp_.setWaypoints(global_path);
           pp_.mission_flag = 4;
           const_lookahead_distance_ = 4;
-          const_velocity_ = 5;
+          const_velocity_ = 7;
           final_constant = 1.5;
-          continue;
         }
       }
-      else if (lr == 1) //왼오
+      else if (left_right == 1) //왼오
       {
         if (pp_.mission_flag == 0) {
           pp_.setWaypoints(right_path);
           const_lookahead_distance_ = 3;
-          const_velocity_ = 5;
+          const_velocity_ = 7;
           final_constant = 1.2;
           pp_.mission_flag = 1;
         }
@@ -302,35 +310,41 @@ void PurePursuitNode::run(char** argv) {
         }
         if (pp_.mission_flag == 1 && pp_.is_static_obstacle_detected_short) {
           const_lookahead_distance_ = 4;
-          const_velocity_ = 5;
+          const_velocity_ = 3.3;
           pp_.mission_flag = 2;
-          pulishControlMsg(4, -24);
+          pulishControlMsg(3.3, -24);
           continue;
         }
-        else if (pp_.mission_flag == 2 && !pp_.is_static_obstacle_detected_short) {
+        else if (pp_.mission_flag == 2 && pp_.is_static_obstacle_detected_short)
+        {
+          pulishControlMsg(3.4, -24);
+          continue;
+        }
+        else if (pp_.mission_flag == 2  && !pp_.is_static_obstacle_detected_short) {
           const_lookahead_distance_ = 5.5;
           pp_.setWaypoints(left_path);
+          // pp_.setWaypoints(global_path);
           pp_.mission_flag = 3;
           ROS_INFO("PAIH SWITCHNG");
           //오류시 삭제요망
           pulishControlMsg(4, 28);
-          continue;
+          //continue;
         }
         else if(pp_.mission_flag == 3 && !pp_.is_finish)
         {
           const_lookahead_distance_ = 4;
-          const_velocity_ = 5;
+          const_velocity_ = 7;
           final_constant = 1.5;
-          continue;
+          //continue;
         }
         else if(pp_.mission_flag == 3 && pp_.is_finish)
         {
           pp_.setWaypoints(global_path);
           pp_.mission_flag = 4;
           const_lookahead_distance_ = 4;
-          const_velocity_ = 5;
+          const_velocity_ = 7;
           final_constant = 1.5;
-          continue;
+          //continue;
         }
       }
     }
