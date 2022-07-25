@@ -114,11 +114,7 @@ void PurePursuitNode::initForROS()
 void PurePursuitNode::run(char** argv) {
   ROS_INFO_STREAM("pure pursuit2 start");
   // temp
-  const_lookahead_distance_ = atof(argv[2]);
-  const_velocity_ = atof(argv[3]);
-  final_constant = atof(argv[4]);
-  parking_num = atoi(argv[6]);
-  left_right = atoi(argv[7]);
+  left_right = atoi(argv[2]);
 
   ros::Rate loop_rate(LOOP_RATE_);
   while (ros::ok()) {
@@ -291,6 +287,7 @@ void PurePursuitNode::run(char** argv) {
           const_lookahead_distance_ = 4;
           const_velocity_ = 7;
           final_constant = 1.5;
+          pp_.is_finish = false;
         }
       }
       else if (left_right == 1) //왼오
@@ -344,6 +341,7 @@ void PurePursuitNode::run(char** argv) {
           const_lookahead_distance_ = 4;
           const_velocity_ = 7;
           final_constant = 1.5;
+          pp_.is_finish = false;
           //continue;
         }
       }
