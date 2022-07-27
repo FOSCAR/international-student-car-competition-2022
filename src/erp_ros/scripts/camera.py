@@ -11,6 +11,10 @@ class IMGParser:
         rospy.init_node('camera', anonymous=True)
     
         self.image_sub = rospy.Subscriber("/image_jpeg/compressed", CompressedImage, self.callback)
+        pub2 = rospy.Publisher('/usb_cam/image_raw', Image, queue_size = 1)
+
+        # while not rospy.is_shutdonw():
+        #     print("Asdf")
 
         rospy.spin()
 

@@ -424,7 +424,10 @@ void PurePursuitNode::run(char** argv) {
         const_lookahead_distance_ = 4;
         const_velocity_ = 5;
         pp_.mission_flag = 1;
-        pulishControlMsg(4, 24);
+        // pulishControlMsg(4, 24);
+
+        // 더 완만하게 돌게하기위함
+        pulishControlMsg(4, 20);
         continue;
       }
       
@@ -432,12 +435,18 @@ void PurePursuitNode::run(char** argv) {
         pp_.setWaypoints(avoidance_path);
         pp_.mission_flag = 2;
         ROS_INFO("PAITH SWITCHNG");
-        pulishControlMsg(4, -28);
+        // pulishControlMsg(4, -28);
+
+        // 더 완만하게 돌게하기위함
+        pulishControlMsg(4, -24);
         continue;
       }
       else if (pp_.mission_flag == 1 && pp_.is_static_obstacle_detected_short) {
         //pp_.mission_flag = 2;
-        pulishControlMsg(4, 24);
+        //pulishControlMsg(4, 24);
+
+        // 더 완만하게 돌게하기위함
+        pulishControlMsg(4, 20);
         continue;
       }
       // else if (pp_.mission_flag == 2 && !pp_.is_static_obstacle_detected_long)
@@ -448,12 +457,18 @@ void PurePursuitNode::run(char** argv) {
       // }
       else if (pp_.mission_flag == 2 && pp_.is_static_obstacle_detected_short) {
         pp_.mission_flag = 3;
-        pulishControlMsg(4, -28);
+        // pulishControlMsg(4, -28);
+
+        // 더 완만하게 돌게하기위함
+        pulishControlMsg(4, -24);
         continue;
       }
       else if(pp_.mission_flag == 3 && pp_.is_static_obstacle_detected_short)
       {
-        pulishControlMsg(4, -28);
+        // pulishControlMsg(4, -28);
+
+        // 더 완만하게 돌게하기위함
+        pulishControlMsg(4, -24);
         continue;
       }
       else if (pp_.mission_flag == 3 && !pp_.is_static_obstacle_detected_short) {
@@ -543,20 +558,20 @@ void PurePursuitNode::run(char** argv) {
         // ROS_INFO("DELIVERY OBSTACLE DETECT!!!");
         pp_.mission_flag = 1;
 
-        std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << '\n';
+        // std::cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << '\n';
         
         for (int i = 0; i < 55; i++)
         {
           pulishControlMsg(0, 0);
           // 0.1초
           usleep(100000);
-          std::cout << "############################" << '\n';
+          std::cout << "############# PICK A STOP ###############" << '\n';
          
         }
         continue;
       }
       if(pp_.mission_flag == 1){
-        ROS_INFO("a_cnt_flag&&&&&&&&&&&&&&&&&&&& : %d", a_cnt_flag);
+        // ROS_INFO("a_cnt_flag&&&&&&&&&&&&&&&&&&&& : %d", a_cnt_flag);
         const_velocity_ = 6; // if not calculated a_max_index
       }
     }
@@ -566,7 +581,7 @@ void PurePursuitNode::run(char** argv) {
       // if not calculated a_max_index
       // Calc max_index
       a_max_index = max_element(pp_.a_cnt.begin(), pp_.a_cnt.end()) - pp_.a_cnt.begin();
-      // ROS_INFO("A INDEX : %d", a_max_index);
+      ROS_INFO("A INDEX : %d", a_max_index);
 
       // Max flag on
       pp_.a_flag[a_max_index] = true;
@@ -810,7 +825,7 @@ void PurePursuitNode::callbackFromDeliveryObstacleStop(const lidar_team_erp42::D
     // msg.angle >=95 수정
     if (msg.x > -0.05 && msg.x < 0.16) {
       pp_.is_delivery_obs_stop_detected = 1;
-      std::cout << "STOP CHANGE !!!!!!!!" << pp_.is_delivery_obs_stop_detected << '\n';
+      std::cout << "STOP CHANGE TO TRUE!!!!!!!!" << pp_.is_delivery_obs_stop_detected << '\n';
     }
   }
 }

@@ -91,7 +91,7 @@ const float tf_coord8[2] = {935611.629488, 1916009.71394};
 const float tf_coord9[2] = {935592.698823, 1915969.01965};
 
 // Positions where car should slow down before traffic lights
-const float slow_down_tf_coord1[2] = {0.0, 0.0};
+const float slow_down_tf_coord1[2] = {935565.651362, 1915908.85769};
 const float slow_down_tf_coord2[2] = {0.0, 0.0};
 const float slow_down_tf_coord3[2] = {0.0, 0.0};
 const float slow_down_tf_coord4[2] = {0.0, 0.0};
@@ -465,6 +465,9 @@ void PurePursuitNode::run(char** argv) {
         const_velocity_ = 5;
         pp_.mission_flag = 1;
         pulishControlMsg(4, 24);
+
+        // 더 완만하게 돌게하기위함
+        pulishControlMsg(4, 20);
         continue;
       }
       
@@ -473,11 +476,17 @@ void PurePursuitNode::run(char** argv) {
         pp_.mission_flag = 2;
         ROS_INFO("PAITH SWITCHNG");
         pulishControlMsg(4, -28);
+
+        // 더 완만하게 돌게하기위함
+        pulishControlMsg(4, -24);
         continue;
       }
       else if (pp_.mission_flag == 1 && pp_.is_static_obstacle_detected_short) {
         //pp_.mission_flag = 2;
-        pulishControlMsg(4, 24);
+        // pulishControlMsg(4, 24);
+
+        // 더 완만하게 돌게하기위함
+        pulishControlMsg(4, 20);
         continue;
       }
       // else if (pp_.mission_flag == 2 && !pp_.is_static_obstacle_detected_long)
@@ -488,12 +497,18 @@ void PurePursuitNode::run(char** argv) {
       // }
       else if (pp_.mission_flag == 2 && pp_.is_static_obstacle_detected_short) {
         pp_.mission_flag = 3;
-        pulishControlMsg(4, -28);
+        // pulishControlMsg(4, -28);
+
+        // 더 완만하게 돌게하기위함
+        pulishControlMsg(4, -24);
         continue;
       }
       else if(pp_.mission_flag == 3 && pp_.is_static_obstacle_detected_short)
       {
-        pulishControlMsg(4, -28);
+        // pulishControlMsg(4, -28);
+
+        // 더 완만하게 돌게하기위함
+        pulishControlMsg(4, -24);
         continue;
       }
       else if (pp_.mission_flag == 3 && !pp_.is_static_obstacle_detected_short) {
@@ -504,7 +519,7 @@ void PurePursuitNode::run(char** argv) {
         final_constant = 1.5;
       }
     }
-
+s
     // MODE 3,5,8,33 : 신호등 (직진구간)
     if (pp_.mode == 3 || pp_.mode == 5 || pp_.mode == 8 || pp_.mode == 33) {
       pp_.mission_flag = 0;

@@ -248,7 +248,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
         obstacle_vec.emplace_back(obstacle);
       } 
 
-      sort(obstacle_vec.begin(), obstacle_vec.end());
+      sort(obstacle_vec.begin(), obstacle_vec.end(), cmp);
 
       // 두 개의 시작점이 왼쪽, 오른쪽에 각각 1개씩 잡히는 경우에만 실행. 한 라인에서 두 개의 시작점이 잡히는 경우 제외
       if (obstacle_vec[0][1] * obstacle_vec[1][1] < 0) { 

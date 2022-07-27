@@ -18,7 +18,7 @@ from morai_msgs.msg import EgoVehicleStatus, CtrlCmd
 import time
 
 # Parameters
-k = 0.1  # look forward gain
+k = 0.05  # look forward gain
 Lfc = 4.0
 # Lfc = 5.0
 # Lfc = 1.75
@@ -81,7 +81,7 @@ class TargetCourse:
             # print(path_x)
             dx = [state.rear_x - icx for icx in self.cx]
             dy = [state.rear_y - icy for icy in self.cy]
-            # print(dx)
+            # print(dx)current_v
             # print(dy)
             d = np.hypot(dx, dy)
 
@@ -123,6 +123,24 @@ class TargetCourse:
         return ind, Lf
 
 
+        if pind >= ind:
+            ind = pind
+
+        if ind < len(trajectory.cx):
+            tx = trajectory.cx[ind]
+            ty = trajectory.cy[ind]
+        else:  # toward goal
+            tx = trajectory.cx[-1]
+            ty = trajectory.cy[-1]
+            ind = len(trajectory.cx) - 1
+
+        alpha = math.atan2(ty - state.rear_y, tx - state.rear_x) - state.yaw
+
+        delta = math.atan2(2.0 * WB * math.sin(alpha) / Lf, 0.8) #/ Lf, 1.4)
+
+
+        return delta, ind, tx, ty
+
 def pure_pursuit_steer_control(state, trajectory, pind):
     ind, Lf = trajectory.search_target_index(state)
 
@@ -139,8 +157,7 @@ def pure_pursuit_steer_control(state, trajectory, pind):
 
     alpha = math.atan2(ty - state.rear_y, tx - state.rear_x) - state.yaw
 
-    delta = math.atan2(2.0 * WB * math.sin(alpha) / Lf, 0.8) #/ Lf, 1.4)
-
+    delta = math.atan2(2.0 * WB * math.sin(alpha) / Lf, 0.8) * 1.1 # 0.75 #/ Lf, 1.4)
 
     return delta, ind, tx, ty
 
@@ -172,11 +189,7 @@ if __name__ == '__main__':
     # initial state
     state = State(x = -0.92, y = 0.0, yaw = 0.0, v = current_v)
 
-    # target_course = TargetCourse(path_x, path_y)
-    # target_ind, _ = target_course.search_target_index(state)
-    
-    start = time.time() # test
-    count_pub = 0 # test
+    # target_course = Targditest
     while not rospy.is_shutdown():
         if len(path_x) != 0:
             # Calc control input
@@ -236,15 +249,6 @@ if __name__ == '__main__':
             #        di -= 0.05
         
             publishDriveValue(current_v, di)
-
-            count_pub += 1 # test
-            duration = time.time() - start # test
-
-            if duration >= 1: # test
-                print("publish topic per second : ", count_pub)
-                count_pub = 0
-                start = time.time()
-
 
             ai = proportional_control(target_speed, current_v)
             state.update(ai, di)  # Control vehicle

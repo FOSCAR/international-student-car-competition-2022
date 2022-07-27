@@ -54,9 +54,14 @@ float steering_memory = 0;
 int tf_idx_1 = 1000; // 1180
 int tf_idx_2 = 1000; // 1455
 
+int slow_down_tf_idx_1 = 1000;
+int slow_down_tf_idx_2 = 1000;
+
 const float tf_coord1[2] = {935574.25, 1915924.125};
-//const float tf_coord2[2] = {935625.375, 1915922.75};  Old position
 const float tf_coord2[2] = {935635.015829, 1915940.86975};
+
+const float slow_down_tf_coord1[2] = {935565.651362, 1915908.85769};
+const float slow_down_tf_coord2[2] = {935641.374022, 1915952.16742};
 
 
 bool index_flag = false;
@@ -145,7 +150,9 @@ void PurePursuitNode::run(char** argv) {
       index_flag = true;
       tf_idx_1 = pp_.getPosIndex(tf_coord1[0], tf_coord1[1]);
       tf_idx_2 = pp_.getPosIndex(tf_coord2[0], tf_coord2[1]);
-      
+
+      slow_down_tf_idx_1 = pp_.getPosIndex(slow_down_tf_idx_1[0] , slow_down_tf_idx_1[1]);
+      slow_down_tf_idx_2 = pp_.getPosIndex(slow_down_tf_idx_2[0] , slow_down_tf_idx_2[1]);
     }
 
     ROS_INFO("MODE=%d, MISSION_FLAG=%d", pp_.mode, pp_.mission_flag);
@@ -176,6 +183,24 @@ void PurePursuitNode::run(char** argv) {
       //const_velocity_ = 8;
       const_velocity_ = 7;
       final_constant = 1.2;
+
+      // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
+      if(pp_.reachMissionIdx(slow_down_tf_idx_1) && !pp_.straight_go_flag) {
+        while(const_velocity_ > 1){
+            const_velocity_ -= 0.1;
+            pulishControlMsg(const_velocity_ , 0);
+            ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
+        }
+      }
+
+      // When traffic lights are GREEN at slow_down_point -> SPEEDING UP
+      else if(pp_.reachMissionIdx(slow_down_tf_idx_1) && pp_.straight_go_flag){
+        while(const_velocity_ < 10){
+            const_velocity_ += 0.1;
+            pulishControlMsg(const_velocity_ , 0);
+            ROS_INFO_STREAM("*****GREEN LIGHT SPEEDING UP*****");
+        }
+      }
 
       // 첫 신호등 인덱스 : tf_idx_1
       if(pp_.reachMissionIdx(tf_idx_1) && !pp_.straight_go_flag) {
@@ -216,7 +241,25 @@ void PurePursuitNode::run(char** argv) {
             const_velocity_ = 3;
         }
 
-      // 두번째 신호등 인덱스
+        // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
+        if(pp_.reachMissionIdx(slow_down_tf_idx_2) && !pp_.straight_go_flag) {
+          while(const_velocity_ > 1){
+              const_velocity_ -= 0.1;
+              pulishControlMsg(const_velocity_ , 0);
+              ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
+          }
+        }
+        
+        // When traffic lights are GREEN at slow_down_point -> SPEEDING UP
+        else if(pp_.reachMissionIdx(slow_down_tf_idx_2) && pp_.straight_go_flag){
+          while(const_velocity_ < 10){
+              const_velocity_ += 0.1;
+              pulishControlMsg(const_velocity_ , 0);
+              ROS_INFO_STREAM("*****GREEN LIGHT SPEEDING UP*****");
+          }
+        }
+
+        // 두번째 신호등 인덱스
         if(pp_.reachMissionIdx(tf_idx_2) && !pp_.straight_go_flag) {
           ROS_INFO_STREAM("TRAFFIC LIGTHS DETECT");
           pulishControlMsg(0,0);
