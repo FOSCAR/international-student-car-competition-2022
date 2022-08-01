@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libsquare_scanner.so -o /home/foscar/ISCC_2022/devel/lib/libsquare_scanner.so CMakeFiles/square_scanner.dir/src/square_scanner.cpp.o 

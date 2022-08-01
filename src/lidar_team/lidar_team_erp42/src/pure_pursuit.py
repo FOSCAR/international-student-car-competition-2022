@@ -1,39 +1,33 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# from ast import Starred
 import numpy as np
 import math
-import matplotlib.pyplot as plt
-import sys,os
 import rospy
-import rospkg
 
 from nav_msgs.msg import Path,Odometry
 from std_msgs.msg import Float64,Int16,Float32MultiArray
 from geometry_msgs.msg import PoseStamped,Point
-from morai_msgs.msg import EgoVehicleStatus,ObjectStatusList,CtrlCmd,GetTrafficLightStatus,SetTrafficLight
-import tf
 
 from visualization_msgs.msg import Marker
 from visualization_msgs.msg import MarkerArray
 from lidar_team_erp42.msg import Waypoint
 from race.msg import drive_values
+from lidar_team_erp42.msg import DynamicVelocity
 
 # Parameters
-k = 0.1  # look forward gain
-Lfc = 4.0
+k = 0.3  # look forward gain
+Lfc = 3.0
 # Lfc = 5.0
 # Lfc = 1.75
 # Lfc = 1.25  # [m] look-ahead distance
 Kp = 1.0  # speed proportional gain
 dt = 0.1  # [s] time tick
-WB = 1.04  # [m] wheel base of vehicle
+WB = 0.78  # [m] wheel base of vehicle
 
 target_speed = 10
 speed = 10
-current_v = 6
-
-show_animation = True
 
 # path_x = [0] * 100
 # path_y = [0] * 100
@@ -51,7 +45,7 @@ class State:
         self.rear_y = y
 
     def update(self, a, delta):
-        global current_v
+        global realVel
         self.v += a * dt
 
     def calc_distance(self, point_x, point_y):
@@ -76,9 +70,11 @@ class TargetCourse:
  
 
     def search_target_index(self, state):
-  
+        global realVel
         # To speed up nearest point search, doing it at only first time.  
         if self.old_nearest_point_index is None:
+            # search nearest point index
+            # print(path_x)
             dx = [state.rear_x - icx for icx in self.cx]
             dy = [state.rear_y - icy for icy in self.cy]
             # print(dx)
@@ -87,10 +83,10 @@ class TargetCourse:
 
             ind = np.argmin(d)
             self.old_nearest_point_index = ind
-
         else:
             ind = self.old_nearest_point_index
-
+            # print("ind:", ind)
+            # print("CX!!!!!!!!!!!!!!!!!!: ", self.cx)
             distance_this_index = state.calc_distance(self.cx[ind], self.cy[ind])
             while True:
                 distance_next_index = state.calc_distance(self.cx[ind + 1], self.cy[ind + 1])
@@ -108,8 +104,8 @@ class TargetCourse:
 
         
         # print(state.v)
-        # print(current_v)
-        Lf = k * current_v + Lfc  # update look ahead distance
+        # print(realVel)
+        Lf = k * realVel + Lfc  # update look ahead distance
         # Lf = Lfc
 
         # search look ahead target point index
@@ -122,9 +118,6 @@ class TargetCourse:
 
         return ind, Lf
 
-# def ego_callback(data):
-#     global current_velocity
-#     current_velocity = data.velocity.x
 
 def pure_pursuit_steer_control(state, trajectory, pind):
     ind, Lf = trajectory.search_target_index(state)
@@ -142,7 +135,8 @@ def pure_pursuit_steer_control(state, trajectory, pind):
 
     alpha = math.atan2(ty - state.rear_y, tx - state.rear_x) - state.yaw
 
-    delta = math.atan2(2.0 * WB * math.sin(alpha) / Lf, 0.95) * 100 # 0.75 #/ Lf, 1.4)
+    delta = math.atan2(2.0 * WB * math.sin(alpha) / Lf, 0.7) * 100 #/ Lf, 1.4)
+
 
     return delta, ind, tx, ty
 
@@ -151,43 +145,46 @@ def path_callback(data):
     path_x = data.x_arr
     path_y = data.y_arr
 
-# def ego_callback(data):
-#     global current_velocity
-#     current_velocity = data.velocity.x
+def ego_callback(data):
+    global current_velocity
+    current_velocity = data.velocity.x
+
+def publishDriveValue(throttle, steering):
+    drive_value.throttle = throttle
+    drive_value.steering = steering
+    motor_pub.publish(drive_value)
+
+def getVelocity(data):
+    global realVel
+    # print("test")
+    realVel = data.throttle
 
 if __name__ == '__main__':
+    global realVel
+    realVel = 7
     rospy.init_node("pure_pursuit", anonymous=True)
 
     rospy.Subscriber("/local_path", Waypoint, path_callback) 
-    # rospy.Subscriber("/Ego_topic", EgoVehicleStatus, ego_callback)
+    rospy.Subscriber("/dynamic_velocity", DynamicVelocity, getVelocity)
 
-    #ctrl_pub = rospy.Publisher("/ctrl_cmd", CtrlCmd, queue_size = 1)
-    motor_pub = rospy.Publisher("control_value", drive_values, queue_size = 1)
-    target_pub = rospy.Publisher('target_point', Marker, queue_size = 1)
+    motor_pub = rospy.Publisher("/control_value", drive_values, queue_size = 1)
+    target_pub = rospy.Publisher("/target_point", Marker, queue_size = 1)
     drive_value = drive_values()
 
-    rate = rospy.Rate(30)
+    rate = rospy.Rate(60)
     
     # initial state
-    state = State(x = -1.1, y = 0.0, yaw = 0.0, v = current_v)
+    state = State(x = -1.1, y = 0.0, yaw = 0.0, v = realVel)
 
     # target_course = TargetCourse(path_x, path_y)
     # target_ind, _ = target_course.search_target_index(state)
-    
-
     while not rospy.is_shutdown():
-        # if sum(path_x) != 0:
-        #     print("SUM: ", sum(path_x))
-        #     continue
-        # else:
         if len(path_x) != 0:
-            # print("SUM: ", sum(path_x))
             # Calc control input
             target_course = TargetCourse(path_x, path_y)
             target_ind, _ = target_course.search_target_index(state)
             
-            
-            # ai = proportional_control(target_speed, current_v)
+            # ai = proportional_control(target_speed, realVel)
             di, target_ind, target_x, target_y = pure_pursuit_steer_control(state, target_course, target_ind)
             # state.update(ai, di)  # Control vehicle
 
@@ -211,26 +208,10 @@ if __name__ == '__main__':
             marker.lifetime = rospy.Duration(0.1)
 
             target_pub.publish(marker)
-            
+        
+            publishDriveValue(realVel, -di)
 
-            print("di = ", di)
-
-            if abs(di) > 17.5:
-                current_v = 6       #7
-            elif abs(di) > 8:
-                current_v = 8     #12.5
-            elif abs(di) > 4:
-                current_v = 10      #15
-            else:
-                current_v = 12
-
-            drive_value.throttle = current_v
-            drive_value.steering = -di
-
-            print(drive_value.throttle)
-            motor_pub.publish(drive_value)
-
-            ai = proportional_control(target_speed, current_v)
+            ai = proportional_control(target_speed, realVel)
             state.update(ai, di)  # Control vehicle
 
         rate.sleep()

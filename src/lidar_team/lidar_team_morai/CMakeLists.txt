@@ -24,6 +24,7 @@ add_message_files(
    FILES
    Waypoint.msg
    Boundingbox.msg
+   PurePursuit.msg
 )
 
 generate_messages(
@@ -155,6 +156,18 @@ target_link_libraries(dynamic_obstacle_morai ${catkin_LIBRARIES})
 
 add_executable(static_obstacle_morai src/static_obstacle_morai.cpp)
 target_link_libraries(static_obstacle_morai ${catkin_LIBRARIES})
+
+add_executable(track_kyuhyun src/track_kyuhyun.cpp)
+target_link_libraries(track_kyuhyun ${catkin_LIBRARIES})
+
+add_executable(track_jiwon src/track_jiwon.cpp)
+target_link_libraries(track_jiwon ${catkin_LIBRARIES})
+
+add_executable(track_binary_ho src/track_binary_ho.cpp)
+target_link_libraries(track_binary_ho ${catkin_LIBRARIES})
+
+add_executable(dynamic_kyuhyun src/dynamic_kyuhyun.cpp)
+target_link_libraries(dynamic_kyuhyun ${catkin_LIBRARIES})
 
 add_dependencies(track_waypoint_morai ${PROJECT_NAME}_gencfg)
 add_dependencies(dynamic_obstacle_morai ${PROJECT_NAME}_gencfg)

@@ -87,7 +87,7 @@ int end_parking_full_steer_backward_idx = 0;
 const float pk_coord1[2] = {935534.247324, 1915849.29071};
 const float pk_coord2[2] = {935536.127777, 1915852.74891};
 const float pk_coord3[2] = {935537.027791, 1915854.43949};
-const float pk_coord4[2] = {935539.530479, 1915859.22427};
+const float pk_coord4[2] = {935539.530479,  1915859.22427};
 const float pk_coord5[2] = {935540.465801, 1915860.89238};
 const float pk_coord6[2] = {935541.86021, 1915863.43345};
 
@@ -103,11 +103,10 @@ void PurePursuitNode::initForROS()
   ROS_HOME = ros::package::getPath("pure_pursuit");
 
   // setup subscriber
-  pose_sub = nh_.subscribe("current_pose", 1,
-    &PurePursuitNode::callbackFromCurrentPose, this);
+  pose_sub = nh_.subscribe("current_pose", 1, &PurePursuitNode::callbackFromCurrentPose, this);
 
   //delivery subscriber
-  delivery_sub = nh_.subscribe("delivery", 1, &PurePursuitNode::callbackFromDelivery, this);
+  //delivery_sub = nh_.subscribe("delivery", 1, &PurePursuitNode::callbackFromDelivery, this);
 
 
   // setup publisher
@@ -168,7 +167,22 @@ void PurePursuitNode::run(char** argv) {
     // 21,23,28
     pp_.mission_flag = 0;
     const_lookahead_distance_ = 6;
-    const_velocity_ = 9;
+
+    const_velocity_ = 12;     // 속도가 12 일 때 까지는 어느정도 제어 가능한 상태임 -> 속도를 늘리고 싶다면 197번 째 줄 안에 있는 throttle 제어수식을 속도에 맞추어 주석해제 후 실행 요망 
+                              // (만약 속도가 늘어남에 따라서 차가 트랙 바깥쪽으로 기운다면, 220번째 줄에 있는 steering 값에 있는 상수항 조정 현재는 1.2를 곱해놓음 ->  생각보다 숫자 변화에 따라 변화폭이 크므로, 조금씩 늘릴것!!!!)
+
+    //속도가 13 일때 
+    // const_velocity_ = 13;   
+ 
+    //속도가 14 일때
+    // const_velocity_ = 14;
+
+    //속도가 15 일때
+    // const_velocity_ = 15;
+
+    //속도가 16 일때
+    // const_velocity_ = 16;
+
     final_constant = 1.2;
 
 
@@ -181,18 +195,34 @@ void PurePursuitNode::run(char** argv) {
 
 
 void PurePursuitNode::publishPurePursuitDriveMsg(const bool& can_get_curvature, const double& kappa){
-  //double throttle_ = can_get_curvature ? const_velocity_ : 0;
-  //double throttle_ = can_get_curvature ? const_velocity_ - abs(15 * kappa) : 0;
   double throttle_;
   if(can_get_curvature == true){
-    throttle_ = const_velocity_ - abs(15 * kappa);
-    const_lookahead_distance_ =  (0.7 * const_velocity_ - abs(10 * kappa));
+    throttle_ = -50*(pow(kappa , 2)) + const_velocity_;
+
+    //속도가 13 일때
+    //throttle_ = -70*(pow(kappa , 2)) + const_velocity_;
+
+    //속도가 14 일때
+    // throttle_ = -87.5*(pow(kappa , 2)) + const_velocity_;
+
+    //속도가 15 일때
+    // throttle_ = -100*(pow(kappa , 2)) + const_velocity_;
+
+    //속도가 16 일때
+    // throttle_ = -112.5*(pow(kappa , 2)) + const_velocity_;
+
+    
+    
+    const_lookahead_distance_ =  0.0138*(pow(throttle_ , 2)) + 4;
+
+    // 대안 A
+    // const_lookahead_distance_ = 0.5 * throttle_;
   }else{
     throttle_ = 0;
   }
 
   double steering_radian = convertCurvatureToSteeringAngle(wheel_base_, kappa);
-  double steering_ = can_get_curvature ? (steering_radian * 180.0 / M_PI) * -1 * final_constant: 0;
+  double steering_ = can_get_curvature ? (steering_radian * 180.0 / M_PI) * -1 * final_constant *1.2 : 0;
 
 
   std::cout << "steering : " << steering_ << "\tkappa : " << kappa <<std::endl;
@@ -228,7 +258,7 @@ void PurePursuitNode::setPath(char** argv) {
   std::ifstream global_path_file(ROS_HOME + "/paths/" + paths[0] + ".txt");
   //std::cout << ROS_HOME + "/paths/" + argv[1] << std::endl;
 
-  // path.txt
+  // path.txt 
   // <x, y, mode>
   geometry_msgs::Point p;
   double x, y;

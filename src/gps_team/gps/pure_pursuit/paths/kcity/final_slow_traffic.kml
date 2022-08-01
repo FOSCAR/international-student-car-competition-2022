@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="1">
+        <Placemark id="3">
+            <name>(lat/long)</name>
+            <description>lt/longt</description>
+            <Point id="2">
+                <coordinates>126.773541181,37.2398177697,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="5">
+            <name>(lat/long)</name>
+            <description>lt/longt</description>
+            <Point id="4">
+                <coordinates>126.773850108,37.2402761797,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="7">
+            <name>(lat/long)</name>
+            <description>lt/longt</description>
+            <Point id="6">
+                <coordinates>126.774468268,37.2413926527,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="9">
+            <name>(lat/long)</name>
+            <description>lt/longt</description>
+            <Point id="8">
+                <coordinates>126.774540994,37.2423737806,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="11">
+            <name>(lat/long)</name>
+            <description>lt/longt</description>
+            <Point id="10">
+                <coordinates>126.774455097,37.2435841975,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="13">
+            <name>(lat/long)</name>
+            <description>lt/longt</description>
+            <Point id="12">
+                <coordinates>126.773684895,37.2430661259,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="15">
+            <name>(lat/long)</name>
+            <description>lt/longt</description>
+            <Point id="14">
+                <coordinates>126.774389116,37.2419712164,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="17">
+            <name>(lat/long)</name>
+            <description>lt/longt</description>
+            <Point id="16">
+                <coordinates>126.774106314,37.2408115545,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="19">
+            <name>(lat/long)</name>
+            <description>lt/longt</description>
+            <Point id="18">
+                <coordinates>126.773874045,37.2404173381,0.0</coordinates>
+            </Point>
+        </Placemark>
+    </Document>
+</kml>

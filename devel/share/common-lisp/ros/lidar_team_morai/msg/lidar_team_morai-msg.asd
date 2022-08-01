@@ -7,6 +7,8 @@
   :components ((:file "_package")
     (:file "Boundingbox" :depends-on ("_package_Boundingbox"))
     (:file "_package_Boundingbox" :depends-on ("_package"))
+    (:file "PurePursuit" :depends-on ("_package_PurePursuit"))
+    (:file "_package_PurePursuit" :depends-on ("_package"))
     (:file "VescState" :depends-on ("_package_VescState"))
     (:file "_package_VescState" :depends-on ("_package"))
     (:file "VescStateStamped" :depends-on ("_package_VescStateStamped"))

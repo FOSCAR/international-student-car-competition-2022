@@ -1,0 +1,18 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~x_min" : \b [double] x_min_value min: -200.0, default: 0.2, max: 10.0
+- \b "~x_max" : \b [double] x_max_value min: -10.0, default: 12.0, max: 200.0
+- \b "~y_min" : \b [double] y_min_value min: -200.0, default: -8.0, max: 10.0
+- \b "~y_max" : \b [double] y_max_value min: -10.0, default: 8.0, max: 200.0
+- \b "~z_min" : \b [double] z_min_value min: -2.0, default: -0.5, max: 0.0
+- \b "~z_max" : \b [double] z_max_value min: -2.0, default: -0.1, max: 100.0
+- \b "~minPoints" : \b [int] minPoints_value min: 1, default: 1, max: 100
+- \b "~epsilon" : \b [double] epsilon_value min: 0.0, default: 0.7, max: 2.0
+- \b "~minClusterSize" : \b [double] minClusterSize_value min: 0.0, default: 1.0, max: 100.0
+- \b "~maxClusterSize" : \b [double] maxClusterSize_value min: 0.0, default: 8200.0, max: 10000.0
+- \b "~objectRadiusWeight" : \b [double] objectRadiusWeight_value min: 0.0, default: 0.58, max: 3.0
+- \b "~pivotX" : \b [double] pivotX_value min: -10.0, default: 0.0, max: 10.0
+- \b "~pivotY" : \b [double] pivotY_value min: -10.0, default: 0.0, max: 10.0
+

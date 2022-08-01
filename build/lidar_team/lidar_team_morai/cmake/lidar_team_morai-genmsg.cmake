@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "lidar_team_morai: 2 messages, 0 services")
+message(STATUS "lidar_team_morai: 3 messages, 0 services")
 
 set(MSG_I_FLAGS "-Ilidar_team_morai:/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg;-Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg;-Inav_msgs:/opt/ros/melodic/share/nav_msgs/cmake/../msg;-Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg")
 
@@ -27,6 +27,11 @@ add_custom_target(_lidar_team_morai_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "lidar_team_morai" "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg" ""
 )
 
+get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg" NAME_WE)
+add_custom_target(_lidar_team_morai_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "lidar_team_morai" "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg" ""
+)
+
 #
 #  langs = gencpp;geneus;genlisp;gennodejs;genpy
 #
@@ -41,6 +46,12 @@ _generate_msg_cpp(lidar_team_morai
 )
 _generate_msg_cpp(lidar_team_morai
   "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/lidar_team_morai
+)
+_generate_msg_cpp(lidar_team_morai
+  "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/lidar_team_morai
@@ -64,6 +75,8 @@ get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_te
 add_dependencies(lidar_team_morai_generate_messages_cpp _lidar_team_morai_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg" NAME_WE)
 add_dependencies(lidar_team_morai_generate_messages_cpp _lidar_team_morai_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg" NAME_WE)
+add_dependencies(lidar_team_morai_generate_messages_cpp _lidar_team_morai_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(lidar_team_morai_gencpp)
@@ -82,6 +95,12 @@ _generate_msg_eus(lidar_team_morai
 )
 _generate_msg_eus(lidar_team_morai
   "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/lidar_team_morai
+)
+_generate_msg_eus(lidar_team_morai
+  "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/lidar_team_morai
@@ -105,6 +124,8 @@ get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_te
 add_dependencies(lidar_team_morai_generate_messages_eus _lidar_team_morai_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg" NAME_WE)
 add_dependencies(lidar_team_morai_generate_messages_eus _lidar_team_morai_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg" NAME_WE)
+add_dependencies(lidar_team_morai_generate_messages_eus _lidar_team_morai_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(lidar_team_morai_geneus)
@@ -123,6 +144,12 @@ _generate_msg_lisp(lidar_team_morai
 )
 _generate_msg_lisp(lidar_team_morai
   "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/lidar_team_morai
+)
+_generate_msg_lisp(lidar_team_morai
+  "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/lidar_team_morai
@@ -146,6 +173,8 @@ get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_te
 add_dependencies(lidar_team_morai_generate_messages_lisp _lidar_team_morai_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg" NAME_WE)
 add_dependencies(lidar_team_morai_generate_messages_lisp _lidar_team_morai_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg" NAME_WE)
+add_dependencies(lidar_team_morai_generate_messages_lisp _lidar_team_morai_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(lidar_team_morai_genlisp)
@@ -164,6 +193,12 @@ _generate_msg_nodejs(lidar_team_morai
 )
 _generate_msg_nodejs(lidar_team_morai
   "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/lidar_team_morai
+)
+_generate_msg_nodejs(lidar_team_morai
+  "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/lidar_team_morai
@@ -187,6 +222,8 @@ get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_te
 add_dependencies(lidar_team_morai_generate_messages_nodejs _lidar_team_morai_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg" NAME_WE)
 add_dependencies(lidar_team_morai_generate_messages_nodejs _lidar_team_morai_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg" NAME_WE)
+add_dependencies(lidar_team_morai_generate_messages_nodejs _lidar_team_morai_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(lidar_team_morai_gennodejs)
@@ -209,6 +246,12 @@ _generate_msg_py(lidar_team_morai
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/lidar_team_morai
 )
+_generate_msg_py(lidar_team_morai
+  "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/lidar_team_morai
+)
 
 ### Generating Services
 
@@ -227,6 +270,8 @@ add_dependencies(lidar_team_morai_generate_messages lidar_team_morai_generate_me
 get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Boundingbox.msg" NAME_WE)
 add_dependencies(lidar_team_morai_generate_messages_py _lidar_team_morai_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg" NAME_WE)
+add_dependencies(lidar_team_morai_generate_messages_py _lidar_team_morai_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg" NAME_WE)
 add_dependencies(lidar_team_morai_generate_messages_py _lidar_team_morai_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

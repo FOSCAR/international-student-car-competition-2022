@@ -43,7 +43,7 @@ class drawing_path():
                     pass
                 p = np.poly1d(z)
 
-                print(2*z[0] + z[1])
+                # print(2*z[0] + z[1])
                  
                 # evaluate on new data points
                 x_new = np.linspace(min(x), max(x), 200)

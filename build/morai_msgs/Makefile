@@ -78,27 +78,17 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
 
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
@@ -112,18 +102,6 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -134,6 +112,28 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,19 +168,49 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-morai_msgs/CMakeFiles/morai_msgs_genpy.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/morai_msgs_genpy.dir/rule
-.PHONY : morai_msgs/CMakeFiles/morai_msgs_genpy.dir/rule
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj.dir/rule
 
 # Convenience name for target.
-morai_msgs_genpy: morai_msgs/CMakeFiles/morai_msgs_genpy.dir/rule
+_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj.dir/rule
 
-.PHONY : morai_msgs_genpy
+.PHONY : _morai_msgs_generate_messages_check_deps_SyncModeRemoveObj
 
 # fast build rule for target.
-morai_msgs_genpy/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/morai_msgs_genpy.dir/build.make morai_msgs/CMakeFiles/morai_msgs_genpy.dir/build
-.PHONY : morai_msgs_genpy/fast
+_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_SyncModeRemoveObj/fast
+
+# Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv/fast
+
+# Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRStatus.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRStatus.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRStatus.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_PRStatus: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRStatus.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_PRStatus
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_PRStatus/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRStatus.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRStatus.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_PRStatus/fast
 
 # Convenience name for target.
 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ObjectStatusList.dir/rule:
@@ -213,6 +243,21 @@ _morai_msgs_generate_messages_check_deps_SyncModeInfo/fast:
 .PHONY : _morai_msgs_generate_messages_check_deps_SyncModeInfo/fast
 
 # Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSimProcSrv
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSimProcSrv/fast
+
+# Convenience name for target.
 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLIndex.dir/rule:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLIndex.dir/rule
 .PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLIndex.dir/rule
@@ -243,6 +288,21 @@ morai_msgs_generate_messages_lisp/fast:
 .PHONY : morai_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv/fast
+
+# Convenience name for target.
 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeCmd.dir/rule:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeCmd.dir/rule
 .PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeCmd.dir/rule
@@ -256,51 +316,6 @@ _morai_msgs_generate_messages_check_deps_SyncModeCmd: morai_msgs/CMakeFiles/_mor
 _morai_msgs_generate_messages_check_deps_SyncModeCmd/fast:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeCmd.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeCmd.dir/build
 .PHONY : _morai_msgs_generate_messages_check_deps_SyncModeCmd/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/morai_msgs_generate_messages_py.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/morai_msgs_generate_messages_py.dir/rule
-.PHONY : morai_msgs/CMakeFiles/morai_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-morai_msgs_generate_messages_py: morai_msgs/CMakeFiles/morai_msgs_generate_messages_py.dir/rule
-
-.PHONY : morai_msgs_generate_messages_py
-
-# fast build rule for target.
-morai_msgs_generate_messages_py/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/morai_msgs_generate_messages_py.dir/build.make morai_msgs/CMakeFiles/morai_msgs_generate_messages_py.dir/build
-.PHONY : morai_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLInfo.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLInfo.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLInfo.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_MoraiTLInfo: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLInfo.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiTLInfo
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_MoraiTLInfo/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLInfo.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLInfo.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiTLInfo/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRStatus.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRStatus.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRStatus.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_PRStatus: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRStatus.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_PRStatus
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_PRStatus/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRStatus.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRStatus.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_PRStatus/fast
 
 # Convenience name for target.
 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CtrlCmd.dir/rule:
@@ -333,154 +348,34 @@ _morai_msgs_generate_messages_check_deps_SyncModeSetGear/fast:
 .PHONY : _morai_msgs_generate_messages_check_deps_SyncModeSetGear/fast
 
 # Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRCtrlCmd.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRCtrlCmd.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRCtrlCmd.dir/rule
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSrvResponse.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSrvResponse.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSrvResponse.dir/rule
 
 # Convenience name for target.
-_morai_msgs_generate_messages_check_deps_PRCtrlCmd: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRCtrlCmd.dir/rule
+_morai_msgs_generate_messages_check_deps_MoraiSrvResponse: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSrvResponse.dir/rule
 
-.PHONY : _morai_msgs_generate_messages_check_deps_PRCtrlCmd
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSrvResponse
 
 # fast build rule for target.
-_morai_msgs_generate_messages_check_deps_PRCtrlCmd/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRCtrlCmd.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRCtrlCmd.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_PRCtrlCmd/fast
+_morai_msgs_generate_messages_check_deps_MoraiSrvResponse/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSrvResponse.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSrvResponse.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSrvResponse/fast
 
 # Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ERP42Info.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ERP42Info.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ERP42Info.dir/rule
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SaveSensorData.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SaveSensorData.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SaveSensorData.dir/rule
 
 # Convenience name for target.
-_morai_msgs_generate_messages_check_deps_ERP42Info: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ERP42Info.dir/rule
+_morai_msgs_generate_messages_check_deps_SaveSensorData: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SaveSensorData.dir/rule
 
-.PHONY : _morai_msgs_generate_messages_check_deps_ERP42Info
+.PHONY : _morai_msgs_generate_messages_check_deps_SaveSensorData
 
 # fast build rule for target.
-_morai_msgs_generate_messages_check_deps_ERP42Info/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ERP42Info.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ERP42Info.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_ERP42Info/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionControl.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionControl.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionControl.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_IntersectionControl: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionControl.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_IntersectionControl
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_IntersectionControl/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionControl.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionControl.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_IntersectionControl/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleSpecIndex.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleSpecIndex.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleSpecIndex.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_VehicleSpecIndex: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleSpecIndex.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_VehicleSpecIndex
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_VehicleSpecIndex/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleSpecIndex.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleSpecIndex.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_VehicleSpecIndex/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSimProcStatus
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSimProcStatus/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleCollisionData.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleCollisionData.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleCollisionData.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_VehicleCollisionData: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleCollisionData.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_VehicleCollisionData
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_VehicleCollisionData/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleCollisionData.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleCollisionData.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_VehicleCollisionData/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CollisionData.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CollisionData.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CollisionData.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_CollisionData: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CollisionData.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_CollisionData
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_CollisionData/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CollisionData.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CollisionData.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_CollisionData/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/morai_msgs_generate_messages.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/morai_msgs_generate_messages.dir/rule
-.PHONY : morai_msgs/CMakeFiles/morai_msgs_generate_messages.dir/rule
-
-# Convenience name for target.
-morai_msgs_generate_messages: morai_msgs/CMakeFiles/morai_msgs_generate_messages.dir/rule
-
-.PHONY : morai_msgs_generate_messages
-
-# fast build rule for target.
-morai_msgs_generate_messages/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/morai_msgs_generate_messages.dir/build.make morai_msgs/CMakeFiles/morai_msgs_generate_messages.dir/build
-.PHONY : morai_msgs_generate_messages/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionStatus.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionStatus.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionStatus.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_IntersectionStatus: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionStatus.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_IntersectionStatus
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_IntersectionStatus/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionStatus.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionStatus.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_IntersectionStatus/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostInfo.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostInfo.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostInfo.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_NpcGhostInfo: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostInfo.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_NpcGhostInfo
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_NpcGhostInfo/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostInfo.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostInfo.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_NpcGhostInfo/fast
+_morai_msgs_generate_messages_check_deps_SaveSensorData/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SaveSensorData.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SaveSensorData.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_SaveSensorData/fast
 
 # Convenience name for target.
 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_RadarTracks.dir/rule:
@@ -498,6 +393,21 @@ _morai_msgs_generate_messages_check_deps_RadarTracks/fast:
 .PHONY : _morai_msgs_generate_messages_check_deps_RadarTracks/fast
 
 # Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostInfo.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostInfo.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostInfo.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_NpcGhostInfo: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostInfo.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_NpcGhostInfo
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_NpcGhostInfo/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostInfo.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostInfo.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_NpcGhostInfo/fast
+
+# Convenience name for target.
 morai_msgs/CMakeFiles/morai_msgs_gennodejs.dir/rule:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/morai_msgs_gennodejs.dir/rule
 .PHONY : morai_msgs/CMakeFiles/morai_msgs_gennodejs.dir/rule
@@ -511,111 +421,6 @@ morai_msgs_gennodejs: morai_msgs/CMakeFiles/morai_msgs_gennodejs.dir/rule
 morai_msgs_gennodejs/fast:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/morai_msgs_gennodejs.dir/build.make morai_msgs/CMakeFiles/morai_msgs_gennodejs.dir/build
 .PHONY : morai_msgs_gennodejs/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ScenarioLoad.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ScenarioLoad.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ScenarioLoad.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_ScenarioLoad: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ScenarioLoad.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_ScenarioLoad
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_ScenarioLoad/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ScenarioLoad.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ScenarioLoad.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_ScenarioLoad/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-.PHONY : morai_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_lisp: morai_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_lisp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_lisp/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make morai_msgs/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build
-.PHONY : geometry_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-.PHONY : morai_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_cpp: morai_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_cpp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_cpp/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make morai_msgs/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
-.PHONY : geometry_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSimProcSrv
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcSrv.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSimProcSrv/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-.PHONY : morai_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_nodejs: morai_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-geometry_msgs_generate_messages_nodejs/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make morai_msgs/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build
-.PHONY : geometry_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-.PHONY : morai_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_eus: morai_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_eus
-
-# fast build rule for target.
-geometry_msgs_generate_messages_eus/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make morai_msgs/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
-.PHONY : geometry_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeCtrlCmdSrv.dir/rule:
@@ -693,109 +498,79 @@ _morai_msgs_generate_messages_check_deps_TrafficLight/fast:
 .PHONY : _morai_msgs_generate_messages_check_deps_TrafficLight/fast
 
 # Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSrvResponse.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSrvResponse.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSrvResponse.dir/rule
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionControl.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionControl.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionControl.dir/rule
 
 # Convenience name for target.
-_morai_msgs_generate_messages_check_deps_MoraiSrvResponse: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSrvResponse.dir/rule
+_morai_msgs_generate_messages_check_deps_IntersectionControl: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionControl.dir/rule
 
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSrvResponse
+.PHONY : _morai_msgs_generate_messages_check_deps_IntersectionControl
 
 # fast build rule for target.
-_morai_msgs_generate_messages_check_deps_MoraiSrvResponse/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSrvResponse.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSrvResponse.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSrvResponse/fast
+_morai_msgs_generate_messages_check_deps_IntersectionControl/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionControl.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionControl.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_IntersectionControl/fast
 
 # Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SaveSensorData.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SaveSensorData.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SaveSensorData.dir/rule
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleSpecIndex.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleSpecIndex.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleSpecIndex.dir/rule
 
 # Convenience name for target.
-_morai_msgs_generate_messages_check_deps_SaveSensorData: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SaveSensorData.dir/rule
+_morai_msgs_generate_messages_check_deps_VehicleSpecIndex: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleSpecIndex.dir/rule
 
-.PHONY : _morai_msgs_generate_messages_check_deps_SaveSensorData
+.PHONY : _morai_msgs_generate_messages_check_deps_VehicleSpecIndex
 
 # fast build rule for target.
-_morai_msgs_generate_messages_check_deps_SaveSensorData/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SaveSensorData.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SaveSensorData.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_SaveSensorData/fast
+_morai_msgs_generate_messages_check_deps_VehicleSpecIndex/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleSpecIndex.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleSpecIndex.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_VehicleSpecIndex/fast
 
 # Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeAddObj.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeAddObj.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeAddObj.dir/rule
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CollisionData.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CollisionData.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CollisionData.dir/rule
 
 # Convenience name for target.
-_morai_msgs_generate_messages_check_deps_SyncModeAddObj: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeAddObj.dir/rule
+_morai_msgs_generate_messages_check_deps_CollisionData: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CollisionData.dir/rule
 
-.PHONY : _morai_msgs_generate_messages_check_deps_SyncModeAddObj
+.PHONY : _morai_msgs_generate_messages_check_deps_CollisionData
 
 # fast build rule for target.
-_morai_msgs_generate_messages_check_deps_SyncModeAddObj/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeAddObj.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeAddObj.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_SyncModeAddObj/fast
+_morai_msgs_generate_messages_check_deps_CollisionData/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CollisionData.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_CollisionData.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_CollisionData/fast
 
 # Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv.dir/rule
+morai_msgs/CMakeFiles/morai_msgs_generate_messages.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/morai_msgs_generate_messages.dir/rule
+.PHONY : morai_msgs/CMakeFiles/morai_msgs_generate_messages.dir/rule
 
 # Convenience name for target.
-_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv.dir/rule
+morai_msgs_generate_messages: morai_msgs/CMakeFiles/morai_msgs_generate_messages.dir/rule
 
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv
+.PHONY : morai_msgs_generate_messages
 
 # fast build rule for target.
-_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv/fast
+morai_msgs_generate_messages/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/morai_msgs_generate_messages.dir/build.make morai_msgs/CMakeFiles/morai_msgs_generate_messages.dir/build
+.PHONY : morai_msgs_generate_messages/fast
 
 # Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj.dir/rule
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv.dir/rule
 
 # Convenience name for target.
-_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj.dir/rule
+_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv.dir/rule
 
-.PHONY : _morai_msgs_generate_messages_check_deps_SyncModeRemoveObj
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv
 
 # fast build rule for target.
-_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeRemoveObj.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_SyncModeRemoveObj/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-.PHONY : morai_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_py: morai_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_py
-
-# fast build rule for target.
-geometry_msgs_generate_messages_py/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make morai_msgs/CMakeFiles/geometry_msgs_generate_messages_py.dir/build
-.PHONY : geometry_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/morai_msgs_generate_messages_eus.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/morai_msgs_generate_messages_eus.dir/rule
-.PHONY : morai_msgs/CMakeFiles/morai_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-morai_msgs_generate_messages_eus: morai_msgs/CMakeFiles/morai_msgs_generate_messages_eus.dir/rule
-
-.PHONY : morai_msgs_generate_messages_eus
-
-# fast build rule for target.
-morai_msgs_generate_messages_eus/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/morai_msgs_generate_messages_eus.dir/build.make morai_msgs/CMakeFiles/morai_msgs_generate_messages_eus.dir/build
-.PHONY : morai_msgs_generate_messages_eus/fast
+_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv/fast
 
 # Convenience name for target.
 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostCmd.dir/rule:
@@ -811,6 +586,21 @@ _morai_msgs_generate_messages_check_deps_NpcGhostCmd: morai_msgs/CMakeFiles/_mor
 _morai_msgs_generate_messages_check_deps_NpcGhostCmd/fast:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostCmd.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_NpcGhostCmd.dir/build
 .PHONY : _morai_msgs_generate_messages_check_deps_NpcGhostCmd/fast
+
+# Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionStatus.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionStatus.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionStatus.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_IntersectionStatus: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionStatus.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_IntersectionStatus
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_IntersectionStatus/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionStatus.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntersectionStatus.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_IntersectionStatus/fast
 
 # Convenience name for target.
 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiVehicleSpecSrv.dir/rule:
@@ -843,19 +633,94 @@ _morai_msgs_generate_messages_check_deps_RadarTrack/fast:
 .PHONY : _morai_msgs_generate_messages_check_deps_RadarTrack/fast
 
 # Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv.dir/rule
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus.dir/rule
 
 # Convenience name for target.
-_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv.dir/rule
+_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus.dir/rule
 
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSimProcStatus
 
 # fast build rule for target.
-_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv/fast
+_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiSimProcStatus.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiSimProcStatus/fast
+
+# Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleCollisionData.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleCollisionData.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleCollisionData.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_VehicleCollisionData: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleCollisionData.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_VehicleCollisionData
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_VehicleCollisionData/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleCollisionData.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_VehicleCollisionData.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_VehicleCollisionData/fast
+
+# Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeAddObj.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeAddObj.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeAddObj.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_SyncModeAddObj: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeAddObj.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_SyncModeAddObj
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_SyncModeAddObj/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeAddObj.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SyncModeAddObj.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_SyncModeAddObj/fast
+
+# Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ERP42Info.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ERP42Info.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ERP42Info.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_ERP42Info: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ERP42Info.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_ERP42Info
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_ERP42Info/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ERP42Info.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ERP42Info.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_ERP42Info/fast
+
+# Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRCtrlCmd.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRCtrlCmd.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRCtrlCmd.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_PRCtrlCmd: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRCtrlCmd.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_PRCtrlCmd
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_PRCtrlCmd/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRCtrlCmd.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_PRCtrlCmd.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_PRCtrlCmd/fast
+
+# Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ScenarioLoad.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ScenarioLoad.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ScenarioLoad.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_ScenarioLoad: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ScenarioLoad.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_ScenarioLoad
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_ScenarioLoad/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ScenarioLoad.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_ScenarioLoad.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_ScenarioLoad/fast
 
 # Convenience name for target.
 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_SensorPosControl.dir/rule:
@@ -1113,36 +978,6 @@ _morai_msgs_generate_messages_check_deps_MoraiScenarioLoadSrv/fast:
 .PHONY : _morai_msgs_generate_messages_check_deps_MoraiScenarioLoadSrv/fast
 
 # Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EgoVehicleStatus.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EgoVehicleStatus.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EgoVehicleStatus.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_EgoVehicleStatus: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EgoVehicleStatus.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_EgoVehicleStatus
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_EgoVehicleStatus/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EgoVehicleStatus.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EgoVehicleStatus.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_EgoVehicleStatus/fast
-
-# Convenience name for target.
-morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MapSpec.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MapSpec.dir/rule
-.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MapSpec.dir/rule
-
-# Convenience name for target.
-_morai_msgs_generate_messages_check_deps_MapSpec: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MapSpec.dir/rule
-
-.PHONY : _morai_msgs_generate_messages_check_deps_MapSpec
-
-# fast build rule for target.
-_morai_msgs_generate_messages_check_deps_MapSpec/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MapSpec.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MapSpec.dir/build
-.PHONY : _morai_msgs_generate_messages_check_deps_MapSpec/fast
-
-# Convenience name for target.
 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EventInfo.dir/rule:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EventInfo.dir/rule
 .PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EventInfo.dir/rule
@@ -1293,6 +1128,51 @@ _morai_msgs_generate_messages_check_deps_PREvent/fast:
 .PHONY : _morai_msgs_generate_messages_check_deps_PREvent/fast
 
 # Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MapSpec.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MapSpec.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MapSpec.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_MapSpec: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MapSpec.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_MapSpec
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_MapSpec/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MapSpec.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MapSpec.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_MapSpec/fast
+
+# Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EgoVehicleStatus.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EgoVehicleStatus.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EgoVehicleStatus.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_EgoVehicleStatus: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EgoVehicleStatus.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_EgoVehicleStatus
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_EgoVehicleStatus/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EgoVehicleStatus.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_EgoVehicleStatus.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_EgoVehicleStatus/fast
+
+# Convenience name for target.
+morai_msgs/CMakeFiles/morai_msgs_generate_messages_eus.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/morai_msgs_generate_messages_eus.dir/rule
+.PHONY : morai_msgs/CMakeFiles/morai_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+morai_msgs_generate_messages_eus: morai_msgs/CMakeFiles/morai_msgs_generate_messages_eus.dir/rule
+
+.PHONY : morai_msgs_generate_messages_eus
+
+# fast build rule for target.
+morai_msgs_generate_messages_eus/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/morai_msgs_generate_messages_eus.dir/build.make morai_msgs/CMakeFiles/morai_msgs_generate_messages_eus.dir/build
+.PHONY : morai_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntscnTL.dir/rule:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntscnTL.dir/rule
 .PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_IntscnTL.dir/rule
@@ -1367,6 +1247,51 @@ morai_msgs_generate_messages_nodejs/fast:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/morai_msgs_generate_messages_nodejs.dir/build.make morai_msgs/CMakeFiles/morai_msgs_generate_messages_nodejs.dir/build
 .PHONY : morai_msgs_generate_messages_nodejs/fast
 
+# Convenience name for target.
+morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLInfo.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLInfo.dir/rule
+.PHONY : morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLInfo.dir/rule
+
+# Convenience name for target.
+_morai_msgs_generate_messages_check_deps_MoraiTLInfo: morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLInfo.dir/rule
+
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiTLInfo
+
+# fast build rule for target.
+_morai_msgs_generate_messages_check_deps_MoraiTLInfo/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLInfo.dir/build.make morai_msgs/CMakeFiles/_morai_msgs_generate_messages_check_deps_MoraiTLInfo.dir/build
+.PHONY : _morai_msgs_generate_messages_check_deps_MoraiTLInfo/fast
+
+# Convenience name for target.
+morai_msgs/CMakeFiles/morai_msgs_generate_messages_py.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/morai_msgs_generate_messages_py.dir/rule
+.PHONY : morai_msgs/CMakeFiles/morai_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+morai_msgs_generate_messages_py: morai_msgs/CMakeFiles/morai_msgs_generate_messages_py.dir/rule
+
+.PHONY : morai_msgs_generate_messages_py
+
+# fast build rule for target.
+morai_msgs_generate_messages_py/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/morai_msgs_generate_messages_py.dir/build.make morai_msgs/CMakeFiles/morai_msgs_generate_messages_py.dir/build
+.PHONY : morai_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+morai_msgs/CMakeFiles/morai_msgs_genpy.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 morai_msgs/CMakeFiles/morai_msgs_genpy.dir/rule
+.PHONY : morai_msgs/CMakeFiles/morai_msgs_genpy.dir/rule
+
+# Convenience name for target.
+morai_msgs_genpy: morai_msgs/CMakeFiles/morai_msgs_genpy.dir/rule
+
+.PHONY : morai_msgs_genpy
+
+# fast build rule for target.
+morai_msgs_genpy/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f morai_msgs/CMakeFiles/morai_msgs_genpy.dir/build.make morai_msgs/CMakeFiles/morai_msgs_genpy.dir/build
+.PHONY : morai_msgs_genpy/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1375,56 +1300,45 @@ help:
 	@echo "... depend"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... rebuild_cache"
-	@echo "... test"
-	@echo "... morai_msgs_genpy"
+	@echo "... _morai_msgs_generate_messages_check_deps_SyncModeRemoveObj"
+	@echo "... _morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv"
+	@echo "... _morai_msgs_generate_messages_check_deps_PRStatus"
 	@echo "... _morai_msgs_generate_messages_check_deps_ObjectStatusList"
 	@echo "... _morai_msgs_generate_messages_check_deps_SyncModeInfo"
+	@echo "... _morai_msgs_generate_messages_check_deps_MoraiSimProcSrv"
 	@echo "... _morai_msgs_generate_messages_check_deps_MoraiTLIndex"
 	@echo "... morai_msgs_generate_messages_lisp"
+	@echo "... _morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv"
 	@echo "... _morai_msgs_generate_messages_check_deps_SyncModeCmd"
-	@echo "... morai_msgs_generate_messages_py"
-	@echo "... _morai_msgs_generate_messages_check_deps_MoraiTLInfo"
-	@echo "... _morai_msgs_generate_messages_check_deps_PRStatus"
 	@echo "... _morai_msgs_generate_messages_check_deps_CtrlCmd"
 	@echo "... _morai_msgs_generate_messages_check_deps_SyncModeSetGear"
-	@echo "... _morai_msgs_generate_messages_check_deps_PRCtrlCmd"
-	@echo "... install/strip"
-	@echo "... _morai_msgs_generate_messages_check_deps_ERP42Info"
-	@echo "... _morai_msgs_generate_messages_check_deps_IntersectionControl"
-	@echo "... _morai_msgs_generate_messages_check_deps_VehicleSpecIndex"
-	@echo "... _morai_msgs_generate_messages_check_deps_MoraiSimProcStatus"
-	@echo "... _morai_msgs_generate_messages_check_deps_VehicleCollisionData"
-	@echo "... _morai_msgs_generate_messages_check_deps_CollisionData"
-	@echo "... morai_msgs_generate_messages"
-	@echo "... _morai_msgs_generate_messages_check_deps_IntersectionStatus"
-	@echo "... _morai_msgs_generate_messages_check_deps_NpcGhostInfo"
+	@echo "... _morai_msgs_generate_messages_check_deps_MoraiSrvResponse"
+	@echo "... _morai_msgs_generate_messages_check_deps_SaveSensorData"
 	@echo "... _morai_msgs_generate_messages_check_deps_RadarTracks"
+	@echo "... _morai_msgs_generate_messages_check_deps_NpcGhostInfo"
 	@echo "... morai_msgs_gennodejs"
-	@echo "... _morai_msgs_generate_messages_check_deps_ScenarioLoad"
-	@echo "... geometry_msgs_generate_messages_lisp"
-	@echo "... geometry_msgs_generate_messages_cpp"
-	@echo "... _morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv"
-	@echo "... _morai_msgs_generate_messages_check_deps_MoraiSimProcSrv"
-	@echo "... geometry_msgs_generate_messages_nodejs"
-	@echo "... geometry_msgs_generate_messages_eus"
 	@echo "... _morai_msgs_generate_messages_check_deps_MoraiSyncModeCtrlCmdSrv"
 	@echo "... _morai_msgs_generate_messages_check_deps_SyncModeResultResponse"
 	@echo "... _morai_msgs_generate_messages_check_deps_MoraiWaitForTickSrv"
 	@echo "... _morai_msgs_generate_messages_check_deps_ReplayInfo"
 	@echo "... _morai_msgs_generate_messages_check_deps_TrafficLight"
-	@echo "... _morai_msgs_generate_messages_check_deps_MoraiSrvResponse"
-	@echo "... _morai_msgs_generate_messages_check_deps_SaveSensorData"
-	@echo "... _morai_msgs_generate_messages_check_deps_SyncModeAddObj"
-	@echo "... _morai_msgs_generate_messages_check_deps_MoraiEventCmdSrv"
-	@echo "... _morai_msgs_generate_messages_check_deps_SyncModeRemoveObj"
-	@echo "... geometry_msgs_generate_messages_py"
-	@echo "... morai_msgs_generate_messages_eus"
+	@echo "... _morai_msgs_generate_messages_check_deps_IntersectionControl"
+	@echo "... _morai_msgs_generate_messages_check_deps_VehicleSpecIndex"
+	@echo "... _morai_msgs_generate_messages_check_deps_CollisionData"
+	@echo "... morai_msgs_generate_messages"
+	@echo "... _morai_msgs_generate_messages_check_deps_MoraiSyncModeSetGearSrv"
 	@echo "... install/local"
 	@echo "... _morai_msgs_generate_messages_check_deps_NpcGhostCmd"
+	@echo "... _morai_msgs_generate_messages_check_deps_IntersectionStatus"
 	@echo "... _morai_msgs_generate_messages_check_deps_MoraiVehicleSpecSrv"
 	@echo "... _morai_msgs_generate_messages_check_deps_RadarTrack"
-	@echo "... _morai_msgs_generate_messages_check_deps_MoraiMapSpecSrv"
+	@echo "... _morai_msgs_generate_messages_check_deps_MoraiSimProcStatus"
+	@echo "... _morai_msgs_generate_messages_check_deps_VehicleCollisionData"
+	@echo "... _morai_msgs_generate_messages_check_deps_SyncModeAddObj"
+	@echo "... install/strip"
+	@echo "... _morai_msgs_generate_messages_check_deps_ERP42Info"
+	@echo "... _morai_msgs_generate_messages_check_deps_PRCtrlCmd"
+	@echo "... _morai_msgs_generate_messages_check_deps_ScenarioLoad"
 	@echo "... _morai_msgs_generate_messages_check_deps_SensorPosControl"
 	@echo "... _morai_msgs_generate_messages_check_deps_SetTrafficLight"
 	@echo "... _morai_msgs_generate_messages_check_deps_GetTrafficLightStatus"
@@ -1442,8 +1356,6 @@ help:
 	@echo "... morai_msgs_gencpp"
 	@echo "... _morai_msgs_generate_messages_check_deps_SyncModeCmdResponse"
 	@echo "... _morai_msgs_generate_messages_check_deps_MoraiScenarioLoadSrv"
-	@echo "... _morai_msgs_generate_messages_check_deps_EgoVehicleStatus"
-	@echo "... _morai_msgs_generate_messages_check_deps_MapSpec"
 	@echo "... _morai_msgs_generate_messages_check_deps_EventInfo"
 	@echo "... _morai_msgs_generate_messages_check_deps_WaitForTickResponse"
 	@echo "... _morai_msgs_generate_messages_check_deps_MapSpecIndex"
@@ -1455,11 +1367,19 @@ help:
 	@echo "... _morai_msgs_generate_messages_check_deps_RadarDetection"
 	@echo "... morai_msgs_generate_messages_cpp"
 	@echo "... _morai_msgs_generate_messages_check_deps_PREvent"
+	@echo "... _morai_msgs_generate_messages_check_deps_MapSpec"
+	@echo "... _morai_msgs_generate_messages_check_deps_EgoVehicleStatus"
+	@echo "... morai_msgs_generate_messages_eus"
 	@echo "... _morai_msgs_generate_messages_check_deps_IntscnTL"
 	@echo "... _morai_msgs_generate_messages_check_deps_ObjectStatus"
 	@echo "... morai_msgs_genlisp"
 	@echo "... _morai_msgs_generate_messages_check_deps_GhostMessage"
 	@echo "... morai_msgs_generate_messages_nodejs"
+	@echo "... _morai_msgs_generate_messages_check_deps_MoraiTLInfo"
+	@echo "... morai_msgs_generate_messages_py"
+	@echo "... morai_msgs_genpy"
+	@echo "... test"
+	@echo "... rebuild_cache"
 .PHONY : help
 
 

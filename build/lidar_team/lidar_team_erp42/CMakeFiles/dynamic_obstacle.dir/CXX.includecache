@@ -38,6 +38,22 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
+/home/foscar/ISCC_2022/devel/include/lidar_team_erp42/DynamicVelocity.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
 /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/Waypoint.h
 string
 -
@@ -232,6 +248,8 @@ lidar_team_erp42/Boundingbox.h
 lidar_team_erp42/Waypoint.h
 -
 lidar_team_erp42/Delivery.h
+-
+lidar_team_erp42/DynamicVelocity.h
 -
 dynamic_reconfigure/server.h
 -

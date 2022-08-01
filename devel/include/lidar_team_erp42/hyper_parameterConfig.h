@@ -465,7 +465,7 @@ hyper_parameterConfig::GroupDescription<hyper_parameterConfig::DEFAULT, hyper_pa
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.epsilon = 20.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.epsilon = 0.3;
+      __default__.epsilon = 0.4;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(hyper_parameterConfig::AbstractParamDescriptionConstPtr(new hyper_parameterConfig::ParamDescription<double>("epsilon", "double", 0, "epsilon", "", &hyper_parameterConfig::epsilon)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -485,7 +485,7 @@ hyper_parameterConfig::GroupDescription<hyper_parameterConfig::DEFAULT, hyper_pa
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.maxClusterSize = 10000.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.maxClusterSize = 10000.0;
+      __default__.maxClusterSize = 1000.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(hyper_parameterConfig::AbstractParamDescriptionConstPtr(new hyper_parameterConfig::ParamDescription<double>("maxClusterSize", "double", 0, "maxClusterSize", "", &hyper_parameterConfig::maxClusterSize)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -505,7 +505,7 @@ hyper_parameterConfig::GroupDescription<hyper_parameterConfig::DEFAULT, hyper_pa
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.xMaxROI = 200.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.xMaxROI = 10.0;
+      __default__.xMaxROI = 8.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(hyper_parameterConfig::AbstractParamDescriptionConstPtr(new hyper_parameterConfig::ParamDescription<double>("xMaxROI", "double", 0, "xMaxROI", "", &hyper_parameterConfig::xMaxROI)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -515,7 +515,7 @@ hyper_parameterConfig::GroupDescription<hyper_parameterConfig::DEFAULT, hyper_pa
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.yMinROI = 10.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.yMinROI = -5.0;
+      __default__.yMinROI = -4.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(hyper_parameterConfig::AbstractParamDescriptionConstPtr(new hyper_parameterConfig::ParamDescription<double>("yMinROI", "double", 0, "yMinROI", "", &hyper_parameterConfig::yMinROI)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -525,7 +525,7 @@ hyper_parameterConfig::GroupDescription<hyper_parameterConfig::DEFAULT, hyper_pa
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.yMaxROI = 200.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.yMaxROI = 5.0;
+      __default__.yMaxROI = 4.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(hyper_parameterConfig::AbstractParamDescriptionConstPtr(new hyper_parameterConfig::ParamDescription<double>("yMaxROI", "double", 0, "yMaxROI", "", &hyper_parameterConfig::yMaxROI)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -535,7 +535,7 @@ hyper_parameterConfig::GroupDescription<hyper_parameterConfig::DEFAULT, hyper_pa
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.zMinROI = 0.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.zMinROI = -0.62;
+      __default__.zMinROI = -0.68;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(hyper_parameterConfig::AbstractParamDescriptionConstPtr(new hyper_parameterConfig::ParamDescription<double>("zMinROI", "double", 0, "zMinROI", "", &hyper_parameterConfig::zMinROI)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -545,7 +545,7 @@ hyper_parameterConfig::GroupDescription<hyper_parameterConfig::DEFAULT, hyper_pa
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.zMaxROI = 100.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.zMaxROI = 0.0;
+      __default__.zMaxROI = 2.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(hyper_parameterConfig::AbstractParamDescriptionConstPtr(new hyper_parameterConfig::ParamDescription<double>("zMaxROI", "double", 0, "zMaxROI", "", &hyper_parameterConfig::zMaxROI)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -555,7 +555,7 @@ hyper_parameterConfig::GroupDescription<hyper_parameterConfig::DEFAULT, hyper_pa
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.xMinBoundingBox = 10.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.xMinBoundingBox = 0.0;
+      __default__.xMinBoundingBox = 0.05;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(hyper_parameterConfig::AbstractParamDescriptionConstPtr(new hyper_parameterConfig::ParamDescription<double>("xMinBoundingBox", "double", 0, "xMinBoundingBox", "", &hyper_parameterConfig::xMinBoundingBox)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -575,7 +575,7 @@ hyper_parameterConfig::GroupDescription<hyper_parameterConfig::DEFAULT, hyper_pa
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.yMinBoundingBox = 10.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.yMinBoundingBox = 0.0;
+      __default__.yMinBoundingBox = 0.05;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(hyper_parameterConfig::AbstractParamDescriptionConstPtr(new hyper_parameterConfig::ParamDescription<double>("yMinBoundingBox", "double", 0, "yMinBoundingBox", "", &hyper_parameterConfig::yMinBoundingBox)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -595,7 +595,7 @@ hyper_parameterConfig::GroupDescription<hyper_parameterConfig::DEFAULT, hyper_pa
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.zMinBoundingBox = 0.1;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.zMinBoundingBox = 0.005;
+      __default__.zMinBoundingBox = 0.05;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(hyper_parameterConfig::AbstractParamDescriptionConstPtr(new hyper_parameterConfig::ParamDescription<double>("zMinBoundingBox", "double", 0, "zMinBoundingBox", "", &hyper_parameterConfig::zMinBoundingBox)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"

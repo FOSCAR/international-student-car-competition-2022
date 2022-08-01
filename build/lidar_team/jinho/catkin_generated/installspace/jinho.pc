@@ -1,0 +1,8 @@
+prefix=/home/foscar/ISCC_2022/install
+
+Name: jinho
+Description: Description of jinho
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -ljinho
+Requires: pcl pcl_ros roscpp rospy sensor_msgs dynamic_reconfigure message_runtime

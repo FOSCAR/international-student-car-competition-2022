@@ -186,7 +186,7 @@ void PurePursuitNode::run(char** argv) {
 
       // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
       if(pp_.reachMissionIdx(slow_down_tf_idx_1) && !pp_.straight_go_flag) {
-        while(const_velocity_ > 1){
+        while(const_velocity_ > 2){
             const_velocity_ -= 0.1;
             pulishControlMsg(const_velocity_ , 0);
             ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
@@ -218,7 +218,7 @@ void PurePursuitNode::run(char** argv) {
         //동적장애물 멀리서 장애물 감지 -> 감속
         if(pp_.is_dynamic_obstacle_detected_long){
             while(pp_.is_dynamic_obstacle_detected_long){
-            if (const_velocity_ > 3) {
+            if (const_velocity_ > 2) {
                 const_velocity_ -= 0.1;
             }
             pulishControlMsg(const_velocity_ , steering_memory);

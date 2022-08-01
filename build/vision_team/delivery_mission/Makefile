@@ -80,16 +80,15 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\" \"main\""
+.PHONY : list_install_components
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
 
-.PHONY : edit_cache/fast
+.PHONY : list_install_components/fast
 
 # Special rule for the target test
 test:
@@ -125,15 +124,16 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\" \"main\""
-.PHONY : list_install_components
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
 
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
 
-.PHONY : list_install_components/fast
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -181,21 +181,6 @@ delivery_mission_geneus: vision_team/delivery_mission/CMakeFiles/delivery_missio
 delivery_mission_geneus/fast:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/delivery_mission_geneus.dir/build.make vision_team/delivery_mission/CMakeFiles/delivery_mission_geneus.dir/build
 .PHONY : delivery_mission_geneus/fast
-
-# Convenience name for target.
-vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/rule
-.PHONY : vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-delivery_mission_generate_messages_eus: vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/rule
-
-.PHONY : delivery_mission_generate_messages_eus
-
-# fast build rule for target.
-delivery_mission_generate_messages_eus/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/build.make vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/build
-.PHONY : delivery_mission_generate_messages_eus/fast
 
 # Convenience name for target.
 vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages.dir/rule:
@@ -347,6 +332,63 @@ delivery_mission_genlisp/fast:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/delivery_mission_genlisp.dir/build.make vision_team/delivery_mission/CMakeFiles/delivery_mission_genlisp.dir/build
 .PHONY : delivery_mission_genlisp/fast
 
+# Convenience name for target.
+vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/rule
+.PHONY : vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+delivery_mission_generate_messages_eus: vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/rule
+
+.PHONY : delivery_mission_generate_messages_eus
+
+# fast build rule for target.
+delivery_mission_generate_messages_eus/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/build.make vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/build
+.PHONY : delivery_mission_generate_messages_eus/fast
+
+# Convenience name for target.
+vision_team/delivery_mission/CMakeFiles/straight_test.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 vision_team/delivery_mission/CMakeFiles/straight_test.dir/rule
+.PHONY : vision_team/delivery_mission/CMakeFiles/straight_test.dir/rule
+
+# Convenience name for target.
+straight_test: vision_team/delivery_mission/CMakeFiles/straight_test.dir/rule
+
+.PHONY : straight_test
+
+# fast build rule for target.
+straight_test/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test.dir/build
+.PHONY : straight_test/fast
+
+src/straight_test.o: src/straight_test.cpp.o
+
+.PHONY : src/straight_test.o
+
+# target to build an object file
+src/straight_test.cpp.o:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test.dir/src/straight_test.cpp.o
+.PHONY : src/straight_test.cpp.o
+
+src/straight_test.i: src/straight_test.cpp.i
+
+.PHONY : src/straight_test.i
+
+# target to preprocess a source file
+src/straight_test.cpp.i:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test.dir/src/straight_test.cpp.i
+.PHONY : src/straight_test.cpp.i
+
+src/straight_test.s: src/straight_test.cpp.s
+
+.PHONY : src/straight_test.s
+
+# target to generate assembly for a file
+src/straight_test.cpp.s:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test.dir/src/straight_test.cpp.s
+.PHONY : src/straight_test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -355,9 +397,8 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install"
+	@echo "... list_install_components"
 	@echo "... delivery_mission_geneus"
-	@echo "... edit_cache"
-	@echo "... delivery_mission_generate_messages_eus"
 	@echo "... test"
 	@echo "... delivery_mission_generate_messages"
 	@echo "... delivery_mission_genpy"
@@ -371,7 +412,12 @@ help:
 	@echo "... delivery_mission_gennodejs"
 	@echo "... install/local"
 	@echo "... delivery_mission_genlisp"
-	@echo "... list_install_components"
+	@echo "... edit_cache"
+	@echo "... delivery_mission_generate_messages_eus"
+	@echo "... straight_test"
+	@echo "... src/straight_test.o"
+	@echo "... src/straight_test.i"
+	@echo "... src/straight_test.s"
 .PHONY : help
 
 

@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/lidar_team_morai_generate_messages_lisp"
   "/home/foscar/ISCC_2022/devel/share/common-lisp/ros/lidar_team_morai/msg/Boundingbox.lisp"
   "/home/foscar/ISCC_2022/devel/share/common-lisp/ros/lidar_team_morai/msg/Waypoint.lisp"
+  "/home/foscar/ISCC_2022/devel/share/common-lisp/ros/lidar_team_morai/msg/PurePursuit.lisp"
 )
 
 # Per-language clean rules from dependency scanning.

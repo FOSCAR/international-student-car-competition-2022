@@ -18,6 +18,9 @@ from geometry_msgs.msg import PoseStamped,Point
 from visualization_msgs.msg import Marker
 from visualization_msgs.msg import MarkerArray
 from morai_msgs.msg import EgoVehicleStatus, CtrlCmd
+from ar_track_alvar_msgs.msg import AlvarMarkers
+from tf.transformations import euler_from_quaternion
+
 
 from morai_msgs.msg import ObjectStatusList 
 from utils import pathReader, latticePlanner
@@ -49,6 +52,8 @@ current_velocity = 0
 status_msg = None
 global_path = None
 
+arData = {"DX":0.0, "DY":0.0, "DZ": 0.0, "AX": 0.0, "AY": 0.0, "AZ": 0.0, "AW": 0.0}
+
 is_obs_detected_long = False
 is_obs_detected = False
 
@@ -75,6 +80,7 @@ def proportional_control(target, current):
     a = Kp * (target - current)
 
     return a
+
 
 
 class TargetCourse:
@@ -205,14 +211,32 @@ def st_callback(msg):
 #         path_y = tuple(path_y)
 #         # print(type(path_x))
 
+def callback(msg):
+    global arData
+
+    for i in msg.markers:
+        arData["DX"] = i.pose.pose.position.x
+        arData["DY"] = i.pose.pose.position.y
+        arData["DZ"] = i.pose.pose.position.z
+
+        arData["AX"] = i.pose.pose.orientation.x
+        arData["AY"] = i.pose.pose.orientation.y
+        arData["AZ"] = i.pose.pose.orientation.z
+        arData["AW"] = i.pose.pose.orientation.w
+
+    # print(msg.pose)
+    print("############")
+
 if __name__ == '__main__':
     rospy.init_node('path_reader', anonymous=True)
 
     rospy.Subscriber("/Ego_topic", EgoVehicleStatus, statusCB)
     rospy.Subscriber("/static_obs_flag_long", Bool, st_long_callback)
     rospy.Subscriber("/static_obs_flag_short", Bool, st_callback)
+    rospy.Subscriber("current_pose", AlvarMarkers, callback)
+    
 
-    global_path_pub= rospy.Publisher('/global_path', Path, queue_size=1)
+    global_path_pub= rospy.Publisher('/global_path', Path, queue_size = 1)
     target_pub = rospy.Publisher('target_point', Marker, queue_size = 1)
     ctrl_pub = rospy.Publisher("/ctrl_cmd", CtrlCmd, queue_size = 1)
 
@@ -226,6 +250,17 @@ if __name__ == '__main__':
     arg = rospy.myargv(argv=sys.argv)
 
     while not rospy.is_shutdown():
+
+        (roll, pitch, yaw)=euler_from_quaternion((arData["AX"], arData["AY"], arData["AZ"], arData["AW"]))
+
+        roll = math.degrees(roll)
+        pitch = math.degrees(pitch)
+        yaw = math.degrees(yaw)
+        
+        # print("roll: ", roll)
+        # print("pitch: ", pitch)
+        # print("yaw: ", yaw)
+
         if status_msg != None:
             
             if is_obs_detected_long and count == 0:
@@ -235,14 +270,14 @@ if __name__ == '__main__':
                 global_path=path_reader.read_txt(arg[2]+".txt")
                 start = time.time()
                 while time.time() - start < 1:
-                    print("1")
+                    # print("1")
                     ctrl_msg.steering = -0.3
                     ctrl_msg.velocity = 10
                     ctrl_pub.publish(ctrl_msg)
 
                 start = time.time()
                 while time.time() - start < 0.5:
-                    print("2")
+                    # print("2")
                     ctrl_msg.steering = 0.15
                     ctrl_msg.velocity = 10
                     ctrl_pub.publish(ctrl_msg)
@@ -253,14 +288,14 @@ if __name__ == '__main__':
                 global_path=path_reader.read_txt(arg[1]+".txt")
                 start = time.time()
                 while time.time() - start < 1:
-                    print("3")
+                    # print("3")
                     ctrl_msg.steering = 0.3
                     ctrl_msg.velocity = 10
                     ctrl_pub.publish(ctrl_msg)
 
                 start = time.time()
                 while time.time() - start < 0.5:
-                    print("4")
+                    # print("4")
                     ctrl_msg.steering = -0.15
                     ctrl_msg.velocity = 10
                     ctrl_pub.publish(ctrl_msg)

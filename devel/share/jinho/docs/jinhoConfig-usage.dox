@@ -1,0 +1,19 @@
+\subsubsection usage Usage
+\verbatim
+<node name="jinho_node" pkg="jinho" type="jinho_node">
+  <param name="x_min" type="double" value="0.2" />
+  <param name="x_max" type="double" value="12.0" />
+  <param name="y_min" type="double" value="-8.0" />
+  <param name="y_max" type="double" value="8.0" />
+  <param name="z_min" type="double" value="-0.5" />
+  <param name="z_max" type="double" value="-0.1" />
+  <param name="minPoints" type="int" value="1" />
+  <param name="epsilon" type="double" value="0.7" />
+  <param name="minClusterSize" type="double" value="1.0" />
+  <param name="maxClusterSize" type="double" value="8200.0" />
+  <param name="objectRadiusWeight" type="double" value="0.58" />
+  <param name="pivotX" type="double" value="0.0" />
+  <param name="pivotY" type="double" value="0.0" />
+</node>
+\endverbatim
+

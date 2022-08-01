@@ -113,17 +113,6 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -134,6 +123,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,49 +168,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/obstacle_detector_nodelets.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/obstacle_detector_nodelets.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/obstacle_detector_nodelets.dir/rule
+gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_Obstacles.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_Obstacles.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_Obstacles.dir/rule
 
 # Convenience name for target.
-obstacle_detector_nodelets: gps_team/obstacle_detector/CMakeFiles/obstacle_detector_nodelets.dir/rule
+_obstacle_detector_generate_messages_check_deps_Obstacles: gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_Obstacles.dir/rule
 
-.PHONY : obstacle_detector_nodelets
+.PHONY : _obstacle_detector_generate_messages_check_deps_Obstacles
 
 # fast build rule for target.
-obstacle_detector_nodelets/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/obstacle_detector_nodelets.dir/build.make gps_team/obstacle_detector/CMakeFiles/obstacle_detector_nodelets.dir/build
-.PHONY : obstacle_detector_nodelets/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_eus.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_eus.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-visualization_msgs_generate_messages_eus: gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_eus.dir/rule
-
-.PHONY : visualization_msgs_generate_messages_eus
-
-# fast build rule for target.
-visualization_msgs_generate_messages_eus/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_eus.dir/build.make gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_eus.dir/build
-.PHONY : visualization_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_eus.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_eus.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-map_msgs_generate_messages_eus: gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_eus.dir/rule
-
-.PHONY : map_msgs_generate_messages_eus
-
-# fast build rule for target.
-map_msgs_generate_messages_eus/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_eus.dir/build.make gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_eus.dir/build
-.PHONY : map_msgs_generate_messages_eus/fast
+_obstacle_detector_generate_messages_check_deps_Obstacles/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_Obstacles.dir/build.make gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_Obstacles.dir/build
+.PHONY : _obstacle_detector_generate_messages_check_deps_Obstacles/fast
 
 # Convenience name for target.
 gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_cpp.dir/rule:
@@ -228,36 +198,6 @@ map_msgs_generate_messages_cpp/fast:
 .PHONY : map_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-visualization_msgs_generate_messages_py: gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
-
-.PHONY : visualization_msgs_generate_messages_py
-
-# fast build rule for target.
-visualization_msgs_generate_messages_py/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_py.dir/build.make gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_py.dir/build
-.PHONY : visualization_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages.dir/rule
-
-# Convenience name for target.
-obstacle_detector_generate_messages: gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages.dir/rule
-
-.PHONY : obstacle_detector_generate_messages
-
-# fast build rule for target.
-obstacle_detector_generate_messages/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages.dir/build.make gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages.dir/build
-.PHONY : obstacle_detector_generate_messages/fast
-
-# Convenience name for target.
 gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_nodejs.dir/rule:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_nodejs.dir/rule
 .PHONY : gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_nodejs.dir/rule
@@ -273,214 +213,19 @@ map_msgs_generate_messages_nodejs/fast:
 .PHONY : map_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_cpp.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_cpp.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_cpp.dir/rule
+gps_team/obstacle_detector/CMakeFiles/obstacle_publisher.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/obstacle_publisher.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/obstacle_publisher.dir/rule
 
 # Convenience name for target.
-rviz_generate_messages_cpp: gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_cpp.dir/rule
+obstacle_publisher: gps_team/obstacle_detector/CMakeFiles/obstacle_publisher.dir/rule
 
-.PHONY : rviz_generate_messages_cpp
+.PHONY : obstacle_publisher
 
 # fast build rule for target.
-rviz_generate_messages_cpp/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_cpp.dir/build.make gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_cpp.dir/build
-.PHONY : rviz_generate_messages_cpp/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_py.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_py.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-map_msgs_generate_messages_py: gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_py.dir/rule
-
-.PHONY : map_msgs_generate_messages_py
-
-# fast build rule for target.
-map_msgs_generate_messages_py/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_py.dir/build.make gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_py.dir/build
-.PHONY : map_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_eus.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_eus.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-rviz_generate_messages_eus: gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_eus.dir/rule
-
-.PHONY : rviz_generate_messages_eus
-
-# fast build rule for target.
-rviz_generate_messages_eus/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_eus.dir/build.make gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_eus.dir/build
-.PHONY : rviz_generate_messages_eus/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/test_node.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/test_node.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/test_node.dir/rule
-
-# Convenience name for target.
-test_node: gps_team/obstacle_detector/CMakeFiles/test_node.dir/rule
-
-.PHONY : test_node
-
-# fast build rule for target.
-test_node/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/test_node.dir/build.make gps_team/obstacle_detector/CMakeFiles/test_node.dir/build
-.PHONY : test_node/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_nodejs.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_nodejs.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-rviz_generate_messages_nodejs: gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_nodejs.dir/rule
-
-.PHONY : rviz_generate_messages_nodejs
-
-# fast build rule for target.
-rviz_generate_messages_nodejs/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_nodejs.dir/build.make gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_nodejs.dir/build
-.PHONY : rviz_generate_messages_nodejs/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_CircleObstacle.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_CircleObstacle.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_CircleObstacle.dir/rule
-
-# Convenience name for target.
-_obstacle_detector_generate_messages_check_deps_CircleObstacle: gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_CircleObstacle.dir/rule
-
-.PHONY : _obstacle_detector_generate_messages_check_deps_CircleObstacle
-
-# fast build rule for target.
-_obstacle_detector_generate_messages_check_deps_CircleObstacle/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_CircleObstacle.dir/build.make gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_CircleObstacle.dir/build
-.PHONY : _obstacle_detector_generate_messages_check_deps_CircleObstacle/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_lisp.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_lisp.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-rviz_generate_messages_lisp: gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_lisp.dir/rule
-
-.PHONY : rviz_generate_messages_lisp
-
-# fast build rule for target.
-rviz_generate_messages_lisp/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_lisp.dir/build.make gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_lisp.dir/build
-.PHONY : rviz_generate_messages_lisp/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_py.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_py.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_py.dir/rule
-
-# Convenience name for target.
-rviz_generate_messages_py: gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_py.dir/rule
-
-.PHONY : rviz_generate_messages_py
-
-# fast build rule for target.
-rviz_generate_messages_py/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_py.dir/build.make gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_py.dir/build
-.PHONY : rviz_generate_messages_py/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_SegmentObstacle.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_SegmentObstacle.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_SegmentObstacle.dir/rule
-
-# Convenience name for target.
-_obstacle_detector_generate_messages_check_deps_SegmentObstacle: gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_SegmentObstacle.dir/rule
-
-.PHONY : _obstacle_detector_generate_messages_check_deps_SegmentObstacle
-
-# fast build rule for target.
-_obstacle_detector_generate_messages_check_deps_SegmentObstacle/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_SegmentObstacle.dir/build.make gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_SegmentObstacle.dir/build
-.PHONY : _obstacle_detector_generate_messages_check_deps_SegmentObstacle/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_Obstacles.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_Obstacles.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_Obstacles.dir/rule
-
-# Convenience name for target.
-_obstacle_detector_generate_messages_check_deps_Obstacles: gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_Obstacles.dir/rule
-
-.PHONY : _obstacle_detector_generate_messages_check_deps_Obstacles
-
-# fast build rule for target.
-_obstacle_detector_generate_messages_check_deps_Obstacles/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_Obstacles.dir/build.make gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_Obstacles.dir/build
-.PHONY : _obstacle_detector_generate_messages_check_deps_Obstacles/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui.dir/rule
-
-# Convenience name for target.
-obstacle_detector_gui: gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui.dir/rule
-
-.PHONY : obstacle_detector_gui
-
-# fast build rule for target.
-obstacle_detector_gui/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui.dir/build.make gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui.dir/build
-.PHONY : obstacle_detector_gui/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/obstacle_publisher_node.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/obstacle_publisher_node.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/obstacle_publisher_node.dir/rule
-
-# Convenience name for target.
-obstacle_publisher_node: gps_team/obstacle_detector/CMakeFiles/obstacle_publisher_node.dir/rule
-
-.PHONY : obstacle_publisher_node
-
-# fast build rule for target.
-obstacle_publisher_node/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/obstacle_publisher_node.dir/build.make gps_team/obstacle_detector/CMakeFiles/obstacle_publisher_node.dir/build
-.PHONY : obstacle_publisher_node/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/scans_merger.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/scans_merger.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/scans_merger.dir/rule
-
-# Convenience name for target.
-scans_merger: gps_team/obstacle_detector/CMakeFiles/scans_merger.dir/rule
-
-.PHONY : scans_merger
-
-# fast build rule for target.
-scans_merger/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/scans_merger.dir/build.make gps_team/obstacle_detector/CMakeFiles/scans_merger.dir/build
-.PHONY : scans_merger/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-visualization_msgs_generate_messages_nodejs: gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : visualization_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-visualization_msgs_generate_messages_nodejs/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build.make gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build
-.PHONY : visualization_msgs_generate_messages_nodejs/fast
+obstacle_publisher/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/obstacle_publisher.dir/build.make gps_team/obstacle_detector/CMakeFiles/obstacle_publisher.dir/build
+.PHONY : obstacle_publisher/fast
 
 # Convenience name for target.
 gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_lisp.dir/rule:
@@ -496,36 +241,6 @@ map_msgs_generate_messages_lisp: gps_team/obstacle_detector/CMakeFiles/map_msgs_
 map_msgs_generate_messages_lisp/fast:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_lisp.dir/build.make gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_lisp.dir/build
 .PHONY : map_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-visualization_msgs_generate_messages_lisp: gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : visualization_msgs_generate_messages_lisp
-
-# fast build rule for target.
-visualization_msgs_generate_messages_lisp/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build.make gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build
-.PHONY : visualization_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/obstacle_publisher.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/obstacle_publisher.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/obstacle_publisher.dir/rule
-
-# Convenience name for target.
-obstacle_publisher: gps_team/obstacle_detector/CMakeFiles/obstacle_publisher.dir/rule
-
-.PHONY : obstacle_publisher
-
-# fast build rule for target.
-obstacle_publisher/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/obstacle_publisher.dir/build.make gps_team/obstacle_detector/CMakeFiles/obstacle_publisher.dir/build
-.PHONY : obstacle_publisher/fast
 
 # Convenience name for target.
 gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages_cpp.dir/rule:
@@ -573,19 +288,124 @@ obstacle_extractor_node/fast:
 .PHONY : obstacle_extractor_node/fast
 
 # Convenience name for target.
-gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule
-.PHONY : gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule
+gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_eus.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_eus.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
-visualization_msgs_generate_messages_cpp: gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule
+map_msgs_generate_messages_eus: gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_eus.dir/rule
 
-.PHONY : visualization_msgs_generate_messages_cpp
+.PHONY : map_msgs_generate_messages_eus
 
 # fast build rule for target.
-visualization_msgs_generate_messages_cpp/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/build.make gps_team/obstacle_detector/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/build
-.PHONY : visualization_msgs_generate_messages_cpp/fast
+map_msgs_generate_messages_eus/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_eus.dir/build.make gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_eus.dir/build
+.PHONY : map_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_py.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_py.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+map_msgs_generate_messages_py: gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_py.dir/rule
+
+.PHONY : map_msgs_generate_messages_py
+
+# fast build rule for target.
+map_msgs_generate_messages_py/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_py.dir/build.make gps_team/obstacle_detector/CMakeFiles/map_msgs_generate_messages_py.dir/build
+.PHONY : map_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_eus.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_eus.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+rviz_generate_messages_eus: gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_eus.dir/rule
+
+.PHONY : rviz_generate_messages_eus
+
+# fast build rule for target.
+rviz_generate_messages_eus/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_eus.dir/build.make gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_eus.dir/build
+.PHONY : rviz_generate_messages_eus/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_cpp.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_cpp.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+rviz_generate_messages_cpp: gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_cpp.dir/rule
+
+.PHONY : rviz_generate_messages_cpp
+
+# fast build rule for target.
+rviz_generate_messages_cpp/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_cpp.dir/build.make gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_cpp.dir/build
+.PHONY : rviz_generate_messages_cpp/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages.dir/rule
+
+# Convenience name for target.
+obstacle_detector_generate_messages: gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages.dir/rule
+
+.PHONY : obstacle_detector_generate_messages
+
+# fast build rule for target.
+obstacle_detector_generate_messages/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages.dir/build.make gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages.dir/build
+.PHONY : obstacle_detector_generate_messages/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_CircleObstacle.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_CircleObstacle.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_CircleObstacle.dir/rule
+
+# Convenience name for target.
+_obstacle_detector_generate_messages_check_deps_CircleObstacle: gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_CircleObstacle.dir/rule
+
+.PHONY : _obstacle_detector_generate_messages_check_deps_CircleObstacle
+
+# fast build rule for target.
+_obstacle_detector_generate_messages_check_deps_CircleObstacle/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_CircleObstacle.dir/build.make gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_CircleObstacle.dir/build
+.PHONY : _obstacle_detector_generate_messages_check_deps_CircleObstacle/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_lisp.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_lisp.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+rviz_generate_messages_lisp: gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_lisp.dir/rule
+
+.PHONY : rviz_generate_messages_lisp
+
+# fast build rule for target.
+rviz_generate_messages_lisp/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_lisp.dir/build.make gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_lisp.dir/build
+.PHONY : rviz_generate_messages_lisp/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_py.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_py.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_py.dir/rule
+
+# Convenience name for target.
+rviz_generate_messages_py: gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_py.dir/rule
+
+.PHONY : rviz_generate_messages_py
+
+# fast build rule for target.
+rviz_generate_messages_py/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_py.dir/build.make gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_py.dir/build
+.PHONY : rviz_generate_messages_py/fast
 
 # Convenience name for target.
 gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gencpp.dir/rule:
@@ -693,6 +513,36 @@ obstacle_tracker_node/fast:
 .PHONY : obstacle_tracker_node/fast
 
 # Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_nodejs.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_nodejs.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+rviz_generate_messages_nodejs: gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_nodejs.dir/rule
+
+.PHONY : rviz_generate_messages_nodejs
+
+# fast build rule for target.
+rviz_generate_messages_nodejs/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_nodejs.dir/build.make gps_team/obstacle_detector/CMakeFiles/rviz_generate_messages_nodejs.dir/build
+.PHONY : rviz_generate_messages_nodejs/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/test_node.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/test_node.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/test_node.dir/rule
+
+# Convenience name for target.
+test_node: gps_team/obstacle_detector/CMakeFiles/test_node.dir/rule
+
+.PHONY : test_node
+
+# fast build rule for target.
+test_node/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/test_node.dir/build.make gps_team/obstacle_detector/CMakeFiles/test_node.dir/build
+.PHONY : test_node/fast
+
+# Convenience name for target.
 gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages_eus.dir/rule:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages_eus.dir/rule
 .PHONY : gps_team/obstacle_detector/CMakeFiles/obstacle_detector_generate_messages_eus.dir/rule
@@ -766,6 +616,81 @@ obstacle_detector_genpy: gps_team/obstacle_detector/CMakeFiles/obstacle_detector
 obstacle_detector_genpy/fast:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/obstacle_detector_genpy.dir/build.make gps_team/obstacle_detector/CMakeFiles/obstacle_detector_genpy.dir/build
 .PHONY : obstacle_detector_genpy/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/scans_merger.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/scans_merger.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/scans_merger.dir/rule
+
+# Convenience name for target.
+scans_merger: gps_team/obstacle_detector/CMakeFiles/scans_merger.dir/rule
+
+.PHONY : scans_merger
+
+# fast build rule for target.
+scans_merger/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/scans_merger.dir/build.make gps_team/obstacle_detector/CMakeFiles/scans_merger.dir/build
+.PHONY : scans_merger/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui.dir/rule
+
+# Convenience name for target.
+obstacle_detector_gui: gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui.dir/rule
+
+.PHONY : obstacle_detector_gui
+
+# fast build rule for target.
+obstacle_detector_gui/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui.dir/build.make gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui.dir/build
+.PHONY : obstacle_detector_gui/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/obstacle_publisher_node.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/obstacle_publisher_node.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/obstacle_publisher_node.dir/rule
+
+# Convenience name for target.
+obstacle_publisher_node: gps_team/obstacle_detector/CMakeFiles/obstacle_publisher_node.dir/rule
+
+.PHONY : obstacle_publisher_node
+
+# fast build rule for target.
+obstacle_publisher_node/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/obstacle_publisher_node.dir/build.make gps_team/obstacle_detector/CMakeFiles/obstacle_publisher_node.dir/build
+.PHONY : obstacle_publisher_node/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/obstacle_detector_nodelets.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/obstacle_detector_nodelets.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/obstacle_detector_nodelets.dir/rule
+
+# Convenience name for target.
+obstacle_detector_nodelets: gps_team/obstacle_detector/CMakeFiles/obstacle_detector_nodelets.dir/rule
+
+.PHONY : obstacle_detector_nodelets
+
+# fast build rule for target.
+obstacle_detector_nodelets/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/obstacle_detector_nodelets.dir/build.make gps_team/obstacle_detector/CMakeFiles/obstacle_detector_nodelets.dir/build
+.PHONY : obstacle_detector_nodelets/fast
+
+# Convenience name for target.
+gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_SegmentObstacle.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_SegmentObstacle.dir/rule
+.PHONY : gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_SegmentObstacle.dir/rule
+
+# Convenience name for target.
+_obstacle_detector_generate_messages_check_deps_SegmentObstacle: gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_SegmentObstacle.dir/rule
+
+.PHONY : _obstacle_detector_generate_messages_check_deps_SegmentObstacle
+
+# fast build rule for target.
+_obstacle_detector_generate_messages_check_deps_SegmentObstacle/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_SegmentObstacle.dir/build.make gps_team/obstacle_detector/CMakeFiles/_obstacle_detector_generate_messages_check_deps_SegmentObstacle.dir/build
+.PHONY : _obstacle_detector_generate_messages_check_deps_SegmentObstacle/fast
 
 # Convenience name for target.
 gps_team/obstacle_detector/CMakeFiles/obstacle_detector_gui_autogen.dir/rule:
@@ -1359,36 +1284,23 @@ help:
 	@echo "... install/local"
 	@echo "... list_install_components"
 	@echo "... edit_cache"
-	@echo "... obstacle_detector_nodelets"
-	@echo "... visualization_msgs_generate_messages_eus"
-	@echo "... map_msgs_generate_messages_eus"
-	@echo "... map_msgs_generate_messages_cpp"
-	@echo "... visualization_msgs_generate_messages_py"
-	@echo "... install"
-	@echo "... obstacle_detector_generate_messages"
-	@echo "... map_msgs_generate_messages_nodejs"
-	@echo "... rviz_generate_messages_cpp"
-	@echo "... map_msgs_generate_messages_py"
-	@echo "... rviz_generate_messages_eus"
-	@echo "... test_node"
-	@echo "... rviz_generate_messages_nodejs"
-	@echo "... _obstacle_detector_generate_messages_check_deps_CircleObstacle"
-	@echo "... rviz_generate_messages_lisp"
-	@echo "... rviz_generate_messages_py"
-	@echo "... test"
-	@echo "... _obstacle_detector_generate_messages_check_deps_SegmentObstacle"
 	@echo "... _obstacle_detector_generate_messages_check_deps_Obstacles"
-	@echo "... obstacle_detector_gui"
-	@echo "... obstacle_publisher_node"
-	@echo "... scans_merger"
-	@echo "... visualization_msgs_generate_messages_nodejs"
-	@echo "... map_msgs_generate_messages_lisp"
-	@echo "... visualization_msgs_generate_messages_lisp"
+	@echo "... map_msgs_generate_messages_cpp"
+	@echo "... map_msgs_generate_messages_nodejs"
 	@echo "... obstacle_publisher"
+	@echo "... map_msgs_generate_messages_lisp"
 	@echo "... obstacle_detector_generate_messages_cpp"
 	@echo "... obstacle_extractor"
 	@echo "... obstacle_extractor_node"
-	@echo "... visualization_msgs_generate_messages_cpp"
+	@echo "... map_msgs_generate_messages_eus"
+	@echo "... map_msgs_generate_messages_py"
+	@echo "... rviz_generate_messages_eus"
+	@echo "... rviz_generate_messages_cpp"
+	@echo "... install"
+	@echo "... obstacle_detector_generate_messages"
+	@echo "... _obstacle_detector_generate_messages_check_deps_CircleObstacle"
+	@echo "... rviz_generate_messages_lisp"
+	@echo "... rviz_generate_messages_py"
 	@echo "... obstacle_detector_gencpp"
 	@echo "... obstacle_detector_geneus"
 	@echo "... obstacle_detector_generate_messages_lisp"
@@ -1397,11 +1309,19 @@ help:
 	@echo "... scans_merger_node"
 	@echo "... rebuild_cache"
 	@echo "... obstacle_tracker_node"
+	@echo "... rviz_generate_messages_nodejs"
+	@echo "... test_node"
 	@echo "... obstacle_detector_generate_messages_eus"
 	@echo "... obstacle_detector_gennodejs"
 	@echo "... obstacle_detector_generate_messages_py"
 	@echo "... obstacle_tracker"
 	@echo "... obstacle_detector_genpy"
+	@echo "... scans_merger"
+	@echo "... obstacle_detector_gui"
+	@echo "... obstacle_publisher_node"
+	@echo "... obstacle_detector_nodelets"
+	@echo "... _obstacle_detector_generate_messages_check_deps_SegmentObstacle"
+	@echo "... test"
 	@echo "... obstacle_detector_gui_autogen"
 	@echo "... obstacle_detector_gui_autogen/mocs_compilation.o"
 	@echo "... obstacle_detector_gui_autogen/mocs_compilation.i"

@@ -19,8 +19,8 @@ import time
 
 # Parameters
 k = 0.05  # look forward gain
-Lfc = 4.0
-# Lfc = 5.0
+# Lfc = 4.0
+Lfc = 5.0
 # Lfc = 1.75
 # Lfc = 1.25  # [m] look-ahead distance
 Kp = 1.0  # speed proportional gain
@@ -42,7 +42,7 @@ current_velocity = 0
 
 class State:
 
-    def __init__(self, x = -0.39, y = 0.0, yaw = 0.0, v = 0.0):
+    def __init__(self, x = -0., y = 0.0, yaw = 0.0, v = 0.0):
         self.yaw = yaw
         self.v = v
         self.rear_x = x
@@ -118,28 +118,9 @@ class TargetCourse:
                 break  # not exceed goal
             ind += 1
 
-        # print("LF:", Lf)
+        print("LF:", Lf)
 
         return ind, Lf
-
-
-        if pind >= ind:
-            ind = pind
-
-        if ind < len(trajectory.cx):
-            tx = trajectory.cx[ind]
-            ty = trajectory.cy[ind]
-        else:  # toward goal
-            tx = trajectory.cx[-1]
-            ty = trajectory.cy[-1]
-            ind = len(trajectory.cx) - 1
-
-        alpha = math.atan2(ty - state.rear_y, tx - state.rear_x) - state.yaw
-
-        delta = math.atan2(2.0 * WB * math.sin(alpha) / Lf, 0.8) #/ Lf, 1.4)
-
-
-        return delta, ind, tx, ty
 
 def pure_pursuit_steer_control(state, trajectory, pind):
     ind, Lf = trajectory.search_target_index(state)
@@ -171,6 +152,7 @@ def ego_callback(data):
     current_velocity = data.velocity.x
 
 def publishDriveValue(throttle, steering):
+    # ctrl_msg = CtrlCmd()
     ctrl_msg.velocity = throttle
     ctrl_msg.steering = steering
     ctrl_pub.publish(ctrl_msg)
@@ -222,18 +204,18 @@ if __name__ == '__main__':
             target_pub.publish(marker)
             
 
-            print("di = ", di)
+            # print("di = ", di)
             
             ctrl_msg.longlCmdType = 2
             # current_v = 0.2 / abs(di)
             if abs(di) > 0.175:
-                current_v = 8       #7
+                current_v = 5       #7
             elif abs(di) > 0.08:
-                current_v = 12     #12.5
+                current_v = 8     #12.5
             elif abs(di) > 0.04:
-                current_v = 17       #15
+                current_v = 12       #15
             else:
-                current_v = 20
+                current_v = 15
             # if abs(di) > 0.2:
             #     current_v = 6.5
             # elif abs(di) > 0.08:
@@ -248,7 +230,12 @@ if __name__ == '__main__':
             #    else:
             #        di -= 0.05
         
-            publishDriveValue(current_v, di)
+            publishDriveValue(7, di)
+
+            # ctrl_msg.velocity = current_v
+            # ctrl_msg.steering = di
+
+            # ctrl_pub.publish(ctrl_msg)
 
             ai = proportional_control(target_speed, current_v)
             state.update(ai, di)  # Control vehicle

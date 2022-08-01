@@ -55,6 +55,7 @@ include lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_message
 
 lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_eus: /home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/msg/Boundingbox.l
 lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_eus: /home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/msg/Waypoint.l
+lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_eus: /home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/msg/PurePursuit.l
 lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_eus: /home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/manifest.l
 
 
@@ -68,13 +69,19 @@ lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_eus: /
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from lidar_team_morai/Waypoint.msg"
 	cd /home/foscar/ISCC_2022/build/lidar_team/lidar_team_morai && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg -Ilidar_team_morai:/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -Inav_msgs:/opt/ros/melodic/share/nav_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -p lidar_team_morai -o /home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/msg
 
+/home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/msg/PurePursuit.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+/home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/msg/PurePursuit.l: /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from lidar_team_morai/PurePursuit.msg"
+	cd /home/foscar/ISCC_2022/build/lidar_team/lidar_team_morai && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg -Ilidar_team_morai:/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -Inav_msgs:/opt/ros/melodic/share/nav_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -p lidar_team_morai -o /home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/msg
+
 /home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/manifest.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp manifest code for lidar_team_morai"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp manifest code for lidar_team_morai"
 	cd /home/foscar/ISCC_2022/build/lidar_team/lidar_team_morai && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai lidar_team_morai sensor_msgs std_msgs geometry_msgs nav_msgs
 
 lidar_team_morai_generate_messages_eus: lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_eus
 lidar_team_morai_generate_messages_eus: /home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/msg/Boundingbox.l
 lidar_team_morai_generate_messages_eus: /home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/msg/Waypoint.l
+lidar_team_morai_generate_messages_eus: /home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/msg/PurePursuit.l
 lidar_team_morai_generate_messages_eus: /home/foscar/ISCC_2022/devel/share/roseus/ros/lidar_team_morai/manifest.l
 lidar_team_morai_generate_messages_eus: lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_eus.dir/build.make
 

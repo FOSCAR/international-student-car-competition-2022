@@ -2,13 +2,13 @@
 <launch>
     
     <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" />
-    <node pkg="lidar_team_erp42" type="track_waypoint" name="track_waypoint"/>
-    <!--<node pkg="lidar_team_erp42" type="delivery" name="delivery"/>-->
+    <node pkg="lidar_team_erp42" type="track_waypoint_backup" name="track_waypoint_backup"/>
+    <!-- <node pkg="lidar_team_erp42" type="delivery" name="delivery"/> -->
     <node pkg="lidar_team_erp42" type="drawing_path.py" name="drawing_path" />
-    <node pkg="lidar_team_erp42" type="pure_pursuit.py" name="pure_pursuit" output="screen" />
+    <!-- <node pkg="lidar_team_erp42" type="pure_pursuit_gwanho.py" name="pure_pursuit_gwanho" output="screen" /> -->
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find lidar_team_erp42)/rviz/track_waypoint.rviz" />
 
     <!-- for serial control -->
-    <node pkg="race" type="serial_control_node" name="serial_control_node" />
+    <!-- <node pkg="race" type="serial_control_node" name="serial_control_node" /> -->
 
 </launch>

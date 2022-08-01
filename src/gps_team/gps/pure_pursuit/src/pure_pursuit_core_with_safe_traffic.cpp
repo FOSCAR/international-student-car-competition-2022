@@ -92,15 +92,15 @@ const float tf_coord9[2] = {935592.698823, 1915969.01965};
 
 // Positions where car should slow down before traffic lights
 const float slow_down_tf_coord1[2] = {935565.651362, 1915908.85769};
-const float slow_down_tf_coord2[2] = {0.0, 0.0};
-const float slow_down_tf_coord3[2] = {0.0, 0.0};
-const float slow_down_tf_coord4[2] = {0.0, 0.0};
-const float slow_down_tf_coord5[2] = {0.0, 0.0};
-const float slow_down_tf_coord6[2] = {0.0, 0.0};
-const float slow_down_tf_coord7[2] = {0.0, 0.0};
+const float slow_down_tf_coord2[2] = {935593.442645, 1915959.50356};
+const float slow_down_tf_coord3[2] = {935649.220924, 1916082.9449};
+const float slow_down_tf_coord4[2] = {935656.505503, 1916191.74199};
+const float slow_down_tf_coord5[2] = {935649.916084, 1916326.08428};
+const float slow_down_tf_coord6[2] = {935581.163285, 1916269.13314};
+const float slow_down_tf_coord7[2] = {935642.692369, 1916147.18467};
 
-const float slow_down_tf_coord8[2] = {0.0, 0.0};
-const float slow_down_tf_coord9[2] = {0.0, 0.0};
+const float slow_down_tf_coord8[2] = {935616.622802, 1916018.72386};
+const float slow_down_tf_coord9[2] = {935595.685842, 1915975.14741};
  
 /*************************/
 
@@ -529,7 +529,7 @@ s
 
       // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
       if((pp_.reachMissionIdx(slow_down_tf_idx_1) || pp_.reachMissionIdx(slow_down_tf_idx_2) || pp_.reachMissionIdx(slow_down_tf_idx_3) || pp_.reachMissionIdx(slow_down_tf_idx_7)) && !pp_.straight_go_flag){
-        while(const_velocity_ > 1){
+        while(const_velocity_ > 2){
             const_velocity_ -= 0.1;
             pulishControlMsg(const_velocity_ , 0);
             ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
@@ -562,7 +562,7 @@ s
 
       // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
       if((pp_.reachMissionIdx(slow_down_tf_idx_4) || pp_.reachMissionIdx(slow_down_tf_idx_5)) && !pp_.straight_go_flag){
-        while(const_velocity_ > 1){
+        while(const_velocity_ > 2){
             const_velocity_ -= 0.1;
             pulishControlMsg(const_velocity_ , 0);
             ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
@@ -592,7 +592,7 @@ s
 
       // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
       if(pp_.reachMissionIdx(slow_down_tf_idx_6)  && !pp_.straight_go_flag){
-        while(const_velocity_ > 1){
+        while(const_velocity_ > 2){
             const_velocity_ -= 0.1;
             pulishControlMsg(const_velocity_ , 0);
             ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
@@ -624,7 +624,7 @@ s
 
       // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
       if((pp_.reachMissionIdx(slow_down_tf_idx_8) || pp_.reachMissionIdx(slow_down_tf_idx_9)) && !pp_.straight_go_flag){
-        while(const_velocity_ > 1){
+        while(const_velocity_ > 2){
             const_velocity_ -= 0.1;
             pulishControlMsg(const_velocity_ , 0);
             ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
@@ -650,8 +650,8 @@ s
     if (pp_.mode == 9){
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 4;
-      // const_velocity_ = 7.5;
-      const_velocity_ = 4;
+      const_velocity_ = 7.5;
+      //const_velocity_ = 4;
       final_constant = 1.8;
     }
 

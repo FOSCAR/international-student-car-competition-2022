@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/foscar/ISCC_2022/src/lidar_team/jinho/include/jinho/square_scanner.h
+
+/home/foscar/ISCC_2022/src/lidar_team/jinho/src/square_scanner.cpp
+../include/jinho/square_scanner.h
+/home/foscar/ISCC_2022/src/lidar_team/jinho/include/jinho/square_scanner.h
+cmath
+-
+iostream
+-
+
