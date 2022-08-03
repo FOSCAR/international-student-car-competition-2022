@@ -16,6 +16,7 @@ from lidar_team_morai.msg import Waypoint
 from race.msg import drive_values
 from morai_msgs.msg import EgoVehicleStatus, CtrlCmd
 from lidar_team_morai.msg import PurePursuit
+from lidar_team_morai.msg import CtrlSteering, CtrlVelocity
 import time
 
 # Parameters
@@ -155,14 +156,16 @@ def ego_callback(data):
     current_velocity = data.velocity.x
 
 def publishDriveValue(throttle, steering):
-    ctrl_msg.velocity = throttle
-    ctrl_msg.steering = steering
-    ctrl_pub.publish(ctrl_msg)
+    ctrl_steering_msg.steering = steering
+    ctrl_steering_pub.publish(ctrl_steering_msg)
+    # ctrl_msg.velocity = throttle
+    # ctrl_msg.steering = steering
+    # ctrl_pub.publish(ctrl_msg)
 
 def getVelocity(data):
     global realVel
     # print("test")
-    realVel = data.throttle
+    realVel = data.velocity
 
 if __name__ == '__main__':
     global realVel
@@ -170,10 +173,12 @@ if __name__ == '__main__':
     rospy.init_node("pure_pursuit", anonymous=True)
 
     rospy.Subscriber("/local_path", Waypoint, path_callback) 
-    rospy.Subscriber("/binary_ho", PurePursuit, getVelocity)
+    rospy.Subscriber("/dynamic_ctrl_velocity", CtrlVelocity, getVelocity)
 
-    ctrl_pub = rospy.Publisher("/ctrl_cmd", CtrlCmd, queue_size = 1)
+    # ctrl_pub = rospy.Publisher("/ctrl_cmd", CtrlCmd, queue_size = 1)
     target_pub = rospy.Publisher('target_point', Marker, queue_size = 1)
+    ctrl_steering_pub = rospy.Publisher('/pure_ctrl_steering', CtrlSteering, queue_size = 1)
+    ctrl_steering_msg = CtrlSteering()
     ctrl_msg = CtrlCmd()
 
     rate = rospy.Rate(60)

@@ -25,6 +25,9 @@ add_message_files(
    Waypoint.msg
    Boundingbox.msg
    PurePursuit.msg
+   CtrlSteering.msg
+   CtrlVelocity.msg
+   ObjectInfo.msg
 )
 
 generate_messages(

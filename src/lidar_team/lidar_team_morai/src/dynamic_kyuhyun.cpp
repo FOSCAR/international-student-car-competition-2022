@@ -84,7 +84,7 @@ ros::Publisher leftConesMarkerPub; //left Box Publisher
 ros::Publisher rightConesMarkerPub; //right Box Publisher
 ros::Publisher oneLineConesMarkerPub; //right Box Publisher
 ros::Publisher cropboxPub; //Cluster PublishserCOMPONENTS
-ros::Publisher ppPub;
+ros::Publisher dynamicVelpub;
 
 
 void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
@@ -584,7 +584,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
   rightConesMarkerPub.publish(RightBoxArray);
   // oneLineConesMarkerPub.publish(OneLineBoxArray);
   cropboxPub.publish(cropbox);
-  ppPub.publish(velMsg);
+  dynamicVelpub.publish(velMsg);
 }
 
 int main(int argc, char **argv) {
@@ -608,7 +608,7 @@ int main(int argc, char **argv) {
   rightConesMarkerPub = nh.advertise<visualization_msgs::MarkerArray>("/rightbox_marker", 0.001);
   // oneLineConesMarkerPub = nh.advertise<visualization_msgs::MarkerArray>("/one_line_box_marker", 0.001);
   cropboxPub = nh.advertise<sensor_msgs::PointCloud2>("/cropbox", 0.001); 
-  ppPub = nh.advertise<lidar_team_morai::PurePursuit>("/binary_ho", 0.001);
+  dynamicVelpub = nh.advertise<lidar_team_morai::PurePursuit>("/dynamic_velocity", 0.001);
   
   ros::spin();
  

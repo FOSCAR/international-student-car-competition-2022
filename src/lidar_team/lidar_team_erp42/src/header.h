@@ -49,6 +49,7 @@
 #include <lidar_team_erp42/Waypoint.h>
 #include <lidar_team_erp42/Delivery.h>
 #include <lidar_team_erp42/DynamicVelocity.h>
+#include <lidar_team_erp42/PurePursuit.h>
 
 #include <dynamic_reconfigure/server.h>
 #include "lidar_team_erp42/hyper_parameterConfig.h"

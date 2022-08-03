@@ -27,6 +27,7 @@ add_message_files(
    DriveValues.msg
    Delivery.msg
    DynamicVelocity.msg
+   PurePursuit.msg
 )
 
 generate_messages(

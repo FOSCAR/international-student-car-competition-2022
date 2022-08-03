@@ -49,6 +49,7 @@
 #include <lidar_team_morai/Boundingbox.h>
 #include <lidar_team_morai/Waypoint.h>
 #include <lidar_team_morai/PurePursuit.h>
+#include <lidar_team_morai/ObjectInfo.h>
 
 #include <dynamic_reconfigure/server.h>
 #include "lidar_team_morai/hyper_parameter_moraiConfig.h"

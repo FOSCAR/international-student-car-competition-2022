@@ -30,7 +30,7 @@ Lfc = 3.0
 # Lfc = 1.25  # [m] look-ahead distance
 Kp = 1.0  # speed proportional gain
 dt = 0.1  # [s] time tick
-WB = 0.78  # [m] wheel base of vehicle
+WB = 1.04  # [m] wheel base of vehicle
 
 target_speed = 10
 speed = 10

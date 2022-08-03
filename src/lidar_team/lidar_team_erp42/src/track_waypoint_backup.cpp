@@ -1,6 +1,7 @@
 #include "header.h"
 #include "dbscan.h"
 
+
 using namespace std;
 
 #define TANGENT 1.0          // tan45도
@@ -15,7 +16,17 @@ double xMinROI, xMaxROI, yMinROI, yMaxROI, zMinROI, zMaxROI; // ROI(PassThrough)
 
 double xMinBoundingBox, xMaxBoundingBox, yMinBoundingBox, yMaxBoundingBox, zMinBoundingBox, zMaxBoundingBox; // BoundingBox 크기 범위 지정 변수 
 
-bool cmp(const vector<float>& v1, const vector<float>& v2) {
+// 0 1 2 3
+// x y z distance
+bool x_cmp(const vector<float>& v1, const vector<float>& v2) {
+    return v1[0] < v2[0];
+}
+
+bool y_cmp(const vector<float>& v1, const vector<float>& v2) {
+    return v1[1] < v2[1];
+}
+
+bool d_cmp(const vector<float>& v1, const vector<float>& v2) {
     return v1[3] < v2[3];
 }
 
@@ -54,12 +65,14 @@ void dynamicParamCallback(lidar_team_erp42::hyper_parameterConfig &config, int32
 
 typedef pcl::PointXYZ PointT;
 
-vector<float> obstacle;
-vector< vector<float> > obstacle_vec;
-vector< vector<float> > obstacle_buffer;
-vector< vector<float> > obstacle_left;
-vector< vector<float> > obstacle_right;
-vector< vector<float> > waypoint_arr;
+vector<float> obstacle_y_positive;
+vector<float> obstacle_y_negative;
+vector< vector<float> > obstacle_y_positive_vec;
+vector< vector<float> > obstacle_y_negative_vec;
+vector< vector<float> > obstacle_buffer_vec;
+vector< vector<float> > obstacle_left_vec;
+vector< vector<float> > obstacle_right_vec;
+vector< vector<float> > waypoint_vec;
 
 ros::Publisher clusterPub; //Cluster Publishser
 ros::Publisher boundingBoxMarkerPub; //Bounnding Box Visualization Publisher
@@ -69,9 +82,19 @@ ros::Publisher waypointPosePub; //Waypoint Position Publisher
 ros::Publisher leftConesMarkerPub; //left Box Publisher
 ros::Publisher rightConesMarkerPub; //right Box Publisher
 ros::Publisher cropboxPub; //Cluster PublishserCOMPONENTS
+ros::Publisher ppPub;
 
 
 void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
+  int cluster_id = 0;
+  int box_id = 1000;
+  int left_box_id = 2000;
+  int right_box_id = 3000;
+  int waypoint_id = 4000;
+  double velocity = 13;
+  double minX = 99;
+  
+
   //ROS message 변환
   //PointXYZI가 아닌 PointXYZ로 선언하는 이유 -> 각각의 Cluster를 다른 색으로 표현해주기 위해서. Clustering 이후 각각 구별되는 intensity value를 넣어줄 예정.
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
@@ -93,6 +116,8 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
   //Boundingbox & Waypoitn Position Messsage 
   lidar_team_erp42::Boundingbox BoxPosition;
   lidar_team_erp42::Waypoint WaypointPosition;
+
+  lidar_team_erp42::DynamicVelocity velMsg;
 
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_xf(new pcl::PointCloud<pcl::PointXYZ>);
   pcl::PassThrough<pcl::PointXYZ> xfilter;
@@ -152,7 +177,10 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
 
   //KD-Tree
   pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>);
-  tree->setInputCloud(cloud_xyzf);
+  
+  if (cloud_xyzf->size() != 0)  {
+    tree->setInputCloud(cloud_xyzf);
+  }
 
   //Segmentation
   vector<pcl::PointIndices> cluster_indices;
@@ -168,7 +196,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
   dc.extract(cluster_indices);
 
   pcl::PointCloud<pcl::PointXYZI> totalcloud_clustered;
-  int cluster_id = 0;
 
   //각 Cluster 접근
   for (vector<pcl::PointIndices>::const_iterator it = cluster_indices.begin(); it != cluster_indices.end(); it++, cluster_id++) {
@@ -177,12 +204,11 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
 
     //각 Cluster내 각 Point 접근
     for(vector<int>::const_iterator pit = it->indices.begin(); pit != it->indices.end(); ++pit) {
-
         pcl::PointXYZI tmp;
         tmp.x = cloud_xyzf->points[*pit].x;
         tmp.y = cloud_xyzf->points[*pit].y;
         tmp.z = cloud_xyzf->points[*pit].z;
-        tmp.intensity = cluster_id%8;
+        tmp.intensity = cluster_id;
         eachcloud_clustered.push_back(tmp);
         totalcloud_clustered.push_back(tmp);
     }
@@ -201,12 +227,22 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
     float center_z = (minPoint.z + maxPoint.z)/2; //직육면체 중심 z 좌표 
 
     float distance = sqrt(center_x * center_x + center_y * center_y); //장애물 <-> 차량 거리
+    
+    if (-1.3 < center_y && center_y < 1.3 && minX > center_x) {
+      minX = center_x;
+      velocity = log(center_x + exp(1)) * 5.0;
+      // velocity = exp(center_x -7);
+      cout << "after throttle: " << velocity << "\n";
+      velocity = (velocity < 5.0) ? 5.0 : velocity;
+      velocity = (velocity > 13.0) ? 13.0 : velocity;
+    } 
+    velMsg.throttle = velocity;
 
     if ( (xMinBoundingBox < x_len && x_len < xMaxBoundingBox) && (yMinBoundingBox < y_len && y_len < yMaxBoundingBox) && (zMinBoundingBox < z_len && z_len < zMaxBoundingBox) ) {
       Box.header.frame_id = "velodyne";
       Box.header.stamp = ros::Time();
       Box.ns = cluster_counts; //ns = namespace
-      Box.id = cluster_id; 
+      Box.id = box_id; 
       Box.type = visualization_msgs::Marker::CUBE; //직육면체로 표시
       Box.action = visualization_msgs::Marker::ADD;
 
@@ -236,114 +272,247 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
       BoxPosition.y = Box.pose.position.y;
       BoxPosition.z = Box.pose.position.z;
       BoxPosition.distance = distance;
-    }
+    } // Bounding Box Array End
 
-    if (BoxArray.markers.size() > 1) {
-      for (int i = 0; i < BoxArray.markers.size(); i++) {
-        vector<float>().swap(obstacle);
-        obstacle.emplace_back(BoxArray.markers[i].pose.position.x);
-        obstacle.emplace_back(BoxArray.markers[i].pose.position.y);
-        obstacle.emplace_back(BoxArray.markers[i].pose.position.z);
-        obstacle.emplace_back(distance);
-        obstacle_vec.emplace_back(obstacle);
-      } 
+    cluster_id++; //intensity 증가
+    box_id++;
+  }
 
-      sort(obstacle_vec.begin(), obstacle_vec.end());
+  if (BoxArray.markers.size() > 1) {
+    for (int i = 0; i < BoxArray.markers.size(); i++) {
+      if (BoxArray.markers[i].pose.position.y >= 0) {
+        vector<float>().swap(obstacle_y_positive);
+        obstacle_y_positive.emplace_back(BoxArray.markers[i].pose.position.x);
+        obstacle_y_positive.emplace_back(BoxArray.markers[i].pose.position.y);
+        obstacle_y_positive.emplace_back(BoxArray.markers[i].pose.position.z);
+        obstacle_y_positive.emplace_back(sqrt(BoxArray.markers[i].pose.position.x * BoxArray.markers[i].pose.position.x + BoxArray.markers[i].pose.position.y * BoxArray.markers[i].pose.position.y));
+        obstacle_y_positive_vec.emplace_back(obstacle_y_positive);
+      }
+      else if (BoxArray.markers[i].pose.position.y < 0) {
+        vector<float>().swap(obstacle_y_negative);
+        obstacle_y_negative.emplace_back(BoxArray.markers[i].pose.position.x);
+        obstacle_y_negative.emplace_back(BoxArray.markers[i].pose.position.y);
+        obstacle_y_negative.emplace_back(BoxArray.markers[i].pose.position.z);
+        obstacle_y_negative.emplace_back(sqrt(BoxArray.markers[i].pose.position.x * BoxArray.markers[i].pose.position.x + BoxArray.markers[i].pose.position.y * BoxArray.markers[i].pose.position.y));
+        obstacle_y_negative_vec.emplace_back(obstacle_y_negative);
+      }
+    } 
 
-      // 두 개의 시작점이 왼쪽, 오른쪽에 각각 1개씩 잡히는 경우에만 실행. 한 라인에서 두 개의 시작점이 잡히는 경우 제외
-      if (obstacle_vec[0][1] * obstacle_vec[1][1] < 0) { 
+    // cout << "LEFT : " << obstacle_y_positive_vec.size() << "RIGHT : " << obstacle_y_negative_vec.size() << '\n';
 
-        // 왼쪽, 오른쪽 각각 시작점 잡기
-        if (obstacle_vec[0][1] > 0) {
-          obstacle_left.emplace_back(obstacle_vec[0]);
-          obstacle_right.emplace_back(obstacle_vec[1]);
+    if (obstacle_y_positive_vec.size() > 0 && obstacle_y_negative_vec.size() > 0) {
 
-          // 두 개의 시작점을 제외한 나머지 라바콘들의 정보를 buffer에 저장
-          obstacle_buffer.resize(obstacle_vec.size()-2);
-          copy(obstacle_vec.begin()+2, obstacle_vec.end(), obstacle_buffer.begin());
+      // x 기준으로 정렬 (라이다와 가까운 라바콘 부터)      
+      sort(obstacle_y_positive_vec.begin(), obstacle_y_positive_vec.end(), x_cmp);
+      sort(obstacle_y_negative_vec.begin(), obstacle_y_negative_vec.end(), x_cmp);
+
+      // 제일 가까운 라바콘 하나씩만 먼저 좌우측 배열에 삽입
+      // obstacle_left_vec.emplace_back(obstacle_y_positive_vec[0]);
+      // obstacle_right_vec.emplace_back(obstacle_y_negative_vec[0]);
+      
+      // (왼쪽)처음 들어오는 왼쪽 x 좌표가 3 이하 일 때만 하나씩 잡은걸로
+      if (obstacle_y_positive_vec[0][0] <= 3 ){
+        obstacle_left_vec.emplace_back(obstacle_y_positive_vec[0]);
+
+        for (int i = 1; i < obstacle_y_positive_vec.size(); i++ ) {
+          obstacle_buffer_vec.emplace_back(obstacle_y_positive_vec[i]);
+        } 
+      }
+      else {
+        for (int i = 0; i < obstacle_y_positive_vec.size(); i++ ) {
+          obstacle_buffer_vec.emplace_back(obstacle_y_positive_vec[i]);
         }
-        else {
-          obstacle_left.emplace_back(obstacle_vec[1]);
-          obstacle_right.emplace_back(obstacle_vec[0]);
+      }
 
-          // 두 개의 시작점을 제외한 나머지 라바콘들의 정보를 buffer에 저장
-          obstacle_buffer.resize(obstacle_vec.size()-2);
-          copy(obstacle_vec.begin()+2, obstacle_vec.end(), obstacle_buffer.begin());
+      // (오른쪽)처음 들어오는 오른쪽 x 좌표가 3 이하 일 때만 하나씩 잡은걸로
+      if (obstacle_y_negative_vec[0][0] <= 3){
+        obstacle_right_vec.emplace_back(obstacle_y_negative_vec[0]);
+
+        for (int i = 1; i < obstacle_y_negative_vec.size(); i++ ) {
+          obstacle_buffer_vec.emplace_back(obstacle_y_negative_vec[i]);
+        } 
+      }
+      else {
+        for (int i = 0; i < obstacle_y_negative_vec.size(); i++ ) {
+          obstacle_buffer_vec.emplace_back(obstacle_y_negative_vec[i]);
         }
+      }
 
-        // buffer를 탐색하며 왼쪽에 들어갈 라바콘과 오른쪽에 들어갈 라바콘 구분 후 배열에 삽입
-        for (int i = 0; i < obstacle_buffer.size(); i++) {
-          float left_distance_c2c = getDistanceC2C(obstacle_buffer[i], obstacle_left.back());
-          float right_distacne_c2c = getDistanceC2C(obstacle_buffer[i], obstacle_right.back());
+      // 나머지는 버퍼에 삽입
+      // for (int i = 1; i < obstacle_y_positive_vec.size(); i++ ) {
+      //     obstacle_buffer_vec.emplace_back(obstacle_y_positive_vec[i]);
+      // }
+
+      // for (int i = 1; i < obstacle_y_negative_vec.size(); i++ ) {
+      //   obstacle_buffer_vec.emplace_back(obstacle_y_negative_vec[i]);
+      // }
+      
+      // 좌우측 라바콘 하나씩만 제외한 나머지가 포함된 버퍼를 정렬
+      sort(obstacle_buffer_vec.begin(), obstacle_buffer_vec.end(), d_cmp);
+
+      // 버퍼를 탐색하며 왼쪽에 들어갈 라바콘과 오른쪽에 들어갈 라바콘 구분 후 배열에 삽입
+      if (obstacle_left_vec.size() != 0 && obstacle_right_vec.size() != 0){
+        for (int i = 0; i < obstacle_buffer_vec.size(); i++) {
+          float left_distance_c2c = getDistanceC2C(obstacle_buffer_vec[i], obstacle_left_vec.back());
+          float right_distacne_c2c = getDistanceC2C(obstacle_buffer_vec[i], obstacle_right_vec.back());
 
           if (left_distance_c2c < right_distacne_c2c) {
-            obstacle_left.emplace_back(obstacle_buffer[i]);
-            sort(obstacle_left.begin(), obstacle_left.end());
+            obstacle_left_vec.emplace_back(obstacle_buffer_vec[i]);
+            sort(obstacle_left_vec.begin(), obstacle_left_vec.end(), x_cmp);
           }
           else {
-            obstacle_right.emplace_back(obstacle_buffer[i]);
-            sort(obstacle_right.begin(), obstacle_right.end());
+            obstacle_right_vec.emplace_back(obstacle_buffer_vec[i]);
+            sort(obstacle_right_vec.begin(), obstacle_right_vec.end(), x_cmp);
           }
         }
 
-        // Waypoint Array 구성 -> 왼쪽, 오른쪽 중 작은 사이즈인 배열의 사이즈를 기준으로 비교
-        if (obstacle_left.size() < obstacle_right.size()) {
-          for (int i = 0; i < obstacle_left.size(); i++) {
-            if (getTangentC2C(obstacle_left[i], obstacle_right[i]) > TANGENT) {
-              vector<float> tmp_vec;
-              tmp_vec.emplace_back( (obstacle_left[i][0] + obstacle_right[i][0]) / 2 );
-              tmp_vec.emplace_back( (obstacle_left[i][1] + obstacle_right[i][1]) / 2 );
-              tmp_vec.emplace_back( (obstacle_left[i][2] + obstacle_right[i][2]) / 2 );
+          // ROS_INFO("LEFT : %d, RIGHT : %d\n", obstacle_left_vec.size(), obstacle_right_vec.size());
 
-              waypoint_arr.emplace_back(tmp_vec);
+
+
+          // Waypoint Array 구성 -> 왼쪽, 오른쪽 중 작은 사이즈인 배열의 사이즈를 기준으로 비교
+        if ( (obstacle_left_vec.size() == 1 || obstacle_right_vec.size() == 1 || (obstacle_left_vec.size() - obstacle_right_vec.size()) ) >=3 || (obstacle_right_vec.size() - obstacle_left_vec.size()) >=3 && (obstacle_left_vec.size() - obstacle_right_vec.size() != 0) ) {
+            
+          vector<float> waypoint_standard; 
+          waypoint_standard.emplace_back( (obstacle_left_vec[0][0] + obstacle_right_vec[0][0]) / 2 );
+          waypoint_standard.emplace_back( (obstacle_left_vec[0][1] + obstacle_right_vec[0][1]) / 2 );
+          waypoint_standard.emplace_back( (obstacle_left_vec[0][2] + obstacle_right_vec[0][2]) / 2 );
+
+          if ( obstacle_left_vec.size() < obstacle_right_vec.size() ) {
+            float dx = waypoint_standard[0] - obstacle_right_vec[0][0];
+            float dy = waypoint_standard[1] - obstacle_right_vec[0][1];
+
+            for (int i = 0; i < obstacle_right_vec.size(); i++) {
+              vector<float> tmp_vec;
+              tmp_vec.emplace_back( (obstacle_right_vec[i][0]) + dx);
+              tmp_vec.emplace_back( (obstacle_right_vec[i][1]) + dy);
+              tmp_vec.emplace_back( (obstacle_right_vec[i][2]) );
+
+              waypoint_vec.emplace_back(tmp_vec);
             }
           }
+          else {
+              float dx = obstacle_right_vec[0][0] - waypoint_standard[0];
+              float dy = obstacle_right_vec[0][1] - waypoint_standard[1];
+
+              for (int i = 0; i < obstacle_left_vec.size(); i++) {
+                vector<float> tmp_vec;
+                tmp_vec.emplace_back( (obstacle_left_vec[i][0]) + dx);
+                tmp_vec.emplace_back( (obstacle_left_vec[i][1]) + dy);
+                tmp_vec.emplace_back( (obstacle_left_vec[i][2]) );
+
+                waypoint_vec.emplace_back(tmp_vec);
+              }
+          }
         }
+
+        // 평범한 상황
         else {
-          for (int i = 0; i < obstacle_right.size(); i++) {
-            if (getTangentC2C(obstacle_left[i], obstacle_right[i]) > TANGENT) {
-              vector<float> tmp_vec;
-              tmp_vec.emplace_back( (obstacle_left[i][0] + obstacle_right[i][0]) / 2 );
-              tmp_vec.emplace_back( (obstacle_left[i][1] + obstacle_right[i][1]) / 2 );
-              tmp_vec.emplace_back( (obstacle_left[i][2] + obstacle_right[i][2]) / 2 );
+          if (obstacle_left_vec.size() < obstacle_right_vec.size()) {
+              for (int i = 0; i < obstacle_left_vec.size(); i++) {
+                vector<float> tmp_vec;
+                tmp_vec.emplace_back( (obstacle_left_vec[i][0] + obstacle_right_vec[i][0]) / 2 );
+                tmp_vec.emplace_back( (obstacle_left_vec[i][1] + obstacle_right_vec[i][1]) / 2 );
+                tmp_vec.emplace_back( (obstacle_left_vec[i][2] + obstacle_right_vec[i][2]) / 2 );
 
-              waypoint_arr.emplace_back(tmp_vec);
-            }
+                waypoint_vec.emplace_back(tmp_vec);
+              }
+          }
+          else {
+              for (int i = 0; i < obstacle_right_vec.size(); i++) {
+                vector<float> tmp_vec;
+                tmp_vec.emplace_back( (obstacle_left_vec[i][0] + obstacle_right_vec[i][0]) / 2 );
+                tmp_vec.emplace_back( (obstacle_left_vec[i][1] + obstacle_right_vec[i][1]) / 2 );
+                tmp_vec.emplace_back( (obstacle_left_vec[i][2] + obstacle_right_vec[i][2]) / 2 );
+
+                waypoint_vec.emplace_back(tmp_vec);
+              }
           }
         }
+      }
+      
+        // 첫 오른쪽 안들어왔을 때
+      else if (obstacle_right_vec.size() == 0){
+          for (int i = 0; i < obstacle_buffer_vec.size(); i++){
+            obstacle_left_vec.emplace_back(obstacle_buffer_vec[i]);
+          }
+
+          // vector<float> waypoint_standard; 
+          // waypoint_standard.emplace_back(obstacle_left_vec[0][0] / 2); //+ obstacle_right_vec[0][0]) / 2 );
+          // waypoint_standard.emplace_back(obstacle_left_vec[0][1] / 2); //+ obstacle_right_vec[0][1]) / 2 );
+          // waypoint_standard.emplace_back(obstacle_left_vec[0][2] / 2); //+ obstacle_right_vec[0][2]) / 2 );
+
+          // float dx = obstacle_right_vec[0][0] - waypoint_standard[0];
+          // float dy = obstacle_right_vec[0][1] - waypoint_standard[1];
+
+          for (int i = 0; i < obstacle_left_vec.size(); i++) {
+            vector<float> tmp_vec;
+            tmp_vec.emplace_back(obstacle_left_vec[i][0] - obstacle_left_vec[0][0]); //+ dx);
+            tmp_vec.emplace_back(obstacle_left_vec[i][1] - obstacle_left_vec[0][1]); //+ dy);
+            tmp_vec.emplace_back(obstacle_left_vec[i][2]);
+
+            waypoint_vec.emplace_back(tmp_vec);
+          }
+      }
+      
+      // 첫 왼쪽 안들어왔을 때
+      else if (obstacle_left_vec.size() == 0){
+        for (int i = 0; i < obstacle_buffer_vec.size(); i++){
+          obstacle_right_vec.emplace_back(obstacle_buffer_vec[i]);
+        }
+
+        // vector<float> waypoint_standard; 
+        // waypoint_standard.emplace_back(obstacle_left_vec[0][0] / 2); //+ obstacle_right_vec[0][0]) / 2 );
+        // waypoint_standard.emplace_back(obstacle_left_vec[0][1] / 2); //+ obstacle_right_vec[0][1]) / 2 );
+        // waypoint_standard.emplace_back(obstacle_left_vec[0][2] / 2); //+ obstacle_right_vec[0][2]) / 2 );
+
+        // float dx = obstacle_right_vec[0][0] - waypoint_standard[0];
+        // float dy = obstacle_right_vec[0][1] - waypoint_standard[1];
+
+        for (int i = 0; i < obstacle_right_vec.size(); i++) {
+          vector<float> tmp_vec;
+          tmp_vec.emplace_back(obstacle_right_vec[i][0] - obstacle_right_vec[0][0]); //+ dx);
+          tmp_vec.emplace_back(obstacle_right_vec[i][1] - obstacle_right_vec[0][1]); //+ dy);
+          tmp_vec.emplace_back(obstacle_right_vec[i][2]);
+
+          waypoint_vec.emplace_back(tmp_vec);
+        }
+      }
         
-        // Print for Debugging
-        // cout << "LEFT: ";
-        // for (int i = 0; i < obstacle_left.size(); i++) {
-        //   cout << "[" << obstacle_left[i][0] << ", " << obstacle_left[i][1] << "], ";
-        // }
-        // cout << "\n";
 
-        // cout << "RIGHT: ";
-        // for (int i = 0; i < obstacle_right.size(); i++) {
-        //   cout << "[" << obstacle_right[i][0] << ", " << obstacle_right[i][1] << "], ";
-        // }
-        // cout << "\n";
+      // Print for Debugging
+      // cout << "LEFT: ";
+      // for (int i = 0; i < obstacle_left_vec.size(); i++) {
+      //   cout << "[" << obstacle_left_vec[i][0] << ", " << obstacle_left_vec[i][1] << "], ";
+      // }
+      // cout << "\n";
 
-        // cout << "WAYPOINT: ";
-        // for (int i = 0; i < waypoint_arr.size(); i++) {
-        //   cout << "[" << waypoint_arr[i][0] << ", " << waypoint_arr[i][1] << "], ";
-        // }
+      // cout << "RIGHT: ";
+      // for (int i = 0; i < obstacle_right_vec.size(); i++) {
+      //   cout << "[" << obstacle_right_vec[i][0] << ", " << obstacle_right_vec[i][1] << "], ";
+      // }
+      // cout << "\n";
 
-        // cout << "\n\n";
+      // cout << "WAYPOINT: ";
+      // for (int i = 0; i < waypoint_vec.size(); i++) {
+      //   cout << "[" << waypoint_vec[i][0] << ", " << waypoint_vec[i][1] << "], ";
+      // }
 
-        // Visualization
-        for (int i = 0; i < obstacle_left.size(); i++) {
+      // cout << "\n\n";
+
+      // Visualization
+      if (obstacle_left_vec.size() != 0) {
+        for (int i = 0; i < obstacle_left_vec.size(); i++) {
           LeftBox.header.frame_id = "velodyne";
           LeftBox.header.stamp = ros::Time();
         
-          LeftBox.id = cluster_id*123; 
+          LeftBox.id = left_box_id; 
           LeftBox.type = visualization_msgs::Marker::CYLINDER; //직육면체로 표시
           LeftBox.action = visualization_msgs::Marker::ADD;
 
-          LeftBox.pose.position.x = obstacle_left[i][0]; 
-          LeftBox.pose.position.y = obstacle_left[i][1];
-          LeftBox.pose.position.z = obstacle_left[i][2];
+          LeftBox.pose.position.x = obstacle_left_vec[i][0]; 
+          LeftBox.pose.position.y = obstacle_left_vec[i][1];
+          LeftBox.pose.position.z = obstacle_left_vec[i][2];
 
           LeftBox.scale.x = 0.5;
           LeftBox.scale.y = 0.5;
@@ -356,19 +525,23 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
 
           LeftBox.lifetime = ros::Duration(0.1); //box 지속시간
           LeftBoxArray.markers.emplace_back(LeftBox);
-        }
 
-        for (int i = 0; i < obstacle_right.size(); i++) {
+          left_box_id++;
+        }
+      }
+
+      if (obstacle_right_vec.size() != 0) {
+        for (int i = 0; i < obstacle_right_vec.size(); i++) {
           RightBox.header.frame_id = "velodyne";
           RightBox.header.stamp = ros::Time();
         
-          RightBox.id = cluster_id*234; 
+          RightBox.id = right_box_id; 
           RightBox.type = visualization_msgs::Marker::CYLINDER; //직육면체로 표시
           RightBox.action = visualization_msgs::Marker::ADD;
 
-          RightBox.pose.position.x = obstacle_right[i][0]; 
-          RightBox.pose.position.y = obstacle_right[i][1];
-          RightBox.pose.position.z = obstacle_right[i][2];
+          RightBox.pose.position.x = obstacle_right_vec[i][0]; 
+          RightBox.pose.position.y = obstacle_right_vec[i][1];
+          RightBox.pose.position.z = obstacle_right_vec[i][2];
 
           RightBox.scale.x = 0.5;
           RightBox.scale.y = 0.5;
@@ -381,58 +554,56 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
 
           RightBox.lifetime = ros::Duration(0.1); //box 지속시간
           RightBoxArray.markers.emplace_back(RightBox);
+
+          right_box_id++;
         }
-    
-        for (int i = 0; i < waypoint_arr.size(); i++) {
-          Waypoint.header.frame_id = "velodyne";
-          Waypoint.header.stamp = ros::Time();
+      }
+
+      
+      for (int i = 0; i < waypoint_vec.size(); i++) {
+        Waypoint.header.frame_id = "velodyne";
+        Waypoint.header.stamp = ros::Time();
+      
+        Waypoint.id = waypoint_id;
+        Waypoint.type = visualization_msgs::Marker::SPHERE; //직육면체로 표시
+        Waypoint.action = visualization_msgs::Marker::ADD;
+
+        Waypoint.pose.position.x = waypoint_vec[i][0]; 
+        Waypoint.pose.position.y = waypoint_vec[i][1];
+        Waypoint.pose.position.z = waypoint_vec[i][2];
+
+        Waypoint.scale.x = 0.5;
+        Waypoint.scale.y = 0.5;
+        Waypoint.scale.z = 0.5;
+
+        Waypoint.color.a = 1.0; //직육면체 투명도, a = alpha
+        Waypoint.color.r = 1.0; //직육면체 색상 RGB값
+        Waypoint.color.g = 0.0;
+        Waypoint.color.b = 0.0;
+
+        Waypoint.lifetime = ros::Duration(0.1); //box 지속시간
+        WaypointArray.markers.emplace_back(Waypoint);
         
-          Waypoint.id = cluster_id*345; 
-          Waypoint.type = visualization_msgs::Marker::SPHERE; //직육면체로 표시
-          Waypoint.action = visualization_msgs::Marker::ADD;
+        WaypointPosition.x_arr[i] = (waypoint_vec[i][0]);
+        WaypointPosition.y_arr[i] = (waypoint_vec[i][1]);
 
-          Waypoint.pose.position.x = waypoint_arr[i][0]; 
-          Waypoint.pose.position.y = waypoint_arr[i][1];
-          Waypoint.pose.position.z = waypoint_arr[i][2];
+        waypoint_id++;
+      }
 
-          Waypoint.scale.x = 0.5;
-          Waypoint.scale.y = 0.5;
-          Waypoint.scale.z = 0.5;
+      WaypointPosition.cnt = waypoint_vec.size();
 
-          Waypoint.color.a = 1.0; //직육면체 투명도, a = alpha
-          Waypoint.color.r = 1.0; //직육면체 색상 RGB값
-          Waypoint.color.g = 0.0;
-          Waypoint.color.b = 0.0;
-
-          Waypoint.lifetime = ros::Duration(0.1); //box 지속시간
-          WaypointArray.markers.emplace_back(Waypoint);
-          
-          WaypointPosition.x_arr[i] = (waypoint_arr[i][0]);
-          WaypointPosition.y_arr[i] = (waypoint_arr[i][1]);
-        }
-        WaypointPosition.cnt = waypoint_arr.size();
-
-      } //endif(obstacle_vec[0][1] * obstacle_vec[1][1] < 0)
+    } //endif (obstacle_y_positive_vec.size() > 0 && obstacle_y_negative_vec.size() > 0)
 
     
-      // 두 개의 시작점이 한 라인에서 잡힌 경우
-      else {
-        // cout << "Oops!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
-        // cout << obstacle_vec[0][1] << "//" << obstacle_vec[1][1] << "===" << obstacle_vec[0][1] * obstacle_vec[1][1] << '\n';
-      } 
+  }// endif(BoxArray.markers.size() > 1)
 
-      // 다음 탐색을 위한 배열 초기화
-      vector< vector<float> >().swap(obstacle_vec);
-      vector< vector<float> >().swap(obstacle_buffer);
-      vector< vector<float> >().swap(obstacle_left);
-      vector< vector<float> >().swap(obstacle_right);
-      vector< vector<float> >().swap(waypoint_arr);
-
-    }// endif(BoxArray.markers.size() > 1)
-    
-    cluster_id++; //intensity 증가
-
-  }
+  // 다음 탐색을 위한 배열 초기화
+  vector< vector<float> >().swap(obstacle_y_positive_vec);
+  vector< vector<float> >().swap(obstacle_y_negative_vec);
+  vector< vector<float> >().swap(obstacle_buffer_vec);
+  vector< vector<float> >().swap(obstacle_left_vec);
+  vector< vector<float> >().swap(obstacle_right_vec);
+  vector< vector<float> >().swap(waypoint_vec);
   
   //Convert To ROS data type
   pcl::PCLPointCloud2 cloud_p;
@@ -449,7 +620,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
   pcl_conversions::fromPCL(cloud_cropbox, cropbox);
   cropbox.header.frame_id = "velodyne";
 
-
   clusterPub.publish(cluster);
   boundingBoxMarkerPub.publish(BoxArray);
   waypointMarkerPub.publish(WaypointArray);
@@ -458,7 +628,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
   leftConesMarkerPub.publish(LeftBoxArray);
   rightConesMarkerPub.publish(RightBoxArray);
   cropboxPub.publish(cropbox);
-  
+  ppPub.publish(velMsg);
 }
 
 int main(int argc, char **argv) {
@@ -481,6 +651,7 @@ int main(int argc, char **argv) {
   leftConesMarkerPub = nh.advertise<visualization_msgs::MarkerArray>("/leftbox_marker", 0.001);
   rightConesMarkerPub = nh.advertise<visualization_msgs::MarkerArray>("/rightbox_marker", 0.001);
   cropboxPub = nh.advertise<sensor_msgs::PointCloud2>("/cropbox", 0.001); 
+  ppPub = nh.advertise<lidar_team_erp42::DynamicVelocity>("/dynamic_velocity", 0.001); 
   
   ros::spin();
  

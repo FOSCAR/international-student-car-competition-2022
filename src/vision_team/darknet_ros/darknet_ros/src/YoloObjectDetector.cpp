@@ -323,7 +323,7 @@ void* YoloObjectDetector::detectInThread() {
     printf("Objects:\n\n");
   }
   image display = buff_[(buffIndex_ + 2) % 3];
-  demoThresh_ = 0.99;
+  // demoThresh_ = 0.99;
   draw_detections(display, dets, nboxes, demoThresh_, demoNames_, demoAlphabet_, demoClasses_);
 
   // extract the bounding boxes and send them to ROS
@@ -565,7 +565,7 @@ void* YoloObjectDetector::publishInThread() {
       if (rosBoxCounter_[i] > 0) {
         darknet_ros_msgs::BoundingBox boundingBox;
         for (int j = 0; j < rosBoxCounter_[i]; j++) {
-          if (rosBoxes_[i][j].prob >= 0.9){
+          // if (rosBoxes_[i][j].prob >= 0.9){
             int xmin = (rosBoxes_[i][j].x - rosBoxes_[i][j].w / 2) * frameWidth_;
             int ymin = (rosBoxes_[i][j].y - rosBoxes_[i][j].h / 2) * frameHeight_;
             int xmax = (rosBoxes_[i][j].x + rosBoxes_[i][j].w / 2) * frameWidth_;
@@ -579,7 +579,7 @@ void* YoloObjectDetector::publishInThread() {
             boundingBox.xmax = xmax;
             boundingBox.ymax = ymax;
             boundingBoxesResults_.bounding_boxes.push_back(boundingBox);
-          }
+          // }
         }
       }
     }
