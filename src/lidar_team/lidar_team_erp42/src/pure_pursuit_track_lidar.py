@@ -19,17 +19,11 @@ from lidar_team_erp42.msg import Waypoint
 from race.msg import drive_values
 from lidar_team_erp42.msg import DynamicVelocity
 
-def signal_handler(sig, frame):
-    os.system('killall -9 python rosout')
-    sys.exit(0)
-
-signal.signal(signal.SIGINT, signal_handler)
-
 # Parameters
-k = 0.1  # look forward gain
-Lfc = 2.5
-Kp = 1.0  # speed proportional gain
-dt = 0.1  # [s] time tick
+# 도로 폭이 좁을 때 k = 0.09 Lfc = 2.25
+# 도록 폭이 넓을 때 k = 0.09 Lfc = 2.5
+k = 0.09  # look forward gain 0.09
+Lfc = 2.5 # [m] look-ahead distance 2.25
 WB = 1.04  # [m] wheel base of vehicle
 
 target_speed = 10
@@ -50,21 +44,11 @@ class State:
         self.rear_x = x
         self.rear_y = y
 
-    # def update(self, a, delta):
-    #     global realVel
-    #     self.v += a * dt
-
     def calc_distance(self, point_x, point_y):
         dx = self.rear_x - point_x
         dy = self.rear_y - point_y
 
         return math.hypot(dx, dy)
-
-
-def proportional_control(target, current):
-    a = Kp * (target - current)
-
-    return a
 
 
 class TargetCourse:
@@ -133,7 +117,7 @@ def pure_pursuit_steer_control(state, trajectory, pind):
 
     alpha = math.atan2(ty - state.rear_y, tx - state.rear_x) - state.yaw
 
-    delta = math.atan2(2.0 * WB * math.sin(alpha) / Lf, 0.9) * 100 #/ Lf, 1.4)
+    delta = math.atan2(2.0 * WB * math.sin(alpha), Lf) * -100
 
     return delta, ind, tx, ty
 
@@ -207,13 +191,9 @@ if __name__ == '__main__':
 
                 target_pub.publish(marker)
             
-                publishDriveValue(realVel, -di)
-
-                # ai = proportional_control(target_speed, realVel)
-                # state.update(ai, di)  # Control vehicle
+                publishDriveValue(realVel, di)
 
             if is_one_lap_finished == True:
-                print("####################################################################")
                 break
 
             rate.sleep()

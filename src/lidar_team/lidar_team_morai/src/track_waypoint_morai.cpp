@@ -51,6 +51,7 @@ void dynamicParamCallback(lidar_team_morai::hyper_parameter_moraiConfig &config,
 
   minPoints = config.minPoints;
   epsilon = config.epsilon;
+
   minClusterSize = config.minClusterSize;
   maxClusterSize = config.maxClusterSize;
 
@@ -71,7 +72,6 @@ vector< vector<float> > obstacle_y_negative_vec;
 vector< vector<float> > obstacle_buffer_vec;
 vector< vector<float> > obstacle_left_vec;
 vector< vector<float> > obstacle_right_vec;
-vector< vector<float> > obstacle_one_line_vec;
 vector< vector<float> > waypoint_vec;
 vector< vector<float> > previous_waypoint_vec;
 
@@ -82,8 +82,7 @@ ros::Publisher boundingBoxPosePub; //Bounding Box Position Publisher
 ros::Publisher waypointPosePub; //Waypoint Position Publisher
 ros::Publisher leftConesMarkerPub; //left Box Publisher
 ros::Publisher rightConesMarkerPub; //right Box Publisher
-ros::Publisher oneLineConesMarkerPub; //right Box Publisher
-ros::Publisher cropboxPub; //Cluster PublishserCOMPONENTS
+ros::Publisher cropboxPub; //Cropbox PublishserCOMPONENTS
 ros::Publisher dynamicVelpub;
 
 
@@ -96,7 +95,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
   int waypoint_id = 5000;
   double velocity = 15;
   double minX = 99;
-  lidar_team_morai::PurePursuit velMsg;
+  lidar_team_morai::DynamicVelocity velMsg;
 
   //ROS message 변환
   //PointXYZI가 아닌 PointXYZ로 선언하는 이유 -> 각각의 Cluster를 다른 색으로 표현해주기 위해서. Clustering 이후 각각 구별되는 intensity value를 넣어줄 예정.
@@ -115,9 +114,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
 
   visualization_msgs::MarkerArray RightBoxArray;
   visualization_msgs::Marker RightBox;
-
-  visualization_msgs::MarkerArray OneLineBoxArray;
-  visualization_msgs::Marker OneLineBox;
 
   //Boundingbox & Waypoitn Position Messsage 
   lidar_team_morai::Boundingbox BoxPosition;
@@ -203,7 +199,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
     if (-1.0 < center_y && center_y < 1.0 && minX > center_x) {
       minX = center_x;
       velocity = log(center_x + exp(1)) * 3.75;
-      // velocity = exp(center_x -7);
       cout << "after throttle: " << velocity << "\n";
       velocity = (velocity < 7.0) ? 7.0 : velocity;
       velocity = (velocity > 18.0) ? 18.0 : velocity;
@@ -272,8 +267,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
       }
     } 
 
-    // cout << "LEFT : " << obstacle_y_positive_vec.size() << "RIGHT : " << obstacle_y_negative_vec.size() << '\n';
-
     if (obstacle_y_positive_vec.size() > 0 && obstacle_y_negative_vec.size() > 0) {
       // x 기준으로 정렬 (라이다와 가까운 라바콘 부터)      
       sort(obstacle_y_positive_vec.begin(), obstacle_y_positive_vec.end(), x_cmp);
@@ -314,14 +307,8 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
       int left_size = obstacle_left_vec.size();
       int right_size = obstacle_right_vec.size();
 
-      // cout << "여기에요 1 " << obstacle_left_vec.size() - obstacle_right_vec.size() << ", " << obstacle_right_vec.size() - obstacle_left_vec.size() << "\n";
-      // cout << "여기에요 2 " << left_size - right_size << ", " << abs(right_size - left_size) << "\n";
-
       // Waypoint Array 구성 -> 왼쪽, 오른쪽 중 작은 사이즈인 배열의 사이즈를 기준으로 비교
       if ( (obstacle_left_vec.size() == 1) || (obstacle_right_vec.size() == 1) || (abs(left_size - right_size) >= 3) ) {
-        // ROS_INFO("LEFT : %d, RIGHT : %d\n", obstacle_left_vec.size(), obstacle_right_vec.size());
-        
-
         vector<float> waypoint_standard; 
         waypoint_standard.emplace_back( (obstacle_left_vec[0][0] + obstacle_right_vec[0][0]) / 2 );
         waypoint_standard.emplace_back( (obstacle_left_vec[0][1] + obstacle_right_vec[0][1]) / 2 );
@@ -333,8 +320,8 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
 
           for (int i = 0; i < obstacle_right_vec.size(); i++) {
             vector<float> waypoint;
-            waypoint.emplace_back( (obstacle_right_vec[i][0]) + dx - 1); //(obstacle_right_vec[0][0] * 2 / 3));
-            waypoint.emplace_back( (obstacle_right_vec[i][1]) + dy ); // (obstacle_right_vec[0][1] * 2 / 3));
+            waypoint.emplace_back( (obstacle_right_vec[i][0]) + dx - 1); 
+            waypoint.emplace_back( (obstacle_right_vec[i][1]) + dy ); 
             waypoint.emplace_back( (obstacle_right_vec[i][2]) );
 
             waypoint_vec.emplace_back(waypoint);
@@ -346,8 +333,8 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
 
           for (int i = 0; i < obstacle_left_vec.size(); i++) {
             vector<float> waypoint;
-            waypoint.emplace_back( (obstacle_left_vec[i][0]) + dx - 1); //(obstacle_left_vec[0][0] * 2 / 3));
-            waypoint.emplace_back( (obstacle_left_vec[i][1]) + dy ); // (obstacle_left_vec[0][1] * 2 / 3));
+            waypoint.emplace_back( (obstacle_left_vec[i][0]) + dx - 1); 
+            waypoint.emplace_back( (obstacle_left_vec[i][1]) + dy ); 
             waypoint.emplace_back( (obstacle_left_vec[i][2]) );
 
             waypoint_vec.emplace_back(waypoint);
@@ -458,60 +445,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
       }
     } //endif (obstacle_y_positive_vec.size() > 0 && obstacle_y_negative_vec.size() > 0)
 
-    // else if (obstacle_y_positive_vec.size() > 0 && obstacle_y_negative_vec.size() > 0 && (obstacle_y_positive_vec[0][0] > 4 || obstacle_y_negative_vec[0][0] > 4) ) { 
-    //   for (int i = 0; i < BoxArray.markers.size(); i++) {
-    //     vector<float> obstacle_one_line;
-    //     obstacle_one_line.emplace_back(BoxArray.markers[i].pose.position.x);
-    //     obstacle_one_line.emplace_back(BoxArray.markers[i].pose.position.y);
-    //     obstacle_one_line.emplace_back(BoxArray.markers[i].pose.position.z);
-    //     obstacle_one_line.emplace_back(sqrt(BoxArray.markers[i].pose.position.x * BoxArray.markers[i].pose.position.x + BoxArray.markers[i].pose.position.y * BoxArray.markers[i].pose.position.y));
-    //     obstacle_one_line_vec.emplace_back(obstacle_one_line);
-    //   }
-
-    //   sort(obstacle_one_line_vec.begin(), obstacle_one_line_vec.end(), x_cmp);
-
-    //   float dx = 1 - obstacle_one_line_vec[0][0];
-    //   float dy = 0 - obstacle_one_line_vec[0][1];
-
-    //   for (int i = 0; i < obstacle_one_line_vec.size(); i++) {
-    //     vector<float> waypoint;
-    //     waypoint.emplace_back(obstacle_one_line_vec[i][0] + dx);
-    //     waypoint.emplace_back(obstacle_one_line_vec[i][1] + dy);
-    //     waypoint.emplace_back(obstacle_one_line_vec[i][2]);
-
-    //     waypoint_vec.emplace_back(waypoint);
-    //   }
-
-    //   previous_waypoint_vec = waypoint_vec;
-
-    //   for (int i = 0; i < obstacle_one_line_vec.size(); i++) {
-    //     OneLineBox.header.frame_id = "velodyne";
-    //     OneLineBox.header.stamp = ros::Time();
-      
-    //     OneLineBox.id = one_line_box_id; 
-    //     OneLineBox.type = visualization_msgs::Marker::CYLINDER; //직육면체로 표시
-    //     OneLineBox.action = visualization_msgs::Marker::ADD;
-
-    //     OneLineBox.pose.position.x = obstacle_one_line_vec[i][0]; 
-    //     OneLineBox.pose.position.y = obstacle_one_line_vec[i][1];
-    //     OneLineBox.pose.position.z = obstacle_one_line_vec[i][2];
-
-    //     OneLineBox.scale.x = 0.5;
-    //     OneLineBox.scale.y = 0.5;
-    //     OneLineBox.scale.z = 0.8;
-
-    //     OneLineBox.color.a = 0.5; //직육면체 투명도, a = alpha
-    //     OneLineBox.color.r = 0.0; //직육면체 색상 RGB값
-    //     OneLineBox.color.g = 1.0;
-    //     OneLineBox.color.b = 0.0;
-
-    //     OneLineBox.lifetime = ros::Duration(0.1); //box 지속시간
-    //     OneLineBoxArray.markers.emplace_back(OneLineBox);
-
-    //     one_line_box_id++;
-    //   }
-    // }
-    
   }// endif(BoxArray.markers.size() > 1)
   
 
@@ -557,7 +490,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
   vector< vector<float> >().swap(obstacle_buffer_vec);
   vector< vector<float> >().swap(obstacle_left_vec);
   vector< vector<float> >().swap(obstacle_right_vec);
-  // vector< vector<float> >().swap(obstacle_one_line_vec);
   vector< vector<float> >().swap(waypoint_vec);
 
   //Convert To ROS data type
@@ -582,7 +514,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
   waypointPosePub.publish(WaypointPosition);
   leftConesMarkerPub.publish(LeftBoxArray);
   rightConesMarkerPub.publish(RightBoxArray);
-  // oneLineConesMarkerPub.publish(OneLineBoxArray);
   cropboxPub.publish(cropbox);
   dynamicVelpub.publish(velMsg);
 }
@@ -606,9 +537,8 @@ int main(int argc, char **argv) {
   waypointPosePub = nh.advertise<lidar_team_morai::Waypoint>("/waypoint_position", 0.001);          
   leftConesMarkerPub = nh.advertise<visualization_msgs::MarkerArray>("/leftbox_marker", 0.001);
   rightConesMarkerPub = nh.advertise<visualization_msgs::MarkerArray>("/rightbox_marker", 0.001);
-  // oneLineConesMarkerPub = nh.advertise<visualization_msgs::MarkerArray>("/one_line_box_marker", 0.001);
   cropboxPub = nh.advertise<sensor_msgs::PointCloud2>("/cropbox", 0.001); 
-  dynamicVelpub = nh.advertise<lidar_team_morai::PurePursuit>("/dynamic_velocity", 0.001);
+  dynamicVelpub = nh.advertise<lidar_team_morai::DynamicVelocity>("/dynamic_velocity", 0.001);
   
   ros::spin();
  

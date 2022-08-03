@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import re
 import numpy as np
 import math
 import rospy
@@ -17,23 +18,17 @@ from visualization_msgs.msg import MarkerArray
 from lidar_team_morai.msg import Waypoint
 from race.msg import drive_values
 from morai_msgs.msg import EgoVehicleStatus, CtrlCmd
-from lidar_team_morai.msg import PurePursuit
+from lidar_team_morai.msg import DynamicVelocity
 import time
 
-def signal_handler(sig, frame):
-    os.system('killall -9 python rosout')
-    sys.exit(0)
-
-signal.signal(signal.SIGINT, signal_handler)
+# def signal_handler(sig, frame):
+#     os.system('killall -9 python rosout')
+#     sys.exit(0)
+# signal.signal(signal.SIGINT, signal_handler)
 
 # Parameters
-k = 0.1  # look forward gain
-Lfc = 3.0
-# Lfc = 5.0
-# Lfc = 1.75
-# Lfc = 1.25  # [m] look-ahead distance
-Kp = 1.0  # speed proportional gain
-dt = 0.1  # [s] time tick
+k = 0.24  # look forward gain
+Lfc = 2.4  # [m] look-ahead distance
 WB = 0.78  # [m] wheel base of vehicle
 
 target_speed = 10
@@ -46,7 +41,6 @@ current_velocity = 0
 realVel = 18
 is_one_lap_finished = False
 
-
 class State:
 
     def __init__(self, x = -0.96, y = 0.0, yaw = 0.0, v = 0.0):
@@ -55,22 +49,10 @@ class State:
         self.rear_x = x
         self.rear_y = y
 
-    def update(self, a, delta):
-        global current_v
-        self.v += a * dt
-
     def calc_distance(self, point_x, point_y):
         dx = self.rear_x - point_x
         dy = self.rear_y - point_y
-        # print(math.hypot(dx, dy))
         return math.hypot(dx, dy)
-
-
-def proportional_control(target, current):
-    a = Kp * (target - current)
-
-    return a
-
 
 class TargetCourse:
 
@@ -110,11 +92,8 @@ class TargetCourse:
           
                 distance_this_index = distance_next_index
             self.old_nearest_point_index = ind
-
-        
    
         Lf = k * realVel + Lfc  # update look ahead distance
-   
 
         # search look ahead target point index
         while Lf > state.calc_distance(self.cx[ind], self.cy[ind]):
@@ -143,8 +122,7 @@ def pure_pursuit_steer_control(state, trajectory, pind):
 
     alpha = math.atan2(ty - state.rear_y, tx - state.rear_x) - state.yaw
 
-    delta = math.atan2(2.0 * WB * math.sin(alpha) / Lf, 0.8) #/ Lf, 1.4)
-
+    delta = math.atan2(2.0 * WB * math.sin(alpha), Lf)
 
     return delta, ind, tx, ty
 
@@ -175,7 +153,7 @@ if __name__ == '__main__':
     rospy.init_node("pure_pursuit", anonymous=True)
 
     rospy.Subscriber("/local_path", Waypoint, path_callback) 
-    rospy.Subscriber("/dynamic_velocity", PurePursuit, dynamic_velocity_callback)
+    rospy.Subscriber("/dynamic_velocity", DynamicVelocity, dynamic_velocity_callback)
     rospy.Subscriber("/is_one_lap_finished", Bool, one_lap_flag_callback)
 
     ctrl_pub = rospy.Publisher("/ctrl_cmd", CtrlCmd, queue_size = 1)
@@ -223,11 +201,7 @@ if __name__ == '__main__':
                 
                 publishDriveValue(realVel, di)
 
-                ai = proportional_control(target_speed, realVel)
-                state.update(ai, di)  # Control vehicle
-
             if is_one_lap_finished == True:
-                print("####################################################################")
                 break
 
             rate.sleep()

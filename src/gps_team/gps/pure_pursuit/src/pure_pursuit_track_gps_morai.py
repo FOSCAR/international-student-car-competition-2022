@@ -14,35 +14,32 @@ from geometry_msgs.msg import PoseStamped,Point
 import tf
 from morai_msgs.msg import EgoVehicleStatus, CtrlCmd
 
-def signal_handler(sig, frame):
-    os.system('killall -9 python rosout')
-    sys.exit(0)
+# def signal_handler(sig, frame):
+#     os.system('killall -9 python rosout')
+#     sys.exit(0)
 
-signal.signal(signal.SIGINT, signal_handler)
+# signal.signal(signal.SIGINT, signal_handler)
 
 # Parameters
-k = 0.15  # look forward gain
-Lfc = 3.0 # [m] look-ahead distance
-Kp = 1.0  # speed proportional gain
+k = 0.2  # look forward gain
+Lfc = 1.8 # [m] look-ahead distance
 WB = 0.78  # [m] wheel base of vehicle
 
 target_speed = 10
 current_v = 6
 
-present_x = 0
-present_y = 0
-present_yaw = 0
+present_x, present_y, present_yaw = 0, 0, 0
 
 path_x = []
 path_y = []
 
 current_index = 0
-previous_index = 0
 
 txt_line_cnt = 0
 
-is_one_lap_finished = False
+MAX_VELOCITY = 18
 
+is_one_lap_finished = False
 
 status_msg=EgoVehicleStatus()
 
@@ -73,12 +70,6 @@ class State:
         dy = self.rear_y - point_y
 
         return math.hypot(dx, dy)
-
-def proportional_control(target, current):
-    a = Kp * (target - current)
-
-    return a
-
 
 class TargetCourse:
 
@@ -118,9 +109,6 @@ class TargetCourse:
                 distance_this_index = distance_next_index
             self.old_nearest_point_index = ind
 
-        
-        # print(state.v)
-        # print(current_v)
         Lf = k * current_v + Lfc  # update look ahead distance
 
 
@@ -151,17 +139,13 @@ def pure_pursuit_steer_control(state, trajectory, pind):
 
     alpha = math.atan2(ty - state.rear_y, tx - state.rear_x) - state.yaw
 
-    delta = math.atan2(2.0 * WB * math.sin(alpha) / Lf, 0.8) # 0.75 #/ Lf, 1.4)
+    delta = math.atan2(2.0 * WB * math.sin(alpha), Lf)
 
     return delta, ind, tx, ty
 
 
 def findLocalPath(path_x, path_y, state_x, state_y): ## global_path와 차량의 status_msg를 이용해 현재waypoint와 local_path를 생성 ##
     global current_index, previous_index, txt_line_cnt
-
-    # if (current_index >= txt_line_cnt- 3 and txt_line_cnt < len(path_x)):
-    #     txt_line_cnt += txt_line_cnt
-    #     print(txt_line_cnt,"#################################")
 
     current_x = state_x
     current_y = state_y
@@ -238,23 +222,17 @@ if __name__ == '__main__':
             target_course = TargetCourse(path_x, path_y)
             target_ind, _ = target_course.search_target_index(state)
             
-            ai = proportional_control(target_speed, current_v)
             di, target_ind, target_x, target_y = pure_pursuit_steer_control(state, target_course, target_ind)
-            # state.update(ai, di)  # Control vehicle
 
             print("di = ", di)
 
-            if abs(di) > 0.175:
-                current_v = 7      #7
-            elif abs(di) > 0.08:
-                current_v = 9     #12.5
-            elif abs(di) > 0.04:
-                current_v = 11      #15
-            else:
-                current_v = 18
+            current_v = -340 * pow(di,2) + MAX_VELOCITY
+            current_v = int(current_v)
+            if(current_v < 7.0):
+                current_v = 7
 
             drive_value.velocity = current_v
-            drive_value.steering = di
+            drive_value.steering = di * MAX_VELOCITY / current_v
 
             print(drive_value.velocity)
 

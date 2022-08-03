@@ -16,12 +16,6 @@ from std_msgs.msg import Bool
 
 rospack = rospkg.RosPack()
 
-def signal_handler(sig, frame):
-    os.system('killall -9 python rosout')
-    sys.exit(0)
-
-signal.signal(signal.SIGINT, signal_handler)
-
 class pm:
     def callback(self, msg):
         self.is_status = True

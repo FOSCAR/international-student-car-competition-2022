@@ -1,1 +1,0 @@
-lidar_team_erp42/Delivery[] delivery

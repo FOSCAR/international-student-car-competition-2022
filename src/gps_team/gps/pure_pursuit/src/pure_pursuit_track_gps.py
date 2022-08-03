@@ -13,22 +13,17 @@ from std_msgs.msg import Bool
 from ar_track_alvar_msgs.msg import AlvarMarkers
 from tf.transformations import euler_from_quaternion
 from race.msg import drive_values
-
-def signal_handler(sig, frame):
-    os.system('killall -9 python rosout')
-    sys.exit(0)
-
-signal.signal(signal.SIGINT, signal_handler)
+  # look forward gain
 
 # Parameters
-k = 0.1  # look forward gain
-Lfc = 3.0 # [m] look-ahead distance
-Kp = 1.0  # speed proportional gain
-dt = 0.1  # [s] time tick
+# 최종값 k = 0.095 Lfc = 2.85
+k = 0.095  # look forward gain
+Lfc = 2.85 # [m] look-ahead distance
 WB = 1.04  # [m] wheel base of vehicle
 
 target_speed = 10
 current_v = 6
+MAX_VELOCITY = 15
 
 present_x = 0
 present_y = 0
@@ -38,21 +33,18 @@ path_x = []
 path_y = []
 
 current_index = 0
-previous_index = 0
 
 txt_line_cnt = 0
 
 arData = {"AX": 0.0, "AY": 0.0, "AZ": 0.0, "AW": 0.0}
-
-LAP = 2 #5바퀴
 
 is_one_lap_finished = False
 
 class State:
 
     def __init__(self, x = present_x, y = present_y, yaw = present_yaw / 180 * math.pi, v = current_v):
-        self.x = x
-        self.y = y
+        self.x = x #+ 0.42
+        self.y = y #+ 0.08
         self.yaw = yaw
         self.v = v
         self.rear_x = self.x - ((WB / 2) * math.cos(self.yaw))
@@ -63,12 +55,6 @@ class State:
         dy = self.rear_y - point_y
 
         return math.hypot(dx, dy)
-
-
-def proportional_control(target, current):
-    a = Kp * (target - current)
-
-    return a
 
 
 class TargetCourse:
@@ -109,9 +95,6 @@ class TargetCourse:
                 distance_this_index = distance_next_index
             self.old_nearest_point_index = ind
 
-        
-        # print(state.v)
-        # print(current_v)
         Lf = k * current_v + Lfc  # update look ahead distance
 
 
@@ -142,17 +125,13 @@ def pure_pursuit_steer_control(state, trajectory, pind):
 
     alpha = math.atan2(ty - state.rear_y, tx - state.rear_x) - state.yaw
 
-    delta = math.atan2(2.0 * WB * math.sin(alpha) / Lf, 0.95) * 100 # 0.75 #/ Lf, 1.4)
+    delta = math.atan2(2.0 * WB * math.sin(alpha), Lf) 
 
     return delta, ind, tx, ty
 
 
 def findLocalPath(path_x, path_y, state_x, state_y): ## global_path와 차량의 status_msg를 이용해 현재waypoint와 local_path를 생성 ##
     global current_index, previous_index, txt_line_cnt
-
-    # if (current_index >= txt_line_cnt- 3 and txt_line_cnt < len(path_x)):
-    #     txt_line_cnt += txt_line_cnt
-    #     print(txt_line_cnt,"#################################")
 
     current_x = state_x
     current_y = state_y
@@ -165,7 +144,6 @@ def findLocalPath(path_x, path_y, state_x, state_y): ## global_path와 차량의
         if dis < min_dis :
             min_dis = dis
             current_index = i
-    # previous_index = current_index
 
     if current_index == txt_line_cnt:
         current_index = 0
@@ -220,10 +198,8 @@ if __name__ == '__main__':
             path_y.append(float(tmp[1]))
     f.close()
 
-    path_x *= LAP
-    path_y *= LAP
-
-    
+    path_x *= 2
+    path_y *= 2
 
     # initial state
 
@@ -244,23 +220,17 @@ if __name__ == '__main__':
             target_course = TargetCourse(path_x, path_y)
             target_ind, _ = target_course.search_target_index(state)
             
-            ai = proportional_control(target_speed, current_v)
             di, target_ind, target_x, target_y = pure_pursuit_steer_control(state, target_course, target_ind)
-            # state.update(ai, di)  # Control vehicle
            
             print("di = ", di)
 
-            if abs(di) > 17.5:
-                current_v = 6      #7
-            elif abs(di) > 8:
-                current_v = 7     #12.5
-            elif abs(di) > 4:
-                current_v = 8      #15
-            else:
-                current_v = 12
+            current_v = -340 * pow(di,2) + MAX_VELOCITY
+            current_v = int(current_v)
+            if(current_v < 7.0):
+                current_v = 7
 
             drive_value.throttle = current_v
-            drive_value.steering = -di
+            drive_value.steering = di * -100 #* MAX_VELOCITY / current_v  # 실제 차량은 - 곱해줘야 의도한 방향으로 차량이 조향함. 100은 스케일 때문에 곱한 값
 
             print(drive_value.throttle)
 

@@ -11,6 +11,9 @@
     <node pkg="lidar_team_erp42" type="drawing_path.py" name="drawing_path" />
     <node pkg="lidar_team_erp42" type="pure_pursuit_track_lidar.py" name="pure_pursuit_track_lidar" output="screen"/>
 
+    <!-- With Camera -->
+    <!-- <node pkg="lidar_team_erp42" type="pure_pursuit_camera.py" name="pure_pursuit_camera" output="screen"/> -->
+
     <!-- GPS -->
     <node pkg="pure_pursuit" type="pure_pursuit_track_gps.py" name="pure_pursuit_track_gps" output="screen"/>
     

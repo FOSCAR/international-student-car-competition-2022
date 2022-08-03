@@ -4,6 +4,7 @@
 lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint_backup.dir/src/track_waypoint_backup.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/Boundingbox.h
 lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint_backup.dir/src/track_waypoint_backup.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/Delivery.h
 lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint_backup.dir/src/track_waypoint_backup.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/DynamicVelocity.h
+lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint_backup.dir/src/track_waypoint_backup.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/PurePursuit.h
 lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint_backup.dir/src/track_waypoint_backup.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/Waypoint.h
 lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint_backup.dir/src/track_waypoint_backup.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/de_hyper_parameterConfig.h
 lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint_backup.dir/src/track_waypoint_backup.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/dy_hyper_parameterConfig.h
