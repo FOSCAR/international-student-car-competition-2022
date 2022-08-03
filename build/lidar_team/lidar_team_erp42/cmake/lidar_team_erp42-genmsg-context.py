@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/Waypoint.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/Boundingbox.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/DriveValues.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/Delivery.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/DynamicVelocity.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/PurePursuit.msg"
+messages_str = "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/Waypoint.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/Boundingbox.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/DriveValues.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/Delivery.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/DynamicVelocity.msg"
 services_str = ""
 pkg_name = "lidar_team_erp42"
 dependencies_str = "sensor_msgs;std_msgs;geometry_msgs;nav_msgs"

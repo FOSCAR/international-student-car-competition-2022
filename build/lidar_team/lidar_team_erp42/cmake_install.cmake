@@ -44,7 +44,6 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/DriveValues.msg"
     "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/Delivery.msg"
     "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/DynamicVelocity.msg"
-    "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/msg/PurePursuit.msg"
     )
 endif()
 

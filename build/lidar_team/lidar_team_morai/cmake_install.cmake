@@ -41,9 +41,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/lidar_team_morai/msg" TYPE FILE FILES
     "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg"
     "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Boundingbox.msg"
-    "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg"
-    "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/CtrlSteering.msg"
-    "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/CtrlVelocity.msg"
+    "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/DynamicVelocity.msg"
     "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/ObjectInfo.msg"
     )
 endif()

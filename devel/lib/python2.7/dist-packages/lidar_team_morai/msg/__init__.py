@@ -3,6 +3,7 @@ from ._CtrlSteering import *
 from ._CtrlVelocity import *
 from ._DriveValues import *
 from ._DynamicObstacle import *
+from ._DynamicVelocity import *
 from ._ObjectInfo import *
 from ._PurePursuit import *
 from ._StaticObstacle import *

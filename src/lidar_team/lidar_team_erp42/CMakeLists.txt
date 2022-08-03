@@ -27,7 +27,6 @@ add_message_files(
    DriveValues.msg
    Delivery.msg
    DynamicVelocity.msg
-   PurePursuit.msg
 )
 
 generate_messages(
@@ -154,9 +153,6 @@ include_directories(
 
 add_executable(track_waypoint src/track_waypoint.cpp)
 target_link_libraries(track_waypoint ${catkin_LIBRARIES})
-
-add_executable(track_waypoint_backup src/track_waypoint_backup.cpp)
-target_link_libraries(track_waypoint_backup ${catkin_LIBRARIES})
 
 add_executable(dynamic_obstacle src/dynamic_obstacle.cpp)
 target_link_libraries(dynamic_obstacle ${catkin_LIBRARIES})

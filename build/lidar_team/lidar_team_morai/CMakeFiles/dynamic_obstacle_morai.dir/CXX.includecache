@@ -38,22 +38,6 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/foscar/ISCC_2022/devel/include/lidar_team_morai/PurePursuit.h
-string
--
-vector
--
-map
--
-ros/types.h
--
-ros/serialization.h
--
-ros/builtin_message_traits.h
--
-ros/message_operations.h
--
-
 /home/foscar/ISCC_2022/devel/include/lidar_team_morai/Waypoint.h
 string
 -
@@ -215,7 +199,7 @@ lidar_team_morai/Boundingbox.h
 -
 lidar_team_morai/Waypoint.h
 -
-lidar_team_morai/PurePursuit.h
+lidar_team_morai/DynamicVelocity.h
 -
 lidar_team_morai/ObjectInfo.h
 -

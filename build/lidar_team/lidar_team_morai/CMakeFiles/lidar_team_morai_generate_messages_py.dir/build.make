@@ -53,61 +53,45 @@ CMAKE_BINARY_DIR = /home/foscar/ISCC_2022/build
 # Include the progress variables for this target.
 include lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py.dir/progress.make
 
-lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_CtrlVelocity.py
 lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_Boundingbox.py
+lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_DynamicVelocity.py
 lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_Waypoint.py
-lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_CtrlSteering.py
-lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_PurePursuit.py
 lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_ObjectInfo.py
 lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/__init__.py
 
 
-/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_CtrlVelocity.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_CtrlVelocity.py: /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/CtrlVelocity.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG lidar_team_morai/CtrlVelocity"
-	cd /home/foscar/ISCC_2022/build/lidar_team/lidar_team_morai && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/CtrlVelocity.msg -Ilidar_team_morai:/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -Inav_msgs:/opt/ros/melodic/share/nav_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -p lidar_team_morai -o /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg
-
 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_Boundingbox.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_Boundingbox.py: /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Boundingbox.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG lidar_team_morai/Boundingbox"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG lidar_team_morai/Boundingbox"
 	cd /home/foscar/ISCC_2022/build/lidar_team/lidar_team_morai && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Boundingbox.msg -Ilidar_team_morai:/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -Inav_msgs:/opt/ros/melodic/share/nav_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -p lidar_team_morai -o /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg
+
+/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_DynamicVelocity.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_DynamicVelocity.py: /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/DynamicVelocity.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG lidar_team_morai/DynamicVelocity"
+	cd /home/foscar/ISCC_2022/build/lidar_team/lidar_team_morai && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/DynamicVelocity.msg -Ilidar_team_morai:/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -Inav_msgs:/opt/ros/melodic/share/nav_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -p lidar_team_morai -o /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg
 
 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_Waypoint.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_Waypoint.py: /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python from MSG lidar_team_morai/Waypoint"
 	cd /home/foscar/ISCC_2022/build/lidar_team/lidar_team_morai && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg -Ilidar_team_morai:/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -Inav_msgs:/opt/ros/melodic/share/nav_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -p lidar_team_morai -o /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg
 
-/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_CtrlSteering.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_CtrlSteering.py: /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/CtrlSteering.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python from MSG lidar_team_morai/CtrlSteering"
-	cd /home/foscar/ISCC_2022/build/lidar_team/lidar_team_morai && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/CtrlSteering.msg -Ilidar_team_morai:/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -Inav_msgs:/opt/ros/melodic/share/nav_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -p lidar_team_morai -o /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg
-
-/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_PurePursuit.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_PurePursuit.py: /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Python from MSG lidar_team_morai/PurePursuit"
-	cd /home/foscar/ISCC_2022/build/lidar_team/lidar_team_morai && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg -Ilidar_team_morai:/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -Inav_msgs:/opt/ros/melodic/share/nav_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -p lidar_team_morai -o /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg
-
 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_ObjectInfo.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_ObjectInfo.py: /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/ObjectInfo.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Python from MSG lidar_team_morai/ObjectInfo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python from MSG lidar_team_morai/ObjectInfo"
 	cd /home/foscar/ISCC_2022/build/lidar_team/lidar_team_morai && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/ObjectInfo.msg -Ilidar_team_morai:/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg -Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg -Inav_msgs:/opt/ros/melodic/share/nav_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg -p lidar_team_morai -o /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg
 
 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/__init__.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/__init__.py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_CtrlVelocity.py
 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/__init__.py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_Boundingbox.py
+/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/__init__.py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_DynamicVelocity.py
 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/__init__.py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_Waypoint.py
-/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/__init__.py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_CtrlSteering.py
-/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/__init__.py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_PurePursuit.py
 /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/__init__.py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_ObjectInfo.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Python msg __init__.py for lidar_team_morai"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/foscar/ISCC_2022/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Python msg __init__.py for lidar_team_morai"
 	cd /home/foscar/ISCC_2022/build/lidar_team/lidar_team_morai && ../../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg --initpy
 
 lidar_team_morai_generate_messages_py: lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py
-lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_CtrlVelocity.py
 lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_Boundingbox.py
+lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_DynamicVelocity.py
 lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_Waypoint.py
-lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_CtrlSteering.py
-lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_PurePursuit.py
 lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/_ObjectInfo.py
 lidar_team_morai_generate_messages_py: /home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_morai/msg/__init__.py
 lidar_team_morai_generate_messages_py: lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py.dir/build.make

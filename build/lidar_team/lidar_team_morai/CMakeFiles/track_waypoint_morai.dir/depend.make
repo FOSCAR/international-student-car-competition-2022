@@ -3,7 +3,6 @@
 
 lidar_team/lidar_team_morai/CMakeFiles/track_waypoint_morai.dir/src/track_waypoint_morai.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_morai/Boundingbox.h
 lidar_team/lidar_team_morai/CMakeFiles/track_waypoint_morai.dir/src/track_waypoint_morai.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_morai/ObjectInfo.h
-lidar_team/lidar_team_morai/CMakeFiles/track_waypoint_morai.dir/src/track_waypoint_morai.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_morai/PurePursuit.h
 lidar_team/lidar_team_morai/CMakeFiles/track_waypoint_morai.dir/src/track_waypoint_morai.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_morai/Waypoint.h
 lidar_team/lidar_team_morai/CMakeFiles/track_waypoint_morai.dir/src/track_waypoint_morai.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_morai/dy_hyper_parameter_moraiConfig.h
 lidar_team/lidar_team_morai/CMakeFiles/track_waypoint_morai.dir/src/track_waypoint_morai.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_morai/hyper_parameter_moraiConfig.h
