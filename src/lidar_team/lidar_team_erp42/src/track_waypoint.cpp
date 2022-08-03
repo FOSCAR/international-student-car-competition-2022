@@ -71,7 +71,6 @@ vector< vector<float> > obstacle_y_negative_vec;
 vector< vector<float> > obstacle_buffer_vec;
 vector< vector<float> > obstacle_left_vec;
 vector< vector<float> > obstacle_right_vec;
-vector< vector<float> > obstacle_one_line_vec;
 vector< vector<float> > waypoint_vec;
 vector< vector<float> > previous_waypoint_vec;
 
@@ -82,7 +81,7 @@ ros::Publisher boundingBoxPosePub; //Bounding Box Position Publisher
 ros::Publisher waypointPosePub; //Waypoint Position Publisher
 ros::Publisher leftConesMarkerPub; //left Box Publisher
 ros::Publisher rightConesMarkerPub; //right Box Publisher
-ros::Publisher cropboxPub; //Cluster PublishserCOMPONENTS
+ros::Publisher cropboxPub; //Cluster Publishser
 ros::Publisher dynamicVelPub;
 
 
@@ -91,8 +90,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
   int box_id = 1000;
   int left_box_id = 2000;
   int right_box_id = 3000;
-  int one_line_box_id = 4000;
-  int waypoint_id = 5000;
+  int waypoint_id = 4000;
   double velocity = 15;
   double minX = 99;
   lidar_team_erp42::DynamicVelocity velMsg;
@@ -114,9 +112,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
 
   visualization_msgs::MarkerArray RightBoxArray;
   visualization_msgs::Marker RightBox;
-
-  visualization_msgs::MarkerArray OneLineBoxArray;
-  visualization_msgs::Marker OneLineBox;
 
   //Boundingbox & Waypoitn Position Messsage 
   lidar_team_erp42::Boundingbox BoxPosition;
@@ -208,8 +203,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
       velocity = (velocity > 18.0) ? 18.0 : velocity;
     } 
     velMsg.throttle = velocity;
-   
-
+  
     if ( (xMinBoundingBox < x_len && x_len < xMaxBoundingBox) && (yMinBoundingBox < y_len && y_len < yMaxBoundingBox) && (zMinBoundingBox < z_len && z_len < zMaxBoundingBox) ) {
       Box.header.frame_id = "velodyne";
       Box.header.stamp = ros::Time();
@@ -499,7 +493,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
   vector< vector<float> >().swap(obstacle_buffer_vec);
   vector< vector<float> >().swap(obstacle_left_vec);
   vector< vector<float> >().swap(obstacle_right_vec);
-  // vector< vector<float> >().swap(obstacle_one_line_vec);
   vector< vector<float> >().swap(waypoint_vec);
 
   //Convert To ROS data type

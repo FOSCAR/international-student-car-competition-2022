@@ -91,8 +91,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
   int box_id = 1000;
   int left_box_id = 2000;
   int right_box_id = 3000;
-  int one_line_box_id = 4000;
-  int waypoint_id = 5000;
+  int waypoint_id = 4000;
   double velocity = 15;
   double minX = 99;
   lidar_team_morai::DynamicVelocity velMsg;
