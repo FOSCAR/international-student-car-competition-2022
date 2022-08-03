@@ -243,6 +243,21 @@ lidar_team_erp42_gencfg/fast:
 .PHONY : lidar_team_erp42_gencfg/fast
 
 # Convenience name for target.
+lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_genpy.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_genpy.dir/rule
+.PHONY : lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_genpy.dir/rule
+
+# Convenience name for target.
+lidar_team_erp42_genpy: lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_genpy.dir/rule
+
+.PHONY : lidar_team_erp42_genpy
+
+# fast build rule for target.
+lidar_team_erp42_genpy/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_genpy.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_genpy.dir/build
+.PHONY : lidar_team_erp42_genpy/fast
+
+# Convenience name for target.
 lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_Waypoint.dir/rule:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_Waypoint.dir/rule
 .PHONY : lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_Waypoint.dir/rule
@@ -256,6 +271,36 @@ _lidar_team_erp42_generate_messages_check_deps_Waypoint: lidar_team/lidar_team_e
 _lidar_team_erp42_generate_messages_check_deps_Waypoint/fast:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_Waypoint.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_Waypoint.dir/build
 .PHONY : _lidar_team_erp42_generate_messages_check_deps_Waypoint/fast
+
+# Convenience name for target.
+lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages_cpp.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages_cpp.dir/rule
+.PHONY : lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+lidar_team_erp42_generate_messages_cpp: lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages_cpp.dir/rule
+
+.PHONY : lidar_team_erp42_generate_messages_cpp
+
+# fast build rule for target.
+lidar_team_erp42_generate_messages_cpp/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages_cpp.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages_cpp.dir/build
+.PHONY : lidar_team_erp42_generate_messages_cpp/fast
+
+# Convenience name for target.
+lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_PurePursuit.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_PurePursuit.dir/rule
+.PHONY : lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_PurePursuit.dir/rule
+
+# Convenience name for target.
+_lidar_team_erp42_generate_messages_check_deps_PurePursuit: lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_PurePursuit.dir/rule
+
+.PHONY : _lidar_team_erp42_generate_messages_check_deps_PurePursuit
+
+# fast build rule for target.
+_lidar_team_erp42_generate_messages_check_deps_PurePursuit/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_PurePursuit.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_PurePursuit.dir/build
+.PHONY : _lidar_team_erp42_generate_messages_check_deps_PurePursuit/fast
 
 # Convenience name for target.
 lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_Boundingbox.dir/rule:
@@ -318,21 +363,6 @@ delivery/fast:
 .PHONY : delivery/fast
 
 # Convenience name for target.
-lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencpp.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencpp.dir/rule
-.PHONY : lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencpp.dir/rule
-
-# Convenience name for target.
-lidar_team_erp42_gencpp: lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencpp.dir/rule
-
-.PHONY : lidar_team_erp42_gencpp
-
-# fast build rule for target.
-lidar_team_erp42_gencpp/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencpp.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencpp.dir/build
-.PHONY : lidar_team_erp42_gencpp/fast
-
-# Convenience name for target.
 lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_DynamicVelocity.dir/rule:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_DynamicVelocity.dir/rule
 .PHONY : lidar_team/lidar_team_erp42/CMakeFiles/_lidar_team_erp42_generate_messages_check_deps_DynamicVelocity.dir/rule
@@ -348,34 +378,19 @@ _lidar_team_erp42_generate_messages_check_deps_DynamicVelocity/fast:
 .PHONY : _lidar_team_erp42_generate_messages_check_deps_DynamicVelocity/fast
 
 # Convenience name for target.
-lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages_cpp.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages_cpp.dir/rule
-.PHONY : lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages_cpp.dir/rule
+lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencpp.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencpp.dir/rule
+.PHONY : lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencpp.dir/rule
 
 # Convenience name for target.
-lidar_team_erp42_generate_messages_cpp: lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages_cpp.dir/rule
+lidar_team_erp42_gencpp: lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencpp.dir/rule
 
-.PHONY : lidar_team_erp42_generate_messages_cpp
+.PHONY : lidar_team_erp42_gencpp
 
 # fast build rule for target.
-lidar_team_erp42_generate_messages_cpp/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages_cpp.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages_cpp.dir/build
-.PHONY : lidar_team_erp42_generate_messages_cpp/fast
-
-# Convenience name for target.
-lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_genpy.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_genpy.dir/rule
-.PHONY : lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_genpy.dir/rule
-
-# Convenience name for target.
-lidar_team_erp42_genpy: lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_genpy.dir/rule
-
-.PHONY : lidar_team_erp42_genpy
-
-# fast build rule for target.
-lidar_team_erp42_genpy/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_genpy.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_genpy.dir/build
-.PHONY : lidar_team_erp42_genpy/fast
+lidar_team_erp42_gencpp/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencpp.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencpp.dir/build
+.PHONY : lidar_team_erp42_gencpp/fast
 
 # Convenience name for target.
 lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_generate_messages.dir/rule:
@@ -648,15 +663,16 @@ help:
 	@echo "... track_waypoint"
 	@echo "... edit_cache"
 	@echo "... lidar_team_erp42_gencfg"
+	@echo "... lidar_team_erp42_genpy"
 	@echo "... _lidar_team_erp42_generate_messages_check_deps_Waypoint"
+	@echo "... lidar_team_erp42_generate_messages_cpp"
+	@echo "... _lidar_team_erp42_generate_messages_check_deps_PurePursuit"
 	@echo "... _lidar_team_erp42_generate_messages_check_deps_Boundingbox"
 	@echo "... _lidar_team_erp42_generate_messages_check_deps_DriveValues"
 	@echo "... _lidar_team_erp42_generate_messages_check_deps_Delivery"
 	@echo "... delivery"
-	@echo "... lidar_team_erp42_gencpp"
 	@echo "... _lidar_team_erp42_generate_messages_check_deps_DynamicVelocity"
-	@echo "... lidar_team_erp42_generate_messages_cpp"
-	@echo "... lidar_team_erp42_genpy"
+	@echo "... lidar_team_erp42_gencpp"
 	@echo "... lidar_team_erp42_generate_messages"
 	@echo "... lidar_team_erp42_geneus"
 	@echo "... lidar_team_erp42_generate_messages_eus"

@@ -14,6 +14,8 @@
     (:file "_package_DriveValues" :depends-on ("_package"))
     (:file "DynamicVelocity" :depends-on ("_package_DynamicVelocity"))
     (:file "_package_DynamicVelocity" :depends-on ("_package"))
+    (:file "PurePursuit" :depends-on ("_package_PurePursuit"))
+    (:file "_package_PurePursuit" :depends-on ("_package"))
     (:file "Waypoint" :depends-on ("_package_Waypoint"))
     (:file "_package_Waypoint" :depends-on ("_package"))
   ))

@@ -245,6 +245,8 @@ lidar_team_erp42/Delivery.h
 -
 lidar_team_erp42/DynamicVelocity.h
 -
+lidar_team_erp42/PurePursuit.h
+-
 dynamic_reconfigure/server.h
 -
 lidar_team_erp42/hyper_parameterConfig.h

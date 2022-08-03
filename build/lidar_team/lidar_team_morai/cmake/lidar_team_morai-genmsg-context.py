@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Boundingbox.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg"
+messages_str = "/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Waypoint.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/Boundingbox.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/PurePursuit.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/CtrlSteering.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/CtrlVelocity.msg;/home/foscar/ISCC_2022/src/lidar_team/lidar_team_morai/msg/ObjectInfo.msg"
 services_str = ""
 pkg_name = "lidar_team_morai"
 dependencies_str = "sensor_msgs;std_msgs;geometry_msgs;nav_msgs"
