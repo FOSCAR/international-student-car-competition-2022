@@ -323,7 +323,7 @@ void* YoloObjectDetector::detectInThread() {
     printf("Objects:\n\n");
   }
   image display = buff_[(buffIndex_ + 2) % 3];
-  // demoThresh_ = 0.99;
+  // demoThresh_ = 0.92;
   draw_detections(display, dets, nboxes, demoThresh_, demoNames_, demoAlphabet_, demoClasses_);
 
   // extract the bounding boxes and send them to ROS

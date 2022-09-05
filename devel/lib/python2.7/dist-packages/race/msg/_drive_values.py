@@ -8,14 +8,14 @@ import struct
 
 
 class drive_values(genpy.Message):
-  _md5sum = "ef2152ed667962c416322fe394052479"
+  _md5sum = "1426dadf0c13360c5b48826f6ea8e4b3"
   _type = "race/drive_values"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """int16 throttle
 float64 steering
-"""
-  __slots__ = ['throttle','steering']
-  _slot_types = ['int16','float64']
+float64 brake"""
+  __slots__ = ['throttle','steering','brake']
+  _slot_types = ['int16','float64','float64']
 
   def __init__(self, *args, **kwds):
     """
@@ -25,7 +25,7 @@ float64 steering
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       throttle,steering
+       throttle,steering,brake
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -38,9 +38,12 @@ float64 steering
         self.throttle = 0
       if self.steering is None:
         self.steering = 0.
+      if self.brake is None:
+        self.brake = 0.
     else:
       self.throttle = 0
       self.steering = 0.
+      self.brake = 0.
 
   def _get_types(self):
     """
@@ -55,7 +58,7 @@ float64 steering
     """
     try:
       _x = self
-      buff.write(_get_struct_hd().pack(_x.throttle, _x.steering))
+      buff.write(_get_struct_h2d().pack(_x.throttle, _x.steering, _x.brake))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -70,8 +73,8 @@ float64 steering
       end = 0
       _x = self
       start = end
-      end += 10
-      (_x.throttle, _x.steering,) = _get_struct_hd().unpack(str[start:end])
+      end += 18
+      (_x.throttle, _x.steering, _x.brake,) = _get_struct_h2d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -85,7 +88,7 @@ float64 steering
     """
     try:
       _x = self
-      buff.write(_get_struct_hd().pack(_x.throttle, _x.steering))
+      buff.write(_get_struct_h2d().pack(_x.throttle, _x.steering, _x.brake))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -101,8 +104,8 @@ float64 steering
       end = 0
       _x = self
       start = end
-      end += 10
-      (_x.throttle, _x.steering,) = _get_struct_hd().unpack(str[start:end])
+      end += 18
+      (_x.throttle, _x.steering, _x.brake,) = _get_struct_h2d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -111,9 +114,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_hd = None
-def _get_struct_hd():
-    global _struct_hd
-    if _struct_hd is None:
-        _struct_hd = struct.Struct("<hd")
-    return _struct_hd
+_struct_h2d = None
+def _get_struct_h2d():
+    global _struct_h2d
+    if _struct_h2d is None:
+        _struct_h2d = struct.Struct("<h2d")
+    return _struct_h2d

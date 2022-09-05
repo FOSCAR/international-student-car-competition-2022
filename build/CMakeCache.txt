@@ -761,6 +761,12 @@ avoid_obstacle_BINARY_DIR:STATIC=/home/foscar/ISCC_2022/build/gps_team/avoid_obs
 //Value Computed by CMake
 avoid_obstacle_SOURCE_DIR:STATIC=/home/foscar/ISCC_2022/src/gps_team/avoid_obstacle
 
+//Value Computed by CMake
+avoid_range_BINARY_DIR:STATIC=/home/foscar/ISCC_2022/build/lidar_team/avoid_range
+
+//Value Computed by CMake
+avoid_range_SOURCE_DIR:STATIC=/home/foscar/ISCC_2022/src/lidar_team/avoid_range
+
 //The directory containing a CMake configuration file for bond.
 bond_DIR:PATH=/opt/ros/melodic/share/bond/cmake
 
@@ -841,6 +847,12 @@ driver_nodelet_LIB_DEPENDS:STATIC=general;velodyne_input;general;/opt/ros/melodi
 
 //The directory containing a CMake configuration file for dynamic_reconfigure.
 dynamic_reconfigure_DIR:PATH=/opt/ros/melodic/share/dynamic_reconfigure/cmake
+
+//Value Computed by CMake
+dynamic_velocity_BINARY_DIR:STATIC=/home/foscar/ISCC_2022/build/lidar_team/dynamic_velocity
+
+//Value Computed by CMake
+dynamic_velocity_SOURCE_DIR:STATIC=/home/foscar/ISCC_2022/src/lidar_team/dynamic_velocity
 
 //The directory containing a CMake configuration file for eigen_conversions.
 eigen_conversions_DIR:PATH=/opt/ros/melodic/share/eigen_conversions/cmake
@@ -955,13 +967,19 @@ kinect_filtering_LIB_DEPENDS:STATIC=general;/opt/ros/melodic/lib/libimage_transp
 laser_geometry_DIR:PATH=/opt/ros/melodic/share/laser_geometry/cmake
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/melodic/lib/librostime.so
+lib:FILEPATH=/opt/ros/melodic/lib/libtf2.so
 
 //Value Computed by CMake
 lidar_camera_calibration_BINARY_DIR:STATIC=/home/foscar/ISCC_2022/build/lidar_team/lidar_camera_calibration
 
 //Value Computed by CMake
 lidar_camera_calibration_SOURCE_DIR:STATIC=/home/foscar/ISCC_2022/src/lidar_team/lidar_camera_calibration
+
+//Value Computed by CMake
+lidar_team_beta_BINARY_DIR:STATIC=/home/foscar/ISCC_2022/build/lidar_team/lidar_team_beta
+
+//Value Computed by CMake
+lidar_team_beta_SOURCE_DIR:STATIC=/home/foscar/ISCC_2022/src/lidar_team/lidar_team_beta
 
 //Value Computed by CMake
 lidar_team_erp42_BINARY_DIR:STATIC=/home/foscar/ISCC_2022/build/lidar_team/lidar_team_erp42
@@ -1004,6 +1022,15 @@ nodelet_DIR:PATH=/opt/ros/melodic/share/nodelet/cmake
 
 //The directory containing a CMake configuration file for nodelet_topic_tools.
 nodelet_topic_tools_DIR:PATH=/opt/ros/melodic/share/nodelet_topic_tools/cmake
+
+//Value Computed by CMake
+object_detector_BINARY_DIR:STATIC=/home/foscar/ISCC_2022/build/lidar_team/object_detector
+
+//Dependencies for target
+object_detector_LIB_DEPENDS:STATIC=
+
+//Value Computed by CMake
+object_detector_SOURCE_DIR:STATIC=/home/foscar/ISCC_2022/src/lidar_team/object_detector
 
 //Value Computed by CMake
 obstacle_detector_BINARY_DIR:STATIC=/home/foscar/ISCC_2022/build/gps_team/obstacle_detector
@@ -1203,6 +1230,12 @@ tf_DIR:PATH=/opt/ros/melodic/share/tf/cmake
 //The directory containing a CMake configuration file for topic_tools.
 topic_tools_DIR:PATH=/opt/ros/melodic/share/topic_tools/cmake
 
+//Value Computed by CMake
+track_race_BINARY_DIR:STATIC=/home/foscar/ISCC_2022/build/lidar_team/track_race
+
+//Value Computed by CMake
+track_race_SOURCE_DIR:STATIC=/home/foscar/ISCC_2022/src/lidar_team/track_race
+
 //Dependencies for the target
 transform_nodelet_LIB_DEPENDS:STATIC=general;velodyne_rawdata;general;data_containers;general;velodyne_input;general;/opt/ros/melodic/lib/libnodeletlib.so;general;/opt/ros/melodic/lib/libbondcpp.so;general;/usr/lib/x86_64-linux-gnu/libuuid.so;general;/opt/ros/melodic/lib/libclass_loader.so;general;/usr/lib/libPocoFoundation.so;general;/usr/lib/x86_64-linux-gnu/libdl.so;general;/opt/ros/melodic/lib/libroslib.so;general;/opt/ros/melodic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython2.7.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/melodic/lib/libtf.so;general;/opt/ros/melodic/lib/libtf2_ros.so;general;/opt/ros/melodic/lib/libactionlib.so;general;/opt/ros/melodic/lib/libmessage_filters.so;general;/opt/ros/melodic/lib/libtf2.so;general;/opt/ros/melodic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/melodic/lib/libdiagnostic_updater.so;general;/opt/ros/melodic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so;general;/opt/ros/melodic/lib/librosconsole.so;general;/opt/ros/melodic/lib/librosconsole_log4cxx.so;general;/opt/ros/melodic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so;general;/opt/ros/melodic/lib/libxmlrpcpp.so;general;/opt/ros/melodic/lib/libroscpp_serialization.so;general;/opt/ros/melodic/lib/librostime.so;general;/opt/ros/melodic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so;general;/usr/lib/x86_64-linux-gnu/libboost_atomic.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;general;yaml-cpp;
 
@@ -1328,6 +1361,12 @@ vision_distance_SOURCE_DIR:STATIC=/home/foscar/ISCC_2022/src/vision_team/vision_
 
 //The directory containing a CMake configuration file for visualization_msgs.
 visualization_msgs_DIR:PATH=/opt/ros/melodic/share/visualization_msgs/cmake
+
+//Value Computed by CMake
+waypoint_maker_BINARY_DIR:STATIC=/home/foscar/ISCC_2022/build/lidar_team/waypoint_maker
+
+//Value Computed by CMake
+waypoint_maker_SOURCE_DIR:STATIC=/home/foscar/ISCC_2022/src/lidar_team/waypoint_maker
 
 //The directory containing a CMake configuration file for xmlrpcpp.
 xmlrpcpp_DIR:PATH=/opt/ros/melodic/share/xmlrpcpp/cmake
@@ -1496,7 +1535,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=45
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=49
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

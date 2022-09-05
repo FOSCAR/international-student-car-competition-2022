@@ -105,7 +105,8 @@ generate_messages(
 generate_dynamic_reconfigure_options(
   cfg/hyper_parameter.cfg
   cfg/dy_hyper_parameter.cfg
-  cfg/st_hyper_parameter.cfg
+  cfg/small_st_hyper_parameter.cfg
+  cfg/large_st_hyper_parameter.cfg
   cfg/de_hyper_parameter.cfg
 )
 
@@ -151,21 +152,21 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/my_pcl_tutorial_node.cpp)
 
-add_executable(track_waypoint src/track_waypoint.cpp)
-target_link_libraries(track_waypoint ${catkin_LIBRARIES})
-
 add_executable(dynamic_obstacle src/dynamic_obstacle.cpp)
 target_link_libraries(dynamic_obstacle ${catkin_LIBRARIES})
 
-add_executable(static_obstacle src/static_obstacle.cpp)
-target_link_libraries(static_obstacle ${catkin_LIBRARIES})
+add_executable(small_static_obstacle src/small_static_obstacle.cpp)
+target_link_libraries(small_static_obstacle ${catkin_LIBRARIES})
+
+add_executable(large_static_obstacle src/large_static_obstacle.cpp)
+target_link_libraries(large_static_obstacle ${catkin_LIBRARIES})
 
 add_executable(delivery src/delivery.cpp)
 target_link_libraries(delivery ${catkin_LIBRARIES})
 
-add_dependencies(track_waypoint ${PROJECT_NAME}_gencfg)
 add_dependencies(dynamic_obstacle ${PROJECT_NAME}_gencfg)
-add_dependencies(static_obstacle ${PROJECT_NAME}_gencfg)
+add_dependencies(small_static_obstacle ${PROJECT_NAME}_gencfg)
+add_dependencies(large_static_obstacle ${PROJECT_NAME}_gencfg)
 add_dependencies(delivery ${PROJECT_NAME}_gencfg)
 
 

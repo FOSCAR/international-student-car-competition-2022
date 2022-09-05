@@ -66,6 +66,9 @@ public:
   //bool current_idx_flag;
 
   // for main control
+  double gps_velocity;
+  double gps_yaw;
+
   int is_obstacle_detected;
   bool is_dynamic_obstacle_detected_short;
   bool is_dynamic_obstacle_detected_long;

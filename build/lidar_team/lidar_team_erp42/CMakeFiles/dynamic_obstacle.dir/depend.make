@@ -9,7 +9,8 @@ lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/src/dynamic_obstacle
 lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/src/dynamic_obstacle.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/de_hyper_parameterConfig.h
 lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/src/dynamic_obstacle.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/dy_hyper_parameterConfig.h
 lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/src/dynamic_obstacle.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/hyper_parameterConfig.h
-lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/src/dynamic_obstacle.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/st_hyper_parameterConfig.h
+lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/src/dynamic_obstacle.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/large_st_hyper_parameterConfig.h
+lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/src/dynamic_obstacle.cpp.o: /home/foscar/ISCC_2022/devel/include/lidar_team_erp42/small_st_hyper_parameterConfig.h
 lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/src/dynamic_obstacle.cpp.o: /home/foscar/ISCC_2022/devel/include/race/drive_values.h
 lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/src/dynamic_obstacle.cpp.o: /home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/src/dbscan.h
 lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/src/dynamic_obstacle.cpp.o: /home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/src/dynamic_obstacle.cpp

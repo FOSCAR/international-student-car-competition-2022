@@ -20,6 +20,7 @@ class drive_values {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.throttle = null;
       this.steering = null;
+      this.brake = null;
     }
     else {
       if (initObj.hasOwnProperty('throttle')) {
@@ -34,6 +35,12 @@ class drive_values {
       else {
         this.steering = 0.0;
       }
+      if (initObj.hasOwnProperty('brake')) {
+        this.brake = initObj.brake
+      }
+      else {
+        this.brake = 0.0;
+      }
     }
   }
 
@@ -43,6 +50,8 @@ class drive_values {
     bufferOffset = _serializer.int16(obj.throttle, buffer, bufferOffset);
     // Serialize message field [steering]
     bufferOffset = _serializer.float64(obj.steering, buffer, bufferOffset);
+    // Serialize message field [brake]
+    bufferOffset = _serializer.float64(obj.brake, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -54,11 +63,13 @@ class drive_values {
     data.throttle = _deserializer.int16(buffer, bufferOffset);
     // Deserialize message field [steering]
     data.steering = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [brake]
+    data.brake = _deserializer.float64(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 10;
+    return 18;
   }
 
   static datatype() {
@@ -68,7 +79,7 @@ class drive_values {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'ef2152ed667962c416322fe394052479';
+    return '1426dadf0c13360c5b48826f6ea8e4b3';
   }
 
   static messageDefinition() {
@@ -76,7 +87,7 @@ class drive_values {
     return `
     int16 throttle
     float64 steering
-    
+    float64 brake
     `;
   }
 
@@ -98,6 +109,13 @@ class drive_values {
     }
     else {
       resolved.steering = 0.0
+    }
+
+    if (msg.brake !== undefined) {
+      resolved.brake = msg.brake;
+    }
+    else {
+      resolved.brake = 0.0
     }
 
     return resolved;

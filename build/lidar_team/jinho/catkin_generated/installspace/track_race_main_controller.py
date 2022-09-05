@@ -126,12 +126,8 @@ class avoidAngle:
         averageAngles = self.getAverageAngleList()
 
         # pivot 기준 가까운 범위를 발행
-        tmpPresentPivot = self.getAdjacentAngle(
+        presentPivot = self.getAdjacentAngle(
             averageAngleList=averageAngles, pivot=beforePivot)
-        if tmpPresentPivot == 0:
-            presentPivot = beforePivot
-        else:
-            presentPivot = tmpPresentPivot
 
         # 최신 pivot을 저장하기 전 예측값으로 변환 후 저장
         for i in range(self.__memoryPtr, -1, -1):
@@ -261,9 +257,9 @@ class control:
 
     def catchSignal(self, flag=-1):
         ctrl_msg = CtrlCmd()
-        self.__correctionSteering = self.catchNoiseCompareSNP(20)
+        self.__correctionSteering = self.catchNoiseCompareSNP(10)
         ctrl_msg.longlCmdType = 2
-        ctrl_msg.steering = -(self.__correctionSteering - 90) * math.pi / 180
+        ctrl_msg.steering = self.__correctionSteering
         ctrl_msg.velocity = 15
         ctrlPub.publish(ctrl_msg)
 

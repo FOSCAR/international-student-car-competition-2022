@@ -117,10 +117,10 @@
   "f94403809a4a82603b54e67d56403620")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<Colorcone_lidar>)))
   "Returns full string definition for message of type '<Colorcone_lidar>"
-  (cl:format cl:nil "int32 flag~%float64 dist_x~%float64 dist_y~%~%~%"))
+  (cl:format cl:nil "int32 flag~%float64 dist_x~%float64 dist_y~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'Colorcone_lidar)))
   "Returns full string definition for message of type 'Colorcone_lidar"
-  (cl:format cl:nil "int32 flag~%float64 dist_x~%float64 dist_y~%~%~%"))
+  (cl:format cl:nil "int32 flag~%float64 dist_x~%float64 dist_y~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <Colorcone_lidar>))
   (cl:+ 0
      4

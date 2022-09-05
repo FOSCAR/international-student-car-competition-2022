@@ -13,8 +13,7 @@ class Colorcone_lidar(genpy.Message):
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """int32 flag
 float64 dist_x
-float64 dist_y
-"""
+float64 dist_y"""
   __slots__ = ['flag','dist_x','dist_y']
   _slot_types = ['int32','float64','float64']
 

@@ -182,7 +182,7 @@ if __name__ == '__main__':
 	# image_sub = rospy.Subscriber("/videofile/image_raw/", Image, image_callback)
 	# USB CAMERA 용 Subscriber	
 	# 카메라 토픽정보 받아오기
-	image_sub = rospy.Subscriber("/usb_cam/image_raw/", Image, image_callback)
+	image_sub = rospy.Subscriber("/camera2/usb_cam2/image_raw", Image, image_callback)
 	
 	# cap = cv2.VideoCapture("/home/foscar/ISCC_2021/src/vision_distance/src/ISCC_2021_Vision/yesun/8-31/origin_2021-8-31-19-42.avi")
 	# 욜로 토픽정보 받아오기

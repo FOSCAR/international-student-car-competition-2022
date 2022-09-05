@@ -88,7 +88,7 @@ gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit.cpp.o
  /opt/ros/melodic/include/tf/transform_datatypes.h
  /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
  /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h
-gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_for_track.cpp.o
+gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o
  /home/foscar/ISCC_2022/devel/include/avoid_obstacle/DetectedObstacles.h
  /home/foscar/ISCC_2022/devel/include/avoid_obstacle/PointObstacles.h
  /home/foscar/ISCC_2022/devel/include/avoid_obstacle/TrueObstacles.h
@@ -101,7 +101,7 @@ gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_for
  /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/include/obstacles.h
  /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/include/pure_pursuit.h
  /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/include/pure_pursuit_core.h
- /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/src/pure_pursuit_core_for_track.cpp
+ /home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/src/pure_pursuit_core_semi_final.cpp
  /opt/ros/melodic/include/geometry_msgs/Point.h
  /opt/ros/melodic/include/geometry_msgs/PointStamped.h
  /opt/ros/melodic/include/geometry_msgs/Pose.h
@@ -112,6 +112,8 @@ gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_for
  /opt/ros/melodic/include/geometry_msgs/TransformStamped.h
  /opt/ros/melodic/include/geometry_msgs/Twist.h
  /opt/ros/melodic/include/geometry_msgs/TwistStamped.h
+ /opt/ros/melodic/include/geometry_msgs/TwistWithCovariance.h
+ /opt/ros/melodic/include/geometry_msgs/TwistWithCovarianceStamped.h
  /opt/ros/melodic/include/geometry_msgs/Vector3.h
  /opt/ros/melodic/include/geometry_msgs/Vector3Stamped.h
  /opt/ros/melodic/include/ros/advertise_options.h
@@ -173,6 +175,7 @@ gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_for
  /opt/ros/melodic/include/rosconsole/macros_generated.h
  /opt/ros/melodic/include/std_msgs/Bool.h
  /opt/ros/melodic/include/std_msgs/Float32.h
+ /opt/ros/melodic/include/std_msgs/Float64.h
  /opt/ros/melodic/include/std_msgs/Header.h
  /opt/ros/melodic/include/tf/LinearMath/Matrix3x3.h
  /opt/ros/melodic/include/tf/LinearMath/MinMax.h
@@ -227,6 +230,8 @@ gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_node.cpp
  /opt/ros/melodic/include/geometry_msgs/TransformStamped.h
  /opt/ros/melodic/include/geometry_msgs/Twist.h
  /opt/ros/melodic/include/geometry_msgs/TwistStamped.h
+ /opt/ros/melodic/include/geometry_msgs/TwistWithCovariance.h
+ /opt/ros/melodic/include/geometry_msgs/TwistWithCovarianceStamped.h
  /opt/ros/melodic/include/geometry_msgs/Vector3.h
  /opt/ros/melodic/include/geometry_msgs/Vector3Stamped.h
  /opt/ros/melodic/include/ros/advertise_options.h
@@ -288,6 +293,7 @@ gps_team/gps/pure_pursuit/CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_node.cpp
  /opt/ros/melodic/include/rosconsole/macros_generated.h
  /opt/ros/melodic/include/std_msgs/Bool.h
  /opt/ros/melodic/include/std_msgs/Float32.h
+ /opt/ros/melodic/include/std_msgs/Float64.h
  /opt/ros/melodic/include/std_msgs/Header.h
  /opt/ros/melodic/include/tf/LinearMath/Matrix3x3.h
  /opt/ros/melodic/include/tf/LinearMath/MinMax.h

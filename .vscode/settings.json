@@ -81,6 +81,7 @@
         "/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages",
         "/home/foscar/ISCC_2021/devel/lib/python2.7/dist-packages",
         "/opt/ros/melodic/lib/python2.7/dist-packages"
-    ]
+    ],
+    "ros.isolateEnvironment": null
     
 }

@@ -4,8 +4,10 @@
 // ROS includes
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TwistStamped.h>
+#include <geometry_msgs/TwistWithCovarianceStamped.h>
 #include <ros/ros.h>
 #include <std_msgs/Float32.h>
+#include <std_msgs/Float64.h>
 #include <std_msgs/Bool.h>
 #include <ros/package.h>
 
@@ -56,6 +58,10 @@ private:
   // subscriber
   ros::Subscriber pose_sub;
   ros::Subscriber obstacle_sub;
+
+  ros::Subscriber gps_velocity_sub;
+  ros::Subscriber gps_velocity_raw_sub;
+  ros::Subscriber gps_yaw_sub;
   ros::Subscriber dynamic_obstacle_short_sub;
   ros::Subscriber dynamic_obstacle_long_sub;
   ros::Subscriber static_obstacle_short_sub;
@@ -86,6 +92,7 @@ private:
 
   std::vector<std::pair<geometry_msgs::Point, int>> global_path;
   std::vector<std::pair<geometry_msgs::Point, int>> parking_path;
+  std::vector<std::pair<geometry_msgs::Point, int>> end_parking_path;
   std::vector<std::pair<geometry_msgs::Point, int>> avoidance_path;
   std::vector<std::pair<geometry_msgs::Point, int>> left_path;
   std::vector<std::pair<geometry_msgs::Point, int>> right_path;
@@ -99,6 +106,11 @@ private:
 
   // for main control
   void callbackFromObstacle(const avoid_obstacle::TrueObstacles& msg);
+
+  void callbackFromGpsVelocity(const std_msgs::Float64& msg);
+  void callbackFromGpsVelocityRawdata(const geometry_msgs::TwistWithCovarianceStamped& msg);
+  void callbackFromYaw (const std_msgs::Float64& msg);
+
   void callbackFromDynamicObstacleShort(const std_msgs::Bool& msg);
   void callbackFromDynamicObstacleLong(const std_msgs::Bool& msg);
   void callbackFromStaticObstacleShort(const std_msgs::Bool& msg);
@@ -120,8 +132,8 @@ private:
   void initForROS();
 
   // functions
-  void publishPurePursuitDriveMsg(const bool& can_get_curvature, const double& kappa);
-  void pulishControlMsg(double throttle, double steering) const;
+  void publishPurePursuitDriveMsg(const bool& can_get_curvature, const double& kappa, const double& brake = 0);
+  void pulishControlMsg(double throttle, double steering, double brake = 0) const;
 
   void publishTargetPointVisualizationMsg ();
   void publishCurrentPointVisualizationMsg ();

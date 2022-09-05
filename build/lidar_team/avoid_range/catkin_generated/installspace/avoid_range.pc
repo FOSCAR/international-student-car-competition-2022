@@ -1,0 +1,8 @@
+prefix=/home/foscar/ISCC_2022/install
+
+Name: avoid_range
+Description: Description of avoid_range
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

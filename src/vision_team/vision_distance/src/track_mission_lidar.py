@@ -2,7 +2,7 @@
 #-*- encoding: utf-8 -*-
 
 ######################################################
-#################### 라이다+비전 #######################
+#################### 라이다+비전 #####################
 ######################################################
 
 import cv2, rospy, time
@@ -129,15 +129,15 @@ if __name__ == '__main__':
 		#print(img.shape)
 		#print(ret)
 		if img.size != (640 * 480 * 3):
-                    continue
+			continue
 
-		try:
-			out.write(img)
-		except:
-			pass
+		# try:
+		# 	out.write(img)
+		# except:
+		# 	pass
 		
 		width = 1000
-	    	height = 850
+		height = 850
 		
 		new_data_list = []
 		
@@ -155,12 +155,12 @@ if __name__ == '__main__':
 		img_down_right = [550, 750] #[420,350] #[400,800]
 		img_params = np.float32([img_up_left, img_up_right, img_down_left, img_down_right])
 
-	    	# Compute and return the transformation matrix
-	    	matrix = cv2.getPerspectiveTransform(corner_points_array, img_params)
+	    # Compute and return the transformation matrix
+		matrix = cv2.getPerspectiveTransform(corner_points_array, img_params)
 		np_matrix = np.array(matrix)
 		np.save(matrix_path, np_matrix)	
 		# print(np_matrix)
-	    	img_transformed = cv2.warpPerspective(img, matrix, (width, height))
+		img_transformed = cv2.warpPerspective(img, matrix, (width, height))
 
 		#black_img_roi = black_img[200:850, 0:1000]
 

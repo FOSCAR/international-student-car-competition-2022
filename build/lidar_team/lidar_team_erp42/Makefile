@@ -168,19 +168,34 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-lidar_team/lidar_team_erp42/CMakeFiles/static_obstacle.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/static_obstacle.dir/rule
-.PHONY : lidar_team/lidar_team_erp42/CMakeFiles/static_obstacle.dir/rule
+lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/rule
+.PHONY : lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/rule
 
 # Convenience name for target.
-static_obstacle: lidar_team/lidar_team_erp42/CMakeFiles/static_obstacle.dir/rule
+large_static_obstacle: lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/rule
 
-.PHONY : static_obstacle
+.PHONY : large_static_obstacle
 
 # fast build rule for target.
-static_obstacle/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/static_obstacle.dir/build
-.PHONY : static_obstacle/fast
+large_static_obstacle/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/build
+.PHONY : large_static_obstacle/fast
+
+# Convenience name for target.
+lidar_team/lidar_team_erp42/CMakeFiles/small_static_obstacle.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/small_static_obstacle.dir/rule
+.PHONY : lidar_team/lidar_team_erp42/CMakeFiles/small_static_obstacle.dir/rule
+
+# Convenience name for target.
+small_static_obstacle: lidar_team/lidar_team_erp42/CMakeFiles/small_static_obstacle.dir/rule
+
+.PHONY : small_static_obstacle
+
+# fast build rule for target.
+small_static_obstacle/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/small_static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/small_static_obstacle.dir/build
+.PHONY : small_static_obstacle/fast
 
 # Convenience name for target.
 lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/rule:
@@ -196,21 +211,6 @@ dynamic_obstacle: lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/ru
 dynamic_obstacle/fast:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/build
 .PHONY : dynamic_obstacle/fast
-
-# Convenience name for target.
-lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint.dir/rule
-.PHONY : lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint.dir/rule
-
-# Convenience name for target.
-track_waypoint: lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint.dir/rule
-
-.PHONY : track_waypoint
-
-# fast build rule for target.
-track_waypoint/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint.dir/build
-.PHONY : track_waypoint/fast
 
 # Convenience name for target.
 lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gencfg.dir/rule:
@@ -536,59 +536,59 @@ src/dynamic_obstacle.cpp.s:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/dynamic_obstacle.dir/src/dynamic_obstacle.cpp.s
 .PHONY : src/dynamic_obstacle.cpp.s
 
-src/static_obstacle.o: src/static_obstacle.cpp.o
+src/large_static_obstacle.o: src/large_static_obstacle.cpp.o
 
-.PHONY : src/static_obstacle.o
-
-# target to build an object file
-src/static_obstacle.cpp.o:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/static_obstacle.dir/src/static_obstacle.cpp.o
-.PHONY : src/static_obstacle.cpp.o
-
-src/static_obstacle.i: src/static_obstacle.cpp.i
-
-.PHONY : src/static_obstacle.i
-
-# target to preprocess a source file
-src/static_obstacle.cpp.i:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/static_obstacle.dir/src/static_obstacle.cpp.i
-.PHONY : src/static_obstacle.cpp.i
-
-src/static_obstacle.s: src/static_obstacle.cpp.s
-
-.PHONY : src/static_obstacle.s
-
-# target to generate assembly for a file
-src/static_obstacle.cpp.s:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/static_obstacle.dir/src/static_obstacle.cpp.s
-.PHONY : src/static_obstacle.cpp.s
-
-src/track_waypoint.o: src/track_waypoint.cpp.o
-
-.PHONY : src/track_waypoint.o
+.PHONY : src/large_static_obstacle.o
 
 # target to build an object file
-src/track_waypoint.cpp.o:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint.dir/src/track_waypoint.cpp.o
-.PHONY : src/track_waypoint.cpp.o
+src/large_static_obstacle.cpp.o:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/src/large_static_obstacle.cpp.o
+.PHONY : src/large_static_obstacle.cpp.o
 
-src/track_waypoint.i: src/track_waypoint.cpp.i
+src/large_static_obstacle.i: src/large_static_obstacle.cpp.i
 
-.PHONY : src/track_waypoint.i
+.PHONY : src/large_static_obstacle.i
 
 # target to preprocess a source file
-src/track_waypoint.cpp.i:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint.dir/src/track_waypoint.cpp.i
-.PHONY : src/track_waypoint.cpp.i
+src/large_static_obstacle.cpp.i:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/src/large_static_obstacle.cpp.i
+.PHONY : src/large_static_obstacle.cpp.i
 
-src/track_waypoint.s: src/track_waypoint.cpp.s
+src/large_static_obstacle.s: src/large_static_obstacle.cpp.s
 
-.PHONY : src/track_waypoint.s
+.PHONY : src/large_static_obstacle.s
 
 # target to generate assembly for a file
-src/track_waypoint.cpp.s:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/track_waypoint.dir/src/track_waypoint.cpp.s
-.PHONY : src/track_waypoint.cpp.s
+src/large_static_obstacle.cpp.s:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/src/large_static_obstacle.cpp.s
+.PHONY : src/large_static_obstacle.cpp.s
+
+src/small_static_obstacle.o: src/small_static_obstacle.cpp.o
+
+.PHONY : src/small_static_obstacle.o
+
+# target to build an object file
+src/small_static_obstacle.cpp.o:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/small_static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/small_static_obstacle.dir/src/small_static_obstacle.cpp.o
+.PHONY : src/small_static_obstacle.cpp.o
+
+src/small_static_obstacle.i: src/small_static_obstacle.cpp.i
+
+.PHONY : src/small_static_obstacle.i
+
+# target to preprocess a source file
+src/small_static_obstacle.cpp.i:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/small_static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/small_static_obstacle.dir/src/small_static_obstacle.cpp.i
+.PHONY : src/small_static_obstacle.cpp.i
+
+src/small_static_obstacle.s: src/small_static_obstacle.cpp.s
+
+.PHONY : src/small_static_obstacle.s
+
+# target to generate assembly for a file
+src/small_static_obstacle.cpp.s:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/small_static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/small_static_obstacle.dir/src/small_static_obstacle.cpp.s
+.PHONY : src/small_static_obstacle.cpp.s
 
 # Help Target
 help:
@@ -599,10 +599,10 @@ help:
 	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... rebuild_cache"
-	@echo "... static_obstacle"
+	@echo "... large_static_obstacle"
+	@echo "... small_static_obstacle"
 	@echo "... test"
 	@echo "... dynamic_obstacle"
-	@echo "... track_waypoint"
 	@echo "... edit_cache"
 	@echo "... lidar_team_erp42_gencfg"
 	@echo "... _lidar_team_erp42_generate_messages_check_deps_Waypoint"
@@ -630,12 +630,12 @@ help:
 	@echo "... src/dynamic_obstacle.o"
 	@echo "... src/dynamic_obstacle.i"
 	@echo "... src/dynamic_obstacle.s"
-	@echo "... src/static_obstacle.o"
-	@echo "... src/static_obstacle.i"
-	@echo "... src/static_obstacle.s"
-	@echo "... src/track_waypoint.o"
-	@echo "... src/track_waypoint.i"
-	@echo "... src/track_waypoint.s"
+	@echo "... src/large_static_obstacle.o"
+	@echo "... src/large_static_obstacle.i"
+	@echo "... src/large_static_obstacle.s"
+	@echo "... src/small_static_obstacle.o"
+	@echo "... src/small_static_obstacle.i"
+	@echo "... src/small_static_obstacle.s"
 .PHONY : help
 
 

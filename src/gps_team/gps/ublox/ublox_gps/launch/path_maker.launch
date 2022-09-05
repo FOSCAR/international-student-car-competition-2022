@@ -18,6 +18,6 @@
   </node>
 
   <node pkg="utmk_coordinate" type="wgs84_to_utmk.py" name="wgs84_to_utmk" />
-  <node pkg="utmk_coordinate" type="path_maker.py" name="path_maker" output="screen" />
+  <node pkg="utmk_coordinate" type="2022_path_maker.py" name="path_maker" output="screen" />
   
 </launch>

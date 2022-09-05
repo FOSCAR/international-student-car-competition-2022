@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_node.cpp.o"
   "CMakeFiles/pure_pursuit2.dir/src/pure_pursuit.cpp.o"
-  "CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_for_track.cpp.o"
+  "CMakeFiles/pure_pursuit2.dir/src/pure_pursuit_core_semi_final.cpp.o"
   "/home/foscar/ISCC_2022/devel/lib/pure_pursuit/pure_pursuit2.pdb"
   "/home/foscar/ISCC_2022/devel/lib/pure_pursuit/pure_pursuit2"
 )

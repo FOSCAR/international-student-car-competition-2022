@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <sstream>
+#include <time.h>
 
 
 serial::Serial ser;
@@ -28,36 +29,49 @@ void serialCallback(const race::drive_values::ConstPtr& msg) {
 	int steer_total = 0;
 	unsigned int speed_total = 0;
 	speed_total = abs(msg->throttle)*10;
-	printf("msg->throttle : %d\n", msg->throttle);
-	if(msg->throttle < 255 && msg->throttle > 0) { // forward
+	speed_total = (speed_total > 200) ? 200 : speed_total;
+	// printf("msg->throttle : %d\n", msg->throttle);
+	// erp42 limitSpeed = 20kph | maxSpeed = 40kph
+	if (msg->brake > 0) {
 		gear = 0x00;
-		speed_1 = speed_total;
-		speed_0 = 0x00;
-		front_brake = 0x00;
-		estop = 0x00;
-	} else if(msg->throttle > -255 && msg->throttle < 0) { // backward
-		gear = 0x02;
-		speed_1 = speed_total;
-		speed_0 = 0x00;
-		front_brake = 0x00;
-		estop = 0x00;
-	} else if(msg->throttle == 0) { // stop
-		speed_0 = 0x00;
 		speed_1 = 0x00;
-		gear = 0x01;
-		front_brake = 0x99;
-		estop = 0x00;
-	} else{
-		gear = 0x01;
 		speed_0 = 0x00;
-		speed_1 = 0x00;
-		front_brake = 0x33;
-		estop = 0x01;
+		front_brake = int(msg->brake * 153); // 브레이크 범위 int 최소 0, 최대 153
+		// printf("front_brake : %d\n", front_brake);
+		estop = 0x00;
+	} 
+	else { 
+		if( 0 < msg->throttle && msg->throttle < 255 ) { // forward
+			gear = 0x00;
+			speed_0 = 0x00;
+			speed_1 = speed_total;
+			front_brake = 0x00;
+			estop = 0x00;
+		} else if( -255 < msg->throttle && msg->throttle < 0 ) { // backward
+			gear = 0x02;
+			speed_0 = 0x00;
+			speed_1 = speed_total;
+			front_brake = 0x00;
+			estop = 0x00;
+		} else if( msg->throttle == 0 ) { // stop
+			gear = 0x01;
+			speed_0 = 0x00;
+			speed_1 = 0x00;
+			front_brake = 0x99;
+			estop = 0x00;
+		} else{
+			gear = 0x01;
+			speed_0 = 0x00;
+			speed_1 = 0x00;
+			front_brake = 0x33;
+			estop = 0x01;
+		}
 	}
+
 	steer_total = (int)((msg->steering)*71.0);
 	if(steer_total > 2000) steer_total = 2000;
 	if(steer_total < -2000) steer_total = -2000;
-	printf("steer : %d , speed : %u\n", steer_total, speed_total);
+	// printf("steer : %d , speed : %u\n", steer_total, speed_total);
 	steer_0 = steer_total >> 8;
 	steer_1 = steer_total & 0xff;
 }
@@ -110,12 +124,18 @@ int main (int argc, char** argv) {
 		encoder_values[1] = line[13];
 		encoder_values[2] = line[12];
 		encoder_values[3] = line[11];
+		
+
 		int encoder_val = ((int)encoder_values[0] << 24) |
                               ((int)encoder_values[1] << 16) |
                               ((int)encoder_values[2] << 8 ) |
                               ((int)encoder_values[3] << 0);
 
 		// cout << "encoder val : " << encoder_val << endl;
+		// cout << "encoder values[0] : " << (int)encoder_values[0] << endl;
+		// cout << "encoder values[1] : " << (int)encoder_values[1] << endl;
+		// cout << "encoder values[2] : " << (int)encoder_values[2] << endl;
+		// cout << "encoder values[3] : " << (int)encoder_values[3] << endl;
 
 		std_msgs::Int32 encoder_msg;
 		encoder_msg.data = encoder_val;

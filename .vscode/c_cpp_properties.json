@@ -4,12 +4,14 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/include/pcl-1.8/**"
+                "/usr/include/pcl-1.8/**",
+                "/opt/ros/melodic/include/**",
+                "~/ISCC_2022/devel/include/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "gnu11",
-            "cppStandard": "gnu++14",
+            "cppStandard": "c++14",
             "intelliSenseMode": "linux-gcc-x64",
             "compileCommands": "${workspaceFolder}/build/compile_commands.json"
         }

@@ -1,35 +1,48 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import rospy
-import math
-import numpy as np
-import matplotlib.pyplot as plt
+from std_msgs.msg import Float64
 from geometry_msgs.msg import TwistWithCovarianceStamped
+from math import sqrt
 
-vel_list = []
-time_list = []
-time1 = 0
+class GpsVelocity:
+    def __init__(self):
+        self.xVelocity = 0.0
+        self.yVelocity = 0.0
+        self.zVelocity = 0.0
+        self.speed = 0.0
 
-def gps_vel(data):
-    global time1
-    linear_x = data.twist.twist.linear.x
-    linear_y = data.twist.twist.linear.y
-    #print("linear x : ", data.twist.twist.linear.x)
-    #print("linear y : ", data.twist.twist.linear.y)
-    vel = math.sqrt(linear_x**2 + linear_y**2)
-    vel_list.append(vel)
-    time_list.append(time1)
-    time1 += 1
-    print(vel)
+        # Subscriber
+        rospy.Subscriber("/gps_front/fix_velocity", TwistWithCovarianceStamped, self.mainCallback)
 
-rospy.init_node('gps_velocity')
-rospy.Subscriber('gps_front/fix_velocity', TwistWithCovarianceStamped, gps_vel)
+        # Publisher
+        self.speedPublisher = rospy.Publisher("/gps_velocity", Float64, queue_size=1)
 
-while not rospy.is_shutdown():
-    pass
+    def mainCallback(self, msg):
+        self.setMsgData(msg)
+        self.calcSpeed()
+        self.speedPub()
+    
+    def setMsgData(self, msg):
+        self.xVelocity = msg.twist.twist.linear.x
+        self.yVelocity = msg.twist.twist.linear.y
+        self.zVelocity = msg.twist.twist.linear.z
 
-vel_list = np.array(vel_list, dtype=np.float64)
-time_list = np.array(time_list, dtype=np.int16)
+    def calcSpeed(self):
+        self.speed = sqrt(self.xVelocity * self.xVelocity + self.yVelocity * self.yVelocity + self.zVelocity * self.zVelocity) * 3.6
 
-plt.plot(time_list, vel_list)
-plt.show()
+    def speedPub(self):
+        self.speedPublisher.publish(self.speed)
+
+
+if __name__ == "__main__":
+    rospy.init_node("gps_speed")
+
+    gpsVelocity = GpsVelocity()
+
+    rate = rospy.Rate(60)
+
+    while not rospy.is_shutdown():
+
+        rate.sleep()

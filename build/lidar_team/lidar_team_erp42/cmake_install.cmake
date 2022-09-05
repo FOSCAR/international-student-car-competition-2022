@@ -84,7 +84,11 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/lidar_team_erp42" TYPE FILE FILES "/home/foscar/ISCC_2022/devel/include/lidar_team_erp42/st_hyper_parameterConfig.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/lidar_team_erp42" TYPE FILE FILES "/home/foscar/ISCC_2022/devel/include/lidar_team_erp42/small_st_hyper_parameterConfig.h")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/lidar_team_erp42" TYPE FILE FILES "/home/foscar/ISCC_2022/devel/include/lidar_team_erp42/large_st_hyper_parameterConfig.h")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from pyproj import Proj, transform
 
-f = open("semi_traffic.txt", 'r')
+f = open("parking_pos.txt", 'r')
 data = f.read()
 f.close()
 
@@ -9,7 +9,7 @@ data = data.rstrip().split('\n')
 data = [x.split(' ') for x in data]
 #print(data)
 
-f2 = open("semi_traffic_kcity.txt", 'w')
+f2 = open("parking_pos.txt", 'w')
 outstr = ''
 for d in data:
 	print(d)

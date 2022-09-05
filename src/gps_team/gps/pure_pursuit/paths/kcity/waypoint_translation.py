@@ -26,26 +26,25 @@ def parse_txt(path):
 
 if __name__ == "__main__":
     file_name = sys.argv[1]
-    scale = 0.25
+    scale = 0.2
 
     if len(file_name) == 0:
         print('The file is not exist')
         exit(-1)
 
     if len(sys.argv) == 3:
-	scale = float(sys.argv[2])
-
+	    scale = float(sys.argv[2])
 
     path = parse_txt(file_name)
 
-    k_city_start_position = path[0]
-    #k_city_start_position = np.array([955537.894297, 1956944.4206, 0],np.float64) # for parking
+    #k_city_start_position = path[0]
+    k_city_start_position = np.array([935614.333513, 1915998.68058, 0],np.float64) # for parking
 
 
-    school_start_position = np.array([955566.644773, 1956921.99891, 0],np.float64) # school(center)
+    #school_start_position = np.array([955566.644773, 1956921.99891, 0],np.float64) # school(center)
     # school_start_position = np.array([955576.601804, 1956925.47369, 0],np.float64) # school(corner-up)
     #school_start_position = np.array([955560.312455, 1956901.52949, 0],np.float64) # school(corner-down)
-    # school_start_position = np.array([955534.497699, 1956946.82466, 0],np.float64)  # avoid path start point
+    school_start_position = np.array([955563.365616848, 1956924.3451282133, 0],np.float64)  # avoid path start point
 
     print("k_city_start_position : {}".format(k_city_start_position))
     print("school_start_position : {}".format(school_start_position))
@@ -57,7 +56,7 @@ if __name__ == "__main__":
     
     #### for rotation ####
     # final1(80), final2(80), parking(0), delivery(50)
-    theta = 50; # degree
+    theta = 80; # degree
     theta = theta * np.pi / 180
     rotation_matrix = np.array([[np.cos(theta), np.sin(theta), 0],[-np.sin(theta), np.cos(theta), 0], [0, 0, 1]], np.float64)
 

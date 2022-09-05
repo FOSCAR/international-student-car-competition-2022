@@ -30,6 +30,7 @@ class pm:
         now = datetime.now()
         #read file(Input mode)
         self.f = open("/home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/paths/gps_track_path.txt", 'w')
+        # self.f = open("/home/foscar/ISCC_2022/src/gps_team/gps/pure_pursuit/paths/gps_track_path_tmp.txt", 'w')
 
         rospy.Subscriber('utmk_coordinate', Point, self.callback)
 

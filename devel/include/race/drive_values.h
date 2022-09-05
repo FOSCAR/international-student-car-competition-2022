@@ -25,11 +25,13 @@ struct drive_values_
 
   drive_values_()
     : throttle(0)
-    , steering(0.0)  {
+    , steering(0.0)
+    , brake(0.0)  {
     }
   drive_values_(const ContainerAllocator& _alloc)
     : throttle(0)
-    , steering(0.0)  {
+    , steering(0.0)
+    , brake(0.0)  {
   (void)_alloc;
     }
 
@@ -40,6 +42,9 @@ struct drive_values_
 
    typedef double _steering_type;
   _steering_type steering;
+
+   typedef double _brake_type;
+  _brake_type brake;
 
 
 
@@ -71,7 +76,8 @@ template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::race::drive_values_<ContainerAllocator1> & lhs, const ::race::drive_values_<ContainerAllocator2> & rhs)
 {
   return lhs.throttle == rhs.throttle &&
-    lhs.steering == rhs.steering;
+    lhs.steering == rhs.steering &&
+    lhs.brake == rhs.brake;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -128,12 +134,12 @@ struct MD5Sum< ::race::drive_values_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "ef2152ed667962c416322fe394052479";
+    return "1426dadf0c13360c5b48826f6ea8e4b3";
   }
 
   static const char* value(const ::race::drive_values_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xef2152ed667962c4ULL;
-  static const uint64_t static_value2 = 0x16322fe394052479ULL;
+  static const uint64_t static_value1 = 0x1426dadf0c13360cULL;
+  static const uint64_t static_value2 = 0x5b48826f6ea8e4b3ULL;
 };
 
 template<class ContainerAllocator>
@@ -154,6 +160,7 @@ struct Definition< ::race::drive_values_<ContainerAllocator> >
   {
     return "int16 throttle\n"
 "float64 steering\n"
+"float64 brake\n"
 ;
   }
 
@@ -174,6 +181,7 @@ namespace serialization
     {
       stream.next(m.throttle);
       stream.next(m.steering);
+      stream.next(m.brake);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -196,6 +204,8 @@ struct Printer< ::race::drive_values_<ContainerAllocator> >
     Printer<int16_t>::stream(s, indent + "  ", v.throttle);
     s << indent << "steering: ";
     Printer<double>::stream(s, indent + "  ", v.steering);
+    s << indent << "brake: ";
+    Printer<double>::stream(s, indent + "  ", v.brake);
   }
 };
 

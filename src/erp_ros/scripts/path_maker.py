@@ -50,7 +50,7 @@ class test :
         z = 0
         distance=sqrt(pow(x-self.prev_x,2)+pow(y-self.prev_y,2))
         if distance > 0.07:
-            data='{0} {1} {2}\n'.format(x,y,z)
+            data='{0}\t{1}\t{2}\n'.format(x,y,z)
             self.f.write(data)
             self.prev_x=x
             self.prev_y=y

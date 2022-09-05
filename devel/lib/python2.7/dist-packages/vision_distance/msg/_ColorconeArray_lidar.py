@@ -18,8 +18,7 @@ class ColorconeArray_lidar(genpy.Message):
 MSG: vision_distance/Colorcone_lidar
 int32 flag
 float64 dist_x
-float64 dist_y
-"""
+float64 dist_y"""
   __slots__ = ['colorcone']
   _slot_types = ['vision_distance/Colorcone_lidar[]']
 

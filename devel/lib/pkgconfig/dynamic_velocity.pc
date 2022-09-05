@@ -1,0 +1,8 @@
+prefix=/home/foscar/ISCC_2022/devel
+
+Name: dynamic_velocity
+Description: Description of dynamic_velocity
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

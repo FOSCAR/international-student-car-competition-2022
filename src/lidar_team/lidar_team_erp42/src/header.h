@@ -54,7 +54,8 @@
 #include <dynamic_reconfigure/server.h>
 #include "lidar_team_erp42/hyper_parameterConfig.h"
 #include "lidar_team_erp42/dy_hyper_parameterConfig.h"
-#include "lidar_team_erp42/st_hyper_parameterConfig.h"
+#include "lidar_team_erp42/small_st_hyper_parameterConfig.h"
+#include "lidar_team_erp42/large_st_hyper_parameterConfig.h"
 #include "lidar_team_erp42/de_hyper_parameterConfig.h"
 
 #include <race/drive_values.h>
