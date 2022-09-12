@@ -50,7 +50,7 @@ add_executable(
   src/pure_pursuit_core_final.cpp
   #src/pure_pursuit_core_final_with_safe.cpp
   #src/pure_pursuit_nomode.cpp
-  #src/pure_pursuit_core_semi_final.cpp
+  # src/pure_pursuit_core_semi_final.cpp
   #src/pure_pursuit_core_with_traffic_copy.cpp
   #src/pure_pursuit_version2.cpp
 

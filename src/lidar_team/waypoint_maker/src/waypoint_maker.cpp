@@ -128,12 +128,6 @@ double getDistanceObjectToObject(const Object &obj1, const Object &obj2) {
 
 
 class WaypointMaker{
-    double xMinRubberCone = 0.05;
-    double xMaxRubberCone = 0.55;
-    double yMinRubberCone = 0.05;
-    double yMaxRubberCone = 0.55;
-    double zMinRubberCone = 0.05;
-    double zMaxRubberCone = 0.85;
     // attribute
     ObjectArray objects; // subscribe msg data ( object_detector 토픽 구독해서 받는 정보를 저장하는 객체 )
 
@@ -161,6 +155,14 @@ class WaypointMaker{
     
 
     public:
+
+    double xMinRubberCone;
+    double xMaxRubberCone;
+    double yMinRubberCone;
+    double yMaxRubberCone;
+    double zMinRubberCone;
+    double zMaxRubberCone;
+
     // constructor
     WaypointMaker() {
         /**
@@ -168,7 +170,6 @@ class WaypointMaker{
          * 객체가 생성될 때 임의의 피봇 값을 설정하지 않으면 쓰레기 값이 들어가기 때문에 Critical Error가 발생합니다. 생성자로 값을 초기화 시킵니다.
          * ROS Subscriber 설정과 Publisher를 설정합니다
          */
-        
         
         leftPivot.centerX = 0.0;
         leftPivot.centerY = 1.0;
@@ -197,7 +198,7 @@ class WaypointMaker{
     void visualizePivot(); // 이름 그대로를 수행하는 Rviz 시각화 함수
 
     // dynamic reconfigure
-    void cfgCallback(waypoint_maker::waypointMakerConfig &config, int32_t level);
+    // void cfgCallback(waypoint_maker::waypointMakerConfig &config, int32_t level);
 };
 
 void WaypointMaker::mainCallback(const object_detector::ObjectInfo& msg) {
@@ -476,24 +477,25 @@ void WaypointMaker::visualizePivot() {
     visualizePivotPub.publish(pivotObjectArray);
 }
 
-// void WaypointMaker::cfgCallback(waypoint_maker::waypointMakerConfig &config, int32_t level) {
-//     xMinRubberCone = config.xMinRubberCone;
-//     xMaxRubberCone = config.xMaxRubberCone;
-//     yMinRubberCone = config.yMinRubberCone;
-//     yMaxRubberCone = config.yMaxRubberCone;
-//     zMinRubberCone = config.zMinRubberCone;
-//     zMaxRubberCone = config.zMaxRubberCone;
-// }
+void cfgCallback(waypoint_maker::waypointMakerConfig &config, WaypointMaker* wm) {
+    wm->xMinRubberCone = config.xMinRubberCone;
+    wm->xMaxRubberCone = config.xMaxRubberCone;
+    wm->yMinRubberCone = config.yMinRubberCone;
+    wm->yMaxRubberCone = config.yMaxRubberCone;
+    wm->zMinRubberCone = config.zMinRubberCone;
+    wm->zMaxRubberCone = config.zMaxRubberCone;
+}
+
 
 int main(int argc, char **argv) {
     ros::init(argc, argv, "waypoint_maker");
     
     WaypointMaker waypointMaker;
     
-    // dynamic_reconfigure::Server<waypoint_maker::waypointMakerConfig> server;
-    // dynamic_reconfigure::Server<waypoint_maker::waypointMakerConfig>::CallbackType f;
-    // f = boost::bind(waypointMaker.cfgCallback, _1, _2);
-    // server.setCallback(f);
+    dynamic_reconfigure::Server<waypoint_maker::waypointMakerConfig> server;
+    dynamic_reconfigure::Server<waypoint_maker::waypointMakerConfig>::CallbackType f;
+    f = boost::bind(&cfgCallback, _1, &waypointMaker);
+    server.setCallback(f);
     
     ros::spin();
 

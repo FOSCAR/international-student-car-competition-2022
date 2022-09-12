@@ -10,11 +10,11 @@ Reads and maintains the following parameters on the ROS server
 - \b "~de_xMaxROI" : \b [double] de_xMaxROI min: -10.0, default: 6.0, max: 200.0
 - \b "~de_yMinROI" : \b [double] de_yMinROI min: -200.0, default: -2.0, max: 10.0
 - \b "~de_yMaxROI" : \b [double] de_yMaxROI min: -10.0, default: 0.0, max: 200.0
-- \b "~de_zMinROI" : \b [double] de_zMinROI min: -1.0, default: -0.6, max: 5.0
+- \b "~de_zMinROI" : \b [double] de_zMinROI min: -1.0, default: -0.4, max: 5.0
 - \b "~de_zMaxROI" : \b [double] de_zMaxROI min: -2.0, default: 2.0, max: 100.0
 - \b "~de_xMinBoundingBox" : \b [double] de_xMinBoundingBox min: 0.0, default: 0.05, max: 10.0
-- \b "~de_xMaxBoundingBox" : \b [double] de_xMaxBoundingBox min: 0.0, default: 1.5, max: 10.0
-- \b "~de_yMinBoundingBox" : \b [double] de_yMinBoundingBox min: 0.0, default: 0.05, max: 10.0
+- \b "~de_xMaxBoundingBox" : \b [double] de_xMaxBoundingBox min: 0.0, default: 0.3, max: 10.0
+- \b "~de_yMinBoundingBox" : \b [double] de_yMinBoundingBox min: 0.0, default: 0.3, max: 10.0
 - \b "~de_yMaxBoundingBox" : \b [double] de_yMaxBoundingBox min: 0.0, default: 1.5, max: 10.0
 - \b "~de_zMinBoundingBox" : \b [double] de_zMinBoundingBox min: 0.0, default: 0.05, max: 10.0
 - \b "~de_zMaxBoundingBox" : \b [double] de_zMaxBoundingBox min: 0.0, default: 1.73, max: 10.0

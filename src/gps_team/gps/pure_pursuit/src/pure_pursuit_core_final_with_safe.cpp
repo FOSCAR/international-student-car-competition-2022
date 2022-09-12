@@ -41,6 +41,7 @@ bool right_avoid = false;
 
 bool get_x_distance = false;
 double delivery_x_distance = 0.0;
+bool isPresentYaw = false;
 double present_yaw = 0.0;
 
 float target_dist = 3.0;
@@ -53,6 +54,14 @@ float steering_memory = 0;
 
 bool index_flag = false;
 
+double secDelta = 0.0;
+double nsecDelta = 0.0;
+double sec = 0.0;
+double nsec = 0.0;
+double timeDelta = 0.0;
+double velocity = 0.0;
+double move_distance = 0.0;
+
 /* traffic Index manager */
 int tf_idx_1 = 1000;
 int tf_idx_2 = 1000;
@@ -62,14 +71,6 @@ int tf_idx_5 = 1000;
 int tf_idx_6 = 1000;
 int tf_idx_7 = 1000;
 
-int slow_down_tf_idx_1 = 1000;
-int slow_down_tf_idx_2 = 1000;
-int slow_down_tf_idx_3 = 1000;
-int slow_down_tf_idx_4 = 1000;
-int slow_down_tf_idx_5 = 1000;
-int slow_down_tf_idx_6 = 1000;
-int slow_down_tf_idx_7 = 1000;
-
 const float tf_coord1[2] = {935573.8125, 1915923.125};
 const float tf_coord2[2] = {935598.43036, 1915969.19758};
 const float tf_coord3[2] = {935650.071767194, 1916093.28736585};
@@ -77,6 +78,14 @@ const float tf_coord4[2] = {935649.379725, 1916200.90051};
 const float tf_coord5[2] = {935642.8125, 1916140.375};
 const float tf_coord6[2] = {935611.629488, 1916009.71394};
 const float tf_coord7[2] = {935592.698823, 1915969.01965};
+
+int slow_down_tf_idx_1 = 1000;
+int slow_down_tf_idx_2 = 1000;
+int slow_down_tf_idx_3 = 1000;
+int slow_down_tf_idx_4 = 1000;
+int slow_down_tf_idx_5 = 1000;
+int slow_down_tf_idx_6 = 1000;
+int slow_down_tf_idx_7 = 1000;
 
 // Positions where car should slow down before traffic lights
 const float slow_down_tf_coord1[2] = {935565.651362, 1915908.85769};
@@ -118,6 +127,10 @@ const float pk_coord5[2] = {935517.529914, 1915831.50221};
 
 /*************************/
 
+int slow_down_before_delivery_idx = 1000;
+
+const float slow_down_coord[2] = {935650.983648, 1916121.33595};
+
 // Delivery Distance
 double min_a_dist = 9999999;
 double min_b_dist = 9999999;
@@ -135,6 +148,8 @@ bool b_cnt_flag = false;
 
 bool delivery_A_brake_flag = false;
 bool delivery_B_brake_flag = false;
+
+bool delivery_distance_init_flag = true;
 
 int b_idx_cnt = 0;
 
@@ -156,10 +171,14 @@ void PurePursuitNode::initForROS()
     &PurePursuitNode::callbackFromCurrentPose, this);
 
   // for main control
+  gps_velocity_sub = nh_.subscribe("/gps_velocity", 1, &PurePursuitNode::callbackFromGpsVelocity, this);
+  gps_yaw_sub = nh_.subscribe("/gps_yaw", 1, &PurePursuitNode::callbackFromYaw, this);
   static_obstacle_short_sub = nh_.subscribe("/static_obs_flag_short", 1, &PurePursuitNode::callbackFromStaticObstacleShort, this);
   static_obstacle_long_sub = nh_.subscribe("/static_obs_flag_long", 1, &PurePursuitNode::callbackFromStaticObstacleLong, this);
   dynamic_obstacle_short_sub = nh_.subscribe("/dynamic_obs_flag_short", 1, &PurePursuitNode::callbackFromDynamicObstacleShort, this);
   dynamic_obstacle_long_sub = nh_.subscribe("/dynamic_obs_flag_long", 1, &PurePursuitNode::callbackFromDynamicObstacleLong, this);
+  gps_velocity_raw_sub = nh_.subscribe("/gps_front/fix_velocity", 1, &PurePursuitNode::callbackFromGpsVelocityRawdata, this);
+
 
 
   traffic_light_sub = nh_.subscribe("darknet_ros/bounding_boxes",1, &PurePursuitNode::callbackFromTrafficLight, this);
@@ -273,22 +292,29 @@ void PurePursuitNode::run(char** argv) {
     if(pp_.mode == 1){
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 5;
-      const_velocity_ = 10;
+      const_velocity_ = 8;
       final_constant = 1.2;
 
       // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
       if((pp_.reachMissionIdx(slow_down_tf_idx_1) || pp_.reachMissionIdx(slow_down_tf_idx_2) || pp_.reachMissionIdx(slow_down_tf_idx_3) || pp_.reachMissionIdx(slow_down_tf_idx_5) || pp_.reachMissionIdx(slow_down_tf_idx_6) || pp_.reachMissionIdx(slow_down_tf_idx_7)) && !pp_.straight_go_flag){
-        while(const_velocity_ > 1){
-            const_velocity_ -= 0.2;
-            pulishControlMsg(const_velocity_ , 0);
-            ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
-        }
+        // while(const_velocity_ > 1){
+        //     const_velocity_ -= 0.2;
+        //     // pulishControlMsg(const_velocity_ , 0);
+        //     can_get_curvature = pp_.canGetCurvature(&kappa);
+        //     publishPurePursuitDriveMsg(can_get_curvature, kappa);
+        //     ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
+        // }
+        can_get_curvature = pp_.canGetCurvature(&kappa);
+        publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.2);
+        ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
       } 
       // When traffic lights are GREEN at slow_down_point -> SPEEDING UP
       else if((pp_.reachMissionIdx(slow_down_tf_idx_1) || pp_.reachMissionIdx(slow_down_tf_idx_2) || pp_.reachMissionIdx(slow_down_tf_idx_3) || pp_.reachMissionIdx(slow_down_tf_idx_5) || pp_.reachMissionIdx(slow_down_tf_idx_6) || pp_.reachMissionIdx(slow_down_tf_idx_7)) && pp_.straight_go_flag){
         while(const_velocity_ < 10){
             const_velocity_ += 0.1;
-            pulishControlMsg(const_velocity_ , 0);
+            // pulishControlMsg(const_velocity_ , 0);
+            can_get_curvature = pp_.canGetCurvature(&kappa);
+            publishPurePursuitDriveMsg(can_get_curvature, kappa);
             ROS_INFO_STREAM("*****GREEN LIGHT SPEEDING UP*****");
         }
       }
@@ -304,45 +330,81 @@ void PurePursuitNode::run(char** argv) {
     if (pp_.mode == 2) {
       if (pp_.mission_flag == 0 || pp_.mission_flag == 2) {
         const_lookahead_distance_ = 6;
-        const_velocity_ = 10;
+        const_velocity_ = 15;
       }
 
       if (pp_.mission_flag == 0 && pp_.is_static_obstacle_detected_long) {
         const_lookahead_distance_ = 4;
-        if (present_yaw == 0.0) {
+        if (!isPresentYaw) {
           present_yaw = pp_.gps_yaw;
           std::cout << "FIRST GPS YAW: " << present_yaw << '\n';
+          isPresentYaw = true;
         }
-        for (int i = 0; i < 30; i++){
-          pp_.mission_flag = 11;  /////////
+        for (int i = 0; i < 100/(velocity*3.6); i++){
+          pp_.mission_flag = 11;
+          std::cout << "1111111111111111111" << '\n';
+          std::cout << 100/(velocity*3.6) << '\n';
           pulishControlMsg(6, 22);
           usleep(100000);
         }
         continue;
       }
-      else if(pp_.mission_flag == 11 && pp_.gps_yaw <= present_yaw - 20) {
+      else if(pp_.mission_flag == 11 && pp_.gps_yaw <= present_yaw - 10) {
         pulishControlMsg(4, -22);
         continue;
       }
-      else if(pp_.mission_flag == 11 && pp_.gps_yaw > present_yaw - 20) {
+      else if(pp_.mission_flag == 11 && pp_.gps_yaw > present_yaw - 10) {
         std::cout << "SECOND GPS YAW: " << pp_.gps_yaw << '\n';
         const_lookahead_distance_ = 4;
-        const_velocity_ = 6;
+        const_velocity_ = 7;
         pp_.setWaypoints(avoidance_path);
         ROS_INFO("************************ AVOID PATH SWITCHNG **************************************");
         pp_.mission_flag = 1; 
+        isPresentYaw = false;
         continue;
       }
       else if (pp_.mission_flag == 1 && pp_.is_static_obstacle_detected_short) {
-        const_lookahead_distance_ = 4;
-        for (int i = 0; i < 1.5; i++){
-            pulishControlMsg(4, -22);
-            usleep(1000000);
+        const_lookahead_distance_ = 6;
+        const_velocity_ = 7;
+
+        // for (int i = 0; i < 10; i++){
+        //     pulishControlMsg(4, -22);
+        //     usleep(100000);
+        // }
+
+        // for (int i = 0; i < 15; i++){
+        //     std::cout << "222222222222222" << '\n';
+        //     pulishControlMsg(7, -22);
+        //     usleep(100000);
+        // }
+        // pp_.setWaypoints(global_path);
+        // ROS_INFO("************************ GLOBAL PATH SWITCHNG **************************************");
+        // pp_.mission_flag = 2;
+        // continue; 
+        if (!isPresentYaw) {
+          present_yaw = pp_.gps_yaw;
+          isPresentYaw = true;
         }
+        for (int i = 0; i < 120/(velocity*3.6); i++){
+          pp_.mission_flag = 22;
+          std::cout << "222222222222222" << '\n';
+          std::cout << 120/(velocity*3.6) << '\n';
+          pulishControlMsg(7, -22);
+          usleep(100000);
+        }
+        continue;
+      }
+      else if(pp_.mission_flag == 22 && pp_.gps_yaw >= present_yaw + 10) {
+        pulishControlMsg(4, 22);
+        continue;
+      }
+      else if(pp_.mission_flag == 22 && pp_.gps_yaw < present_yaw + 10) {
+        const_lookahead_distance_ = 4;
+        const_velocity_ = 7;
         pp_.setWaypoints(global_path);
         ROS_INFO("************************ GLOBAL PATH SWITCHNG **************************************");
-        pp_.mission_flag = 2; 
-        continue;
+        pp_.mission_flag = 2;
+        continue; 
       }
     }
 
@@ -350,33 +412,62 @@ void PurePursuitNode::run(char** argv) {
     // MODE 3 : 배달 PICK A
     if (pp_.mode == 3) {
       const_lookahead_distance_ = 6;
-      // const_velocity_ = 4;
       const_velocity_ = 7;
       final_constant = 1.2;
 
       if(delivery_A_brake_flag == false) {
         for (int i = 0; i < 3; i++) {
-          pulishControlMsg(0, 0, 0.05);
+          ROS_INFO_STREAM("***** CHECK *****");
+          publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.05);
           usleep(100000);
         }
         delivery_A_brake_flag = true;
       }
 
+      std::cout << "flag: " << pp_.is_delivery_obs_stop_detected << '\n';
       if(pp_.mission_flag == 0 && pp_.is_delivery_obs_stop_detected == 1) { 
-        // ROS_INFO("DELIVERY OBSTACLE DETECT!!!");
-        pp_.mission_flag = 1;
-        std::cout << " GPS VELOCITY: " << pp_.gps_velocity << '\n';
-        double delay = (delivery_x_distance) / (pp_.gps_velocity / 3.6);      
-        usleep(delay * 1000000);
-
-        for (int i = 0; i < 55; i++)
-        {
-          pulishControlMsg(0, 0);
-          // 0.1초
-          usleep(100000);
-          // std::cout << i << " A_seconds_later" << '\n';
-          // std::cout << "############# PICK A STOP ###############" << '\n';
+        
+        // 0902 start
+        if (delivery_distance_init_flag) {
+          delivery_distance_init_flag = false;
+          move_distance = 0.0;
         }
+        
+        if ( move_distance > delivery_x_distance + 0.5 - (velocity * 0.55)) {
+          std::cout << "STOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOP\n";
+          for (int i = 0; i < 5500; i++)
+          {
+            pulishControlMsg(0, 0, 1);
+            // 0.1초
+            usleep(1000);
+            // std::cout << i << " A_seconds_later" << '\n';
+            // std::cout << "############# PICK A STOP ###############" << '\n';
+          }
+          delivery_distance_init_flag = true;
+          pp_.mission_flag = 1;
+        }
+        // 0902 end
+
+        // ROS_INFO("DELIVERY OBSTACLE DETECT!!!");
+        // pp_.mission_flag = 1;
+        std::cout << " DELIVERY MISSION!!" << '\n';
+        std::cout << " GPS VELOCITY: " << pp_.gps_velocity << '\n';
+        std::cout << " LIDAR DISTANCE: " << delivery_x_distance << '\n';
+        // double delay = (delivery_x_distance) / (pp_.gps_velocity / 3.6);
+
+        // // 0902
+        // pulishControlMsg(pp_.gps_velocity, 0);
+        // // const_velocity_ = pp_.gps_velocity;
+        // usleep(delay * 1000000);
+
+        // for (int i = 0; i < 55; i++)
+        // {
+        //   pulishControlMsg(0, 0);
+        //   // 0.1초
+        //   usleep(100000);
+        //   // std::cout << i << " A_seconds_later" << '\n';
+        //   // std::cout << "############# PICK A STOP ###############" << '\n';
+        // }
       }
 
       if(pp_.mission_flag == 1 && !a_cnt_flag){
@@ -400,18 +491,23 @@ void PurePursuitNode::run(char** argv) {
 
       // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
       if((pp_.reachMissionIdx(slow_down_tf_idx_4)) && !pp_.straight_go_flag){
-        while(const_velocity_ > 1){
-            const_velocity_ -= 0.1;
-            pulishControlMsg(const_velocity_ , 0);
-            ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
-        }
+        // while(const_velocity_ > 1){
+        //   const_velocity_ -= 0.2;
+        //   // pulishControlMsg(const_velocity_ , 0);
+        //   ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
+        // }
+        can_get_curvature = pp_.canGetCurvature(&kappa);
+        publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.2);
+        ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
       } 
       // When traffic lights are GREEN at slow_down_point -> SPEEDING UP
       else if((pp_.reachMissionIdx(slow_down_tf_idx_4)) && pp_.straight_go_flag){
         while(const_velocity_ < 10){
-            const_velocity_ += 0.1;
-            pulishControlMsg(const_velocity_ , 0);
-            ROS_INFO_STREAM("*****GREEN LIGHT SPEEDING UP*****");
+          const_velocity_ += 0.1;
+          // pulishControlMsg(const_velocity_ , 0);
+          can_get_curvature = pp_.canGetCurvature(&kappa);
+          publishPurePursuitDriveMsg(can_get_curvature, kappa);
+          ROS_INFO_STREAM("*****GREEN LIGHT SPEEDING UP*****");
         }
       }
       if((pp_.reachMissionIdx(tf_idx_4)) && !pp_.straight_go_flag) {
@@ -485,7 +581,8 @@ void PurePursuitNode::run(char** argv) {
 
       if (delivery_B_brake_flag == false) {
         for (int i = 0; i < 3; i++) {
-          pulishControlMsg(0, 0, 0.05);
+          ROS_INFO_STREAM("***** CHECK *****");
+          publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.05);
           usleep(100000);
         }
         delivery_B_brake_flag = true;
@@ -501,19 +598,19 @@ void PurePursuitNode::run(char** argv) {
       else if(pp_.mission_flag == 22 && pp_.is_delivery_obs_stop_detected == 0){
         pp_.mission_flag = 2;
         for (int i = 0; i < 3; i++) {
-          pulishControlMsg(0, 0, 0.05);
+          publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.05);
           usleep(100000);
         }
       }
       else if(pp_.mission_flag == 33 && pp_.is_delivery_obs_stop_detected == 0){
         pp_.mission_flag = 3;
         for (int i = 0; i < 3; i++) {
-          pulishControlMsg(0, 0, 0.05);
+          publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.05);
           usleep(100000);
         }
       }
       
-
+      std::cout << "flag: " << pp_.is_delivery_obs_stop_detected << '\n';
       if((pp_.mission_flag == 1 || pp_.mission_flag == 2 || pp_.mission_flag == 3) && pp_.is_delivery_obs_stop_detected == 1){
         // pp_.is_delivery_obs_stop_detected = 0;
         b_max_index = max_element(pp_.b_cnt.begin(), pp_.b_cnt.end()) - pp_.b_cnt.begin();
@@ -522,18 +619,43 @@ void PurePursuitNode::run(char** argv) {
         // ROS_INFO("HOW MANY B COUNT=%d",  pp_.b_cnt[b_max_index] );
 
         if (a_max_index == b_max_index) {
-          std::cout << " GPS VELOCITY: " << pp_.gps_velocity << '\n';
-          double delay = (delivery_x_distance) / (pp_.gps_velocity / 3.6);    
-          usleep(delay * 1000000);
-          // std::cout << pp_.b_cnt << '\n';
-          // Max flag on
-          for (int i = 0; i < 55; i++)
-          {
-            pulishControlMsg(0, 0);
-            usleep(100000);  // 0.1초
-            // std::cout << i << "B_seconds_later" << '\n';
+          // 0902 start
+          if (delivery_distance_init_flag) {
+            delivery_distance_init_flag = false;
+            move_distance = 0.0;
           }
-          pp_.mission_flag = 100;
+          
+          if ( move_distance > delivery_x_distance + 0.5 - (velocity * 0.55)) {
+            for (int i = 0; i < 5500; i++)
+            {
+              pulishControlMsg(0, 0, 1);
+              // 0.1초
+              usleep(1000);
+              // std::cout << i << " A_seconds_later" << '\n';
+              std::cout << "############# PICK B STOP ###############" << '\n';
+            }
+            delivery_distance_init_flag = true;
+            pp_.mission_flag = 100;
+          }
+          // 0902 end
+          
+          std::cout << " GPS VELOCITY: " << pp_.gps_velocity << '\n';
+          std::cout << " LIDAR DISTANCE: " << delivery_x_distance << '\n';
+          // double delay = (delivery_x_distance) / (pp_.gps_velocity / 3.6);
+          
+          // // 0902
+          // pulishControlMsg(pp_.gps_velocity, 0);   
+
+          // usleep(delay * 1000000);
+          // // std::cout << pp_.b_cnt << '\n';
+          // // Max flag on
+          // for (int i = 0; i < 55; i++)
+          // {
+          //   pulishControlMsg(0, 0);
+          //   usleep(100000);  // 0.1초
+          //   // std::cout << i << "B_seconds_later" << '\n';
+          // }
+          // pp_.mission_flag = 100;
         } 
         else {
           // ROS_INFO("++++++++CHANGE DELIVERY+++++++");
@@ -735,12 +857,11 @@ void PurePursuitNode::run(char** argv) {
       }
     }
 
-    if(pp_.mode == 10){
-      const_lookahead_distance_ = 5;
-      const_velocity_ = 7;
-      final_constant = 1.2;
-    }
-
+    // if(pp_.mode == 10){
+    //   const_lookahead_distance_ = 5;
+    //   const_velocity_ = 7;
+    //   final_constant = 1.2;
+    // }
 
     // 마지막 waypoint 에 다다랐으면 점차 속도를 줄이기
     if(pp_.is_finish && pp_.mode == 8){
@@ -763,14 +884,14 @@ void PurePursuitNode::run(char** argv) {
 }
 
 
-void PurePursuitNode::publishPurePursuitDriveMsg(const bool& can_get_curvature, const double& kappa) {
+void PurePursuitNode::publishPurePursuitDriveMsg(const bool& can_get_curvature, const double& kappa, const double& brake) {
   double throttle_ = can_get_curvature ? const_velocity_ : 0;
   double steering_radian = convertCurvatureToSteeringAngle(wheel_base_, kappa);
   double steering_ = can_get_curvature ? (steering_radian * 180.0 / M_PI) * -1 * final_constant: 0;
+  double brake_ = brake;
 
-
-  // std::cout << "steering : " << steering_ << "\tkappa : " << kappa <<std::endl;
-  pulishControlMsg(throttle_, steering_);
+  // std::cout << "steering : " << steering_ << "\tkappa : " << kappa <<'\n';
+  pulishControlMsg(throttle_, steering_, brake_);
 
   // for steering visualization
   publishSteeringVisualizationMsg(steering_radian);
@@ -959,6 +1080,23 @@ void PurePursuitNode::callbackFromDelivery(const vision_distance::DeliveryArray&
   }
 }
 
+void PurePursuitNode::callbackFromGpsVelocityRawdata(const geometry_msgs::TwistWithCovarianceStamped& msg) {
+  if (sec == 0.0) {
+    sec = msg.header.stamp.sec;
+    nsec = msg.header.stamp.nsec;
+  } else {
+    secDelta = msg.header.stamp.sec - sec;
+    nsecDelta = (msg.header.stamp.nsec - nsec) / 1000000000.0;
+    timeDelta = secDelta + nsecDelta;
+    sec = msg.header.stamp.sec;
+    nsec = msg.header.stamp.nsec;
+  }
+  velocity = sqrt(msg.twist.twist.linear.x * msg.twist.twist.linear.x + msg.twist.twist.linear.y * msg.twist.twist.linear.y + msg.twist.twist.linear.z * msg.twist.twist.linear.z);
+  move_distance += velocity * timeDelta;
+  // std::cout << "dist: " << move_distance << "\n";
+  if (move_distance > 10000)
+    move_distance = 0.0;
+}
 
 void PurePursuitNode::callbackFromTrafficLight(const darknet_ros_msgs::BoundingBoxes& msg) {
   // std::vector<darknet_ros_msgs::BoundingBox> traffic_lights = msg.bounding_boxes;

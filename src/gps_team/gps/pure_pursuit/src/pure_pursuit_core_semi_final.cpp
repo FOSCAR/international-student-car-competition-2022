@@ -70,20 +70,20 @@ int end_parking_backward_idx = 0;
 int end_parking_full_steer_backward_idx = 0;
 
 // For kcity (kcity 주차 좌표)
-// const float pk_coord1[2] = {935534.247324, 1915849.29071};
-// const float pk_coord2[2] = {935536.127777, 1915852.74891};
-// const float pk_coord3[2] = {935537.027791, 1915854.43949};
-// const float pk_coord4[2] = {935539.530479, 1915859.22427};
-// const float pk_coord5[2] = {935540.465801, 1915860.89238};
-// const float pk_coord6[2] = {935541.86021, 1915863.43345};
+const float pk_coord1[2] = {935534.247324, 1915849.29071};
+const float pk_coord2[2] = {935536.127777, 1915852.74891};
+const float pk_coord3[2] = {935537.027791, 1915854.43949};
+const float pk_coord4[2] = {935539.530479, 1915859.22427};
+const float pk_coord5[2] = {935540.465801, 1915860.89238};
+const float pk_coord6[2] = {935541.86021, 1915863.43345};
 
 // For School Test (학교 주차 좌표)
-const float pk_coord1[2] = {955568.258427, 1956932.10464};
-const float pk_coord2[2] = {955564.96476695, 1956933.8079647133};
-const float pk_coord3[2] = {955564.6498305532, 1956934.0536339642};
-const float pk_coord4[2] = {955564.018495136, 1956934.5500655076};
-const float pk_coord5[2] = {955563.8305732157, 1956934.6975132197};
-const float pk_coord6[2] = {955559.699611, 1956938.9112};
+// const float pk_coord1[2] = {955568.258427, 1956932.10464};
+// const float pk_coord2[2] = {955564.96476695, 1956933.8079647133};
+// const float pk_coord3[2] = {955564.6498305532, 1956934.0536339642};
+// const float pk_coord4[2] = {955564.018495136, 1956934.5500655076};
+// const float pk_coord5[2] = {955563.8305732157, 1956934.6975132197};
+// const float pk_coord6[2] = {955559.699611, 1956938.9112};
 /*************************/
 
 
@@ -194,8 +194,8 @@ void PurePursuitNode::run(char** argv) {
     // MODE 0 - 직진구간
     if(pp_.mode == 0){
       pp_.mission_flag = 0;
-      const_lookahead_distance_ = 8;
-      const_velocity_ = 12;
+      const_lookahead_distance_ = 12;
+      const_velocity_ = 10;
       // const_velocity_ = 7;
       final_constant = 1.2;
     }
@@ -208,7 +208,7 @@ void PurePursuitNode::run(char** argv) {
       {
         if (pp_.mission_flag == 3 || pp_.mission_flag == 0) {
           const_lookahead_distance_ = 6;
-          const_velocity_ = 3;
+          const_velocity_ = 6;
         }
         // first
         if (parking_num == 1){
@@ -221,7 +221,8 @@ void PurePursuitNode::run(char** argv) {
         // second
         if (parking_num == 2){
           start_parking_idx = pp_.getPosIndex(pk_coord2[0], pk_coord2[1]);
-          end_parking_idx = 87;
+          // end_parking_idx = 87;
+          end_parking_idx = 80;
           end_parking_backward_idx = 55;
           end_parking_full_steer_backward_idx = 25;
         }
@@ -229,7 +230,8 @@ void PurePursuitNode::run(char** argv) {
         // third
         if (parking_num == 3){
           start_parking_idx = pp_.getPosIndex(pk_coord3[0], pk_coord3[1]);
-          end_parking_idx = 145;
+          // end_parking_idx = 145;
+          end_parking_idx = 138;
           end_parking_backward_idx = 117; // 120
           end_parking_full_steer_backward_idx = 90;
         }  
@@ -237,7 +239,8 @@ void PurePursuitNode::run(char** argv) {
         // forth
         if (parking_num == 4){
           start_parking_idx = pp_.getPosIndex(pk_coord4[0], pk_coord4[1]);
-          end_parking_idx = 88;
+          // end_parking_idx = 88;
+          end_parking_idx = 80;
           end_parking_backward_idx = 55;
           end_parking_full_steer_backward_idx = 23;
         }
@@ -330,18 +333,25 @@ void PurePursuitNode::run(char** argv) {
 
       // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
       if(pp_.reachMissionIdx(slow_down_tf_idx_1) && !pp_.straight_go_flag) {
-        while(const_velocity_ > 2){
-            const_velocity_ -= 0.1;
-            pulishControlMsg(const_velocity_ , 0);
-            ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
-        }
+        // while(const_velocity_ > 2){
+        //     const_velocity_ -= 0.1;
+        //     // pulishControlMsg(const_velocity_ , 0);
+        //     can_get_curvature = pp_.canGetCurvature(&kappa);
+        //     publishPurePursuitDriveMsg(can_get_curvature, kappa);
+        //     ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
+        // }
+        can_get_curvature = pp_.canGetCurvature(&kappa);
+        publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.2);
+        ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
       }
 
       // When traffic lights are GREEN at slow_down_point -> SPEEDING UP
       else if(pp_.reachMissionIdx(slow_down_tf_idx_1) && pp_.straight_go_flag){
         while(const_velocity_ < 10){
             const_velocity_ += 0.1;
-            pulishControlMsg(const_velocity_ , 0);
+            // pulishControlMsg(const_velocity_ , 0);
+            can_get_curvature = pp_.canGetCurvature(&kappa);
+            publishPurePursuitDriveMsg(can_get_curvature, kappa);
             ROS_INFO_STREAM("*****GREEN LIGHT SPEEDING UP*****");
         }
       }
@@ -362,12 +372,6 @@ void PurePursuitNode::run(char** argv) {
       final_constant = 1.2;
     }
 
-    // if(pp_.mode == 4){
-    //   pp_.mission_flag = 0;
-    //   const_lookahead_distance_ = 5;
-    //   const_velocity_ = 7;
-    //   final_constant = 1.2;
-    // }
     
     //  MODE 4 : 정적장애물 감지되면 avoidance path로 진로변경 후 원래 global path로 복귀 (드럼통)
     if (pp_.mode == 4) {
@@ -504,7 +508,9 @@ void PurePursuitNode::run(char** argv) {
         while(pp_.is_dynamic_obstacle_detected_long) {
           if (const_velocity_ > 5) {
             const_velocity_ -= 0.1;
-            pulishControlMsg(const_velocity_, 0);
+            // pulishControlMsg(const_velocity_, 0);
+            can_get_curvature = pp_.canGetCurvature(&kappa);
+            publishPurePursuitDriveMsg(can_get_curvature, kappa);
             ros::spinOnce();
             loop_rate.sleep();
           }
@@ -525,7 +531,7 @@ void PurePursuitNode::run(char** argv) {
     if(pp_.mode == 6){
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 8;
-      const_velocity_ = 18;
+      const_velocity_ = 12;
       // const_velocity_ = 7;
       final_constant = 1.2;
     }

@@ -535,7 +535,7 @@ de_hyper_parameterConfig::GroupDescription<de_hyper_parameterConfig::DEFAULT, de
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.de_zMinROI = 5.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.de_zMinROI = -0.6;
+      __default__.de_zMinROI = -0.4;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(de_hyper_parameterConfig::AbstractParamDescriptionConstPtr(new de_hyper_parameterConfig::ParamDescription<double>("de_zMinROI", "double", 0, "de_zMinROI", "", &de_hyper_parameterConfig::de_zMinROI)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -565,7 +565,7 @@ de_hyper_parameterConfig::GroupDescription<de_hyper_parameterConfig::DEFAULT, de
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.de_xMaxBoundingBox = 10.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.de_xMaxBoundingBox = 1.5;
+      __default__.de_xMaxBoundingBox = 0.3;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(de_hyper_parameterConfig::AbstractParamDescriptionConstPtr(new de_hyper_parameterConfig::ParamDescription<double>("de_xMaxBoundingBox", "double", 0, "de_xMaxBoundingBox", "", &de_hyper_parameterConfig::de_xMaxBoundingBox)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -575,7 +575,7 @@ de_hyper_parameterConfig::GroupDescription<de_hyper_parameterConfig::DEFAULT, de
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.de_yMinBoundingBox = 10.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.de_yMinBoundingBox = 0.05;
+      __default__.de_yMinBoundingBox = 0.3;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(de_hyper_parameterConfig::AbstractParamDescriptionConstPtr(new de_hyper_parameterConfig::ParamDescription<double>("de_yMinBoundingBox", "double", 0, "de_yMinBoundingBox", "", &de_hyper_parameterConfig::de_yMinBoundingBox)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"

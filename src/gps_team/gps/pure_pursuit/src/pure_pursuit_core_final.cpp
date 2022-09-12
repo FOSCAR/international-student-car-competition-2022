@@ -84,11 +84,11 @@ const float tf_coord7[2] = {935592.698823, 1915969.01965};
 // U-turn index
 int ut_idx = 1000;
 // K-city 
-//const float ut_coord[2] = {935612.453921, 1916237.69527};
+const float ut_coord[2] = {935612.453921, 1916237.69527};
 // School-test
-//const float ut_coord[2] = {955465.473909, 1956987.52417};
+// const float ut_coord[2] = {955465.473909, 1956987.52417};
 // const float ut_coord[2] = {955505.245971, 1956960.63508}; // 바꿔야 함
-const float ut_coord[2] = {955465.210856054, 1956988.0584916507};
+// const float ut_coord[2] = {955465.210856054, 1956988.0584916507};
 
 // Temp test
 //const float ut_coord[2] = {955565.5120069999, 1956924.9565699997};
@@ -99,11 +99,11 @@ const float ut_coord[2] = {955465.210856054, 1956988.0584916507};
 int cw_idx_1 = 1000;
 int cw_idx_2 = 1000;
 // K-city
-// const float cw_coord_1[2] = {935623.59424, 1916230.0299};
-//const float cw_coord_2[2] = {935640.993628, 1916218.80811};
+const float cw_coord_1[2] = {935623.59424, 1916230.0299};
+const float cw_coord_2[2] = {935640.993628, 1916218.80811};
 // School-test
-const float cw_coord_1[2] = {955497.9901604115, 1956962.0896438926};
-const float cw_coord_2[2] = {955498.1246308008, 1956962.957362368};
+// const float cw_coord_1[2] = {955497.9901604115, 1956962.0896438926};
+// const float cw_coord_2[2] = {955498.1246308008, 1956962.957362368};
  
 /*************************/
 
@@ -124,7 +124,6 @@ bool is_parked = false;
 
 
 /*************************/
-
 
 int slow_down_before_delivery_idx = 1000;
 
@@ -306,21 +305,25 @@ void PurePursuitNode::run(char** argv) {
     if (pp_.mode == 2) {
       if (pp_.mission_flag == 0 || pp_.mission_flag == 2) {
         const_lookahead_distance_ = 6;
-        const_velocity_ = 10;
+        const_velocity_ = 12;
       }
 
       if (pp_.mission_flag == 0 && pp_.is_static_obstacle_detected_long) {
+        for (int i = 0; i < 5; i++) {
+          publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.3);
+          usleep(100000);
+        }
         const_lookahead_distance_ = 4;
         if (!isPresentYaw) {
           present_yaw = pp_.gps_yaw;
           std::cout << "FIRST GPS YAW: " << present_yaw << '\n';
           isPresentYaw = true;
         }
-        for (int i = 0; i < 120/(velocity*3.6); i++){
+        for (int i = 0; i < 130/(velocity*3.6); i++){
           pp_.mission_flag = 11;  
-          std::cout << "1111111111111111111" << '\n';
-          std::cout << 100/(velocity*3.6) << '\n';
-          pulishControlMsg(7, 22);
+          // std::cout << "1111111111111111111" << '\n';
+          // std::cout << 100/(velocity*3.6) << '\n';
+          pulishControlMsg(6, 22);
           usleep(100000);
         }
         continue;
@@ -361,7 +364,7 @@ void PurePursuitNode::run(char** argv) {
           present_yaw = pp_.gps_yaw;
           isPresentYaw = true;
         }
-        for (int i = 0; i < 120/(velocity*3.6); i++){
+        for (int i = 0; i < 100/(velocity*3.6); i++){
           pp_.mission_flag = 22;
           std::cout << "222222222222222" << '\n';
           std::cout << 120/(velocity*3.6) << '\n';
@@ -409,7 +412,7 @@ void PurePursuitNode::run(char** argv) {
           move_distance = 0.0;
         }
         
-        if ( move_distance > delivery_x_distance + 0.7 - (velocity * 0.55)) {
+        if ( move_distance > delivery_x_distance + 0.5 - (velocity * 0.55)) {
           std::cout << "STOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOPSTOP\n";
           for (int i = 0; i < 5500; i++)
           {
@@ -465,7 +468,7 @@ void PurePursuitNode::run(char** argv) {
       const_velocity_ = 7;
       final_constant = 1.5;
 
-      if((pp_.reachMissionIdx(tf_idx_4)) && !pp_.straight_go_flag) {
+      if((pp_.reachMissionIdx(tf_idx_4)) && !pp_.straight_go_flag) { //left_go_flag
         pulishControlMsg(0,0);
         continue;
       }
@@ -489,7 +492,7 @@ void PurePursuitNode::run(char** argv) {
       if (pp_.mission_flag == 1)
       {
         const_lookahead_distance_ = 1.25;
-        for (int i = 0; i < 77; i++)
+        for (int i = 0; i < 100; i++)
         {
           ROS_INFO_STREAM("-----Turning-----");
           ROS_INFO_STREAM(i);
@@ -550,17 +553,17 @@ void PurePursuitNode::run(char** argv) {
       }
       else if(pp_.mission_flag == 22 && pp_.is_delivery_obs_stop_detected == 0){
         pp_.mission_flag = 2;
-        // for (int i = 0; i < 3; i++) {
-        //   publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.05);
-        //   usleep(100000);
-        // }
+        for (int i = 0; i < 3; i++) {
+          publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.05);
+          usleep(100000);
+        }
       }
       else if(pp_.mission_flag == 33 && pp_.is_delivery_obs_stop_detected == 0){
         pp_.mission_flag = 3;
-        // for (int i = 0; i < 3; i++) {
-        //   publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.05);
-        //   usleep(100000);
-        // }
+        for (int i = 0; i < 3; i++) {
+          publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.05);
+          usleep(100000);
+        }
       }
       
       std::cout << "flag: " << pp_.is_delivery_obs_stop_detected << '\n';
@@ -578,7 +581,7 @@ void PurePursuitNode::run(char** argv) {
             move_distance = 0.0;
           }
           
-          if ( move_distance > delivery_x_distance + 0.7 - (velocity * 0.55)) {
+          if ( move_distance > delivery_x_distance + 0.5 - (velocity * 0.55)) {
             for (int i = 0; i < 5500; i++)
             {
               pulishControlMsg(0, 0, 1);
@@ -704,10 +707,16 @@ void PurePursuitNode::run(char** argv) {
         // forth
         else if (parking_num == 4){     
           if(pp_.reachMissionIdx(pk_idx4)){
-            for(int i=0 ; i<15 ; i++){ROS_INFO_STREAM("        STOPED          "); 
-            pulishControlMsg(0, 0); 
-            usleep(100000);
-          }
+            for(int i=0 ; i<12 ; i++){
+              pulishControlMsg(7, -30); 
+              usleep(100000);
+            }
+
+            for(int i=0 ; i<15 ; i++){
+              ROS_INFO_STREAM("        STOPED          "); 
+              pulishControlMsg(0, 0); 
+              usleep(100000);
+            }
             pp_.mission_flag = 1;
           }
         }
@@ -1066,8 +1075,7 @@ void PurePursuitNode::callbackFromTrafficLight(const darknet_ros_msgs::BoundingB
   }
 
   std::sort(traffic_lights.begin(), traffic_lights.end(), compare);
-
- int index = 0;
+  int index = 0;
 
  
   if(traffic_lights.size() > 1){
