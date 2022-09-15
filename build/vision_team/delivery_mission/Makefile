@@ -348,46 +348,46 @@ delivery_mission_generate_messages_eus/fast:
 .PHONY : delivery_mission_generate_messages_eus/fast
 
 # Convenience name for target.
-vision_team/delivery_mission/CMakeFiles/straight_test.dir/rule:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 vision_team/delivery_mission/CMakeFiles/straight_test.dir/rule
-.PHONY : vision_team/delivery_mission/CMakeFiles/straight_test.dir/rule
+vision_team/delivery_mission/CMakeFiles/straight_test2.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 vision_team/delivery_mission/CMakeFiles/straight_test2.dir/rule
+.PHONY : vision_team/delivery_mission/CMakeFiles/straight_test2.dir/rule
 
 # Convenience name for target.
-straight_test: vision_team/delivery_mission/CMakeFiles/straight_test.dir/rule
+straight_test2: vision_team/delivery_mission/CMakeFiles/straight_test2.dir/rule
 
-.PHONY : straight_test
+.PHONY : straight_test2
 
 # fast build rule for target.
-straight_test/fast:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test.dir/build
-.PHONY : straight_test/fast
+straight_test2/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test2.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test2.dir/build
+.PHONY : straight_test2/fast
 
-src/straight_test.o: src/straight_test.cpp.o
+src/straight_test2.o: src/straight_test2.cpp.o
 
-.PHONY : src/straight_test.o
+.PHONY : src/straight_test2.o
 
 # target to build an object file
-src/straight_test.cpp.o:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test.dir/src/straight_test.cpp.o
-.PHONY : src/straight_test.cpp.o
+src/straight_test2.cpp.o:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test2.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test2.dir/src/straight_test2.cpp.o
+.PHONY : src/straight_test2.cpp.o
 
-src/straight_test.i: src/straight_test.cpp.i
+src/straight_test2.i: src/straight_test2.cpp.i
 
-.PHONY : src/straight_test.i
+.PHONY : src/straight_test2.i
 
 # target to preprocess a source file
-src/straight_test.cpp.i:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test.dir/src/straight_test.cpp.i
-.PHONY : src/straight_test.cpp.i
+src/straight_test2.cpp.i:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test2.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test2.dir/src/straight_test2.cpp.i
+.PHONY : src/straight_test2.cpp.i
 
-src/straight_test.s: src/straight_test.cpp.s
+src/straight_test2.s: src/straight_test2.cpp.s
 
-.PHONY : src/straight_test.s
+.PHONY : src/straight_test2.s
 
 # target to generate assembly for a file
-src/straight_test.cpp.s:
-	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test.dir/src/straight_test.cpp.s
-.PHONY : src/straight_test.cpp.s
+src/straight_test2.cpp.s:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test2.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test2.dir/src/straight_test2.cpp.s
+.PHONY : src/straight_test2.cpp.s
 
 # Help Target
 help:
@@ -414,10 +414,10 @@ help:
 	@echo "... delivery_mission_genlisp"
 	@echo "... edit_cache"
 	@echo "... delivery_mission_generate_messages_eus"
-	@echo "... straight_test"
-	@echo "... src/straight_test.o"
-	@echo "... src/straight_test.i"
-	@echo "... src/straight_test.s"
+	@echo "... straight_test2"
+	@echo "... src/straight_test2.o"
+	@echo "... src/straight_test2.i"
+	@echo "... src/straight_test2.s"
 .PHONY : help
 
 

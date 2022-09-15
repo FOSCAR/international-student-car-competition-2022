@@ -131,8 +131,8 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(straight_test src/straight_test.cpp)
-target_link_libraries(straight_test ${catkin_LIBRARIES})
+add_executable(straight_test2 src/straight_test2.cpp)
+target_link_libraries(straight_test2 ${catkin_LIBRARIES})
 
 
 ## Declare a C++ library

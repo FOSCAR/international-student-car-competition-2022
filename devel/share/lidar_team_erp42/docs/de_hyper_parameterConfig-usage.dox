@@ -7,7 +7,7 @@
   <param name="de_maxClusterSize" type="double" value="10000.0" />
   <param name="de_xMinROI" type="double" value="0.0" />
   <param name="de_xMaxROI" type="double" value="6.0" />
-  <param name="de_yMinROI" type="double" value="-2.0" />
+  <param name="de_yMinROI" type="double" value="-1.9" />
   <param name="de_yMaxROI" type="double" value="0.0" />
   <param name="de_zMinROI" type="double" value="-0.4" />
   <param name="de_zMaxROI" type="double" value="2.0" />

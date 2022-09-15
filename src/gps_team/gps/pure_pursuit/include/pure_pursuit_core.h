@@ -96,6 +96,7 @@ private:
   std::vector<std::pair<geometry_msgs::Point, int>> avoidance_path;
   std::vector<std::pair<geometry_msgs::Point, int>> left_path;
   std::vector<std::pair<geometry_msgs::Point, int>> right_path;
+  std::vector<std::pair<geometry_msgs::Point, int>> delivery_path;
 
   std::string ROS_HOME;
 

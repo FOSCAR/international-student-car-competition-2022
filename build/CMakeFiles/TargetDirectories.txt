@@ -301,7 +301,7 @@
 /home/foscar/ISCC_2022/build/vision_team/delivery_mission/CMakeFiles/delivery_mission_genlisp.dir
 /home/foscar/ISCC_2022/build/vision_team/delivery_mission/CMakeFiles/edit_cache.dir
 /home/foscar/ISCC_2022/build/vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir
-/home/foscar/ISCC_2022/build/vision_team/delivery_mission/CMakeFiles/straight_test.dir
+/home/foscar/ISCC_2022/build/vision_team/delivery_mission/CMakeFiles/straight_test2.dir
 /home/foscar/ISCC_2022/build/erp_ros/CMakeFiles/install/strip.dir
 /home/foscar/ISCC_2022/build/erp_ros/CMakeFiles/edit_cache.dir
 /home/foscar/ISCC_2022/build/erp_ros/CMakeFiles/list_install_components.dir

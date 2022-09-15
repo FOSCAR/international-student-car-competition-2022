@@ -2560,17 +2560,17 @@ delivery_mission_generate_messages_eus/fast:
 .PHONY : delivery_mission_generate_messages_eus/fast
 
 #=============================================================================
-# Target rules for targets named straight_test
+# Target rules for targets named straight_test2
 
 # Build rule for target.
-straight_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 straight_test
-.PHONY : straight_test
+straight_test2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 straight_test2
+.PHONY : straight_test2
 
 # fast build rule for target.
-straight_test/fast:
-	$(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test.dir/build
-.PHONY : straight_test/fast
+straight_test2/fast:
+	$(MAKE) -f vision_team/delivery_mission/CMakeFiles/straight_test2.dir/build.make vision_team/delivery_mission/CMakeFiles/straight_test2.dir/build
+.PHONY : straight_test2/fast
 
 #=============================================================================
 # Target rules for targets named lane_detector_node
@@ -9815,7 +9815,7 @@ help:
 	@echo "... delivery_mission_gennodejs"
 	@echo "... delivery_mission_genlisp"
 	@echo "... delivery_mission_generate_messages_eus"
-	@echo "... straight_test"
+	@echo "... straight_test2"
 	@echo "... lane_detector_node"
 	@echo "... central_controller_node"
 	@echo "... mode_controller_node"

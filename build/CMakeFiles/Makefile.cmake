@@ -872,7 +872,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "vision_team/delivery_mission/CMakeFiles/delivery_mission_gennodejs.dir/DependInfo.cmake"
   "vision_team/delivery_mission/CMakeFiles/delivery_mission_genlisp.dir/DependInfo.cmake"
   "vision_team/delivery_mission/CMakeFiles/delivery_mission_generate_messages_eus.dir/DependInfo.cmake"
-  "vision_team/delivery_mission/CMakeFiles/straight_test.dir/DependInfo.cmake"
+  "vision_team/delivery_mission/CMakeFiles/straight_test2.dir/DependInfo.cmake"
   "gps_team/race/CMakeFiles/lane_detector_node.dir/DependInfo.cmake"
   "gps_team/race/CMakeFiles/central_controller_node.dir/DependInfo.cmake"
   "gps_team/race/CMakeFiles/mode_controller_node.dir/DependInfo.cmake"

@@ -10,6 +10,7 @@ from math import pi,cos,sin,pi,sqrt,pow
 from nav_msgs.msg import Path
 import tf
 from geometry_msgs.msg import PoseStamped
+from pyproj import Proj, transform
 
 
 class test :
@@ -28,6 +29,7 @@ class test :
         self.is_status=False
         self.prev_x = 0
         self.prev_y = 0
+        self.idx = 0
 
         rospack=rospkg.RosPack()
         pkg_path=rospack.get_path('erp_ros')
@@ -47,14 +49,25 @@ class test :
         x=self.status_msg.position.x
         y=self.status_msg.position.y
         #z=self.status_msg.position.z
-        z = 0
+        z = 4
         distance=sqrt(pow(x-self.prev_x,2)+pow(y-self.prev_y,2))
-        if distance > 0.07:
-            data='{0}\t{1}\t{2}\n'.format(x,y,z)
-            self.f.write(data)
+        if distance > 0.2:
             self.prev_x=x
             self.prev_y=y
-            print(x,y)
+
+            x = float(x) + 302459.942
+            y = float(y) + 4122635.537
+            
+            proj_UTMK = Proj(init='epsg:5179')
+            proj_UTM52N = Proj(init='epsg:32652')
+
+            x, y = transform(proj_UTM52N, proj_UTMK, x, y)
+
+            data='{0} {1} {2}\n'.format(x,y,z)
+            self.f.write(data)
+            
+            self.idx += 1
+            print(self.idx, x,y)
 
     def status_callback(self,msg): ## Vehicl Status Subscriber 
         self.is_status=True
