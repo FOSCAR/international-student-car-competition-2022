@@ -31,8 +31,8 @@ k = 0.2  # look forward gain
 Lfc = 1.8 # [m] look-ahead distance
 WB = 0.78  # [m] wheel base of vehicle
 
-target_speed = 10
-current_v = 6
+target_speed = 5
+current_v = 5
 
 present_x, present_y, present_yaw = 0, 0, 0
 
@@ -43,11 +43,20 @@ current_index = 0
 
 txt_line_cnt = 0
 
-MAX_VELOCITY = 18
+MAX_VELOCITY = 5
 
-is_one_lap_finished = False
+isParkingRubberCone = True
+# initial statecurrent_v
+check_point_list = [95, 116, 138, 159]
+check_point_index = 0
+once_flag = True
+parking_available = False
 
 status_msg=EgoVehicleStatus()
+
+def parkingRubberConeCallback(data):
+    global isParkingRubberCone
+    isParkingRubberCone = data.data
 
 def statusCB(data):
     global status_msg
@@ -156,7 +165,7 @@ def findLocalPath(path_x, path_y, state_x, state_y): ## global_path와 차량의
 
     current_x = state_x
     current_y = state_y
-    min_dis = float('inf')
+    min_dis = 99999999999999999
 
     for i in range(txt_line_cnt) :
         dx = current_x - path_x[i]
@@ -170,15 +179,12 @@ def findLocalPath(path_x, path_y, state_x, state_y): ## global_path와 차량의
     if current_index == txt_line_cnt:
         current_index = 0
 
-def one_lap_flag_callback(data):
-    global is_one_lap_finished
-    is_one_lap_finished = data.data
-
 
 if __name__ == '__main__':
     rospy.init_node("pure_pursuit_gps_morai", anonymous=True)
 
     rospy.Subscriber("/Ego_topic", EgoVehicleStatus, statusCB)
+    rospy.Subscriber("/is_parking_rubbercone", Bool, parkingRubberConeCallback)
 
     ctrl_pub = rospy.Publisher("ctrl_cmd", CtrlCmd, queue_size = 1)
    
@@ -208,19 +214,40 @@ if __name__ == '__main__':
     path_x *= 2
     path_y *= 2
     
-    # initial statecurrent_v
+
 
     while not rospy.is_shutdown():
-        print("GPS RUN")
         state = State(x = status_msg.position.x, y = status_msg.position.y, yaw = status_msg.heading/180*math.pi, v = current_v)
 
         findLocalPath(path_x, path_y, state.x, state.y)
 
-        print(current_index)
+        # print(current_index)
 
         ctrl_msg.longlCmdType = 2
+        print(check_point_list[check_point_index], current_index)
+        if (check_point_list[check_point_index] == current_index):
+            if (isParkingRubberCone == False):
+                print("주차가능")
+                parking_available = True
+            elif (isParkingRubberCone == True and once_flag):
+                print("주차불가능")
+                once_flag = False
+                parking_available = False
+                check_point_index = (check_point_index + 1) % 4
+        else:
+            print("주차탐색")
+            once_flag = True
 
-        if (current_index == 237 or current_index == 293 or current_index == 462 or current_index == 570 or current_index == 621):
+
+
+
+        if (check_point_list[check_point_index + 1] == current_index and parking_available):
+            ctrl_msg.velocity = 5
+            ctrl_msg.steering = 15.0
+            ctrl_msg.brake = 0.0
+            ctrl_pub.publish(ctrl_msg)
+            time.sleep(0.4)    
+
             ctrl_msg.velocity = 0.0
             ctrl_msg.steering = 0
             ctrl_msg.brake = 1
@@ -238,6 +265,12 @@ if __name__ == '__main__':
             ctrl_msg.brake = 1
             ctrl_pub.publish(ctrl_msg)
             time.sleep(1)
+
+            ctrl_msg.velocity = 5.0
+            ctrl_msg.steering = 0
+            ctrl_msg.brake = 0.0
+            ctrl_pub.publish(ctrl_msg)
+            time.sleep(0.3)
 
             ctrl_msg.velocity = 5.0
             ctrl_msg.steering = 30
@@ -284,9 +317,7 @@ if __name__ == '__main__':
 
             di, target_ind, target_x, target_y = pure_pursuit_steer_control(state, target_course, target_ind)
 
-            print("LF: ", lf)
-
-            ctrl_msg.velocity = 12.0
+            ctrl_msg.velocity = 7
             ctrl_msg.steering = di
             ctrl_msg.brake = 0
             ctrl_pub.publish(ctrl_msg)

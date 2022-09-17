@@ -304,7 +304,10 @@ void PurePursuitNode::run(char** argv) {
 
       // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
       if (pp_.reachMissionIdx(slow_down_tf_idx_1) && !pp_.straight_go_flag) {
-        publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.3);
+        for (int i = 0; i < 3; i++) {
+          publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.05);
+          usleep(100000);
+        }
         ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
       }
 
@@ -433,7 +436,10 @@ void PurePursuitNode::run(char** argv) {
       final_constant = 1.0;
       
       if (pp_.mission_flag == 0) {  
-        publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.3);
+        for (int i = 0; i < 3; i++) {
+          publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.05);
+          usleep(100000);
+        }
         pp_.mission_flag = 1;
       }
 

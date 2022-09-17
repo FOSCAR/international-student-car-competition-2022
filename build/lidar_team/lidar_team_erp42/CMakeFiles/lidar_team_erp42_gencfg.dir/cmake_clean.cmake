@@ -25,6 +25,11 @@ file(REMOVE_RECURSE
   "/home/foscar/ISCC_2022/devel/share/lidar_team_erp42/docs/de_hyper_parameterConfig-usage.dox"
   "/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_erp42/cfg/de_hyper_parameterConfig.py"
   "/home/foscar/ISCC_2022/devel/share/lidar_team_erp42/docs/de_hyper_parameterConfig.wikidoc"
+  "/home/foscar/ISCC_2022/devel/include/lidar_team_erp42/pk_hyper_parameterConfig.h"
+  "/home/foscar/ISCC_2022/devel/share/lidar_team_erp42/docs/pk_hyper_parameterConfig.dox"
+  "/home/foscar/ISCC_2022/devel/share/lidar_team_erp42/docs/pk_hyper_parameterConfig-usage.dox"
+  "/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_erp42/cfg/pk_hyper_parameterConfig.py"
+  "/home/foscar/ISCC_2022/devel/share/lidar_team_erp42/docs/pk_hyper_parameterConfig.wikidoc"
 )
 
 # Per-language clean rules from dependency scanning.

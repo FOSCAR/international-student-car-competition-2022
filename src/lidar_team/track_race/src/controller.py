@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# TODO Velocity 메시지 타입 만들어주고 import해주기
-# TODO morai와 real에서의 서로 다른 purepursuit 변수들 알아내기
-# TODO Steering 메시지 타입 만들고 import하기
+# TODO currentSpeed 의존성ㅇ 재설정
 
 from queue import Queue
 from time import time

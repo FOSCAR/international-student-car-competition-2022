@@ -108,6 +108,7 @@ generate_dynamic_reconfigure_options(
   cfg/small_st_hyper_parameter.cfg
   cfg/large_st_hyper_parameter.cfg
   cfg/de_hyper_parameter.cfg
+  cfg/pk_hyper_parameter.cfg
 )
 
 ###################################
@@ -164,10 +165,14 @@ target_link_libraries(large_static_obstacle ${catkin_LIBRARIES})
 add_executable(delivery src/delivery.cpp)
 target_link_libraries(delivery ${catkin_LIBRARIES})
 
+add_executable(parallel_parking src/parallel_parking.cpp)
+target_link_libraries(parallel_parking ${catkin_LIBRARIES})
+
 add_dependencies(dynamic_obstacle ${PROJECT_NAME}_gencfg)
 add_dependencies(small_static_obstacle ${PROJECT_NAME}_gencfg)
 add_dependencies(large_static_obstacle ${PROJECT_NAME}_gencfg)
 add_dependencies(delivery ${PROJECT_NAME}_gencfg)
+add_dependencies(parallel_parking ${PROJECT_NAME}_gencfg)
 
 
 ## Rename C++ executable without prefix

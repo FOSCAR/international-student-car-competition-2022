@@ -299,6 +299,8 @@ lidar_team_erp42/large_st_hyper_parameterConfig.h
 /home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/src/lidar_team_erp42/large_st_hyper_parameterConfig.h
 lidar_team_erp42/de_hyper_parameterConfig.h
 /home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/src/lidar_team_erp42/de_hyper_parameterConfig.h
+lidar_team_erp42/pk_hyper_parameterConfig.h
+/home/foscar/ISCC_2022/src/lidar_team/lidar_team_erp42/src/lidar_team_erp42/pk_hyper_parameterConfig.h
 race/drive_values.h
 -
 

@@ -168,6 +168,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/rule:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/rule
+.PHONY : lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/rule
+
+# Convenience name for target.
+parallel_parking: lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/rule
+
+.PHONY : parallel_parking
+
+# fast build rule for target.
+parallel_parking/fast:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/build
+.PHONY : parallel_parking/fast
+
+# Convenience name for target.
 lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/rule:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f CMakeFiles/Makefile2 lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/rule
 .PHONY : lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/rule
@@ -563,6 +578,33 @@ src/large_static_obstacle.cpp.s:
 	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/large_static_obstacle.dir/src/large_static_obstacle.cpp.s
 .PHONY : src/large_static_obstacle.cpp.s
 
+src/parallel_parking.o: src/parallel_parking.cpp.o
+
+.PHONY : src/parallel_parking.o
+
+# target to build an object file
+src/parallel_parking.cpp.o:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/src/parallel_parking.cpp.o
+.PHONY : src/parallel_parking.cpp.o
+
+src/parallel_parking.i: src/parallel_parking.cpp.i
+
+.PHONY : src/parallel_parking.i
+
+# target to preprocess a source file
+src/parallel_parking.cpp.i:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/src/parallel_parking.cpp.i
+.PHONY : src/parallel_parking.cpp.i
+
+src/parallel_parking.s: src/parallel_parking.cpp.s
+
+.PHONY : src/parallel_parking.s
+
+# target to generate assembly for a file
+src/parallel_parking.cpp.s:
+	cd /home/foscar/ISCC_2022/build && $(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/src/parallel_parking.cpp.s
+.PHONY : src/parallel_parking.cpp.s
+
 src/small_static_obstacle.o: src/small_static_obstacle.cpp.o
 
 .PHONY : src/small_static_obstacle.o
@@ -599,6 +641,7 @@ help:
 	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... rebuild_cache"
+	@echo "... parallel_parking"
 	@echo "... large_static_obstacle"
 	@echo "... small_static_obstacle"
 	@echo "... test"
@@ -633,6 +676,9 @@ help:
 	@echo "... src/large_static_obstacle.o"
 	@echo "... src/large_static_obstacle.i"
 	@echo "... src/large_static_obstacle.s"
+	@echo "... src/parallel_parking.o"
+	@echo "... src/parallel_parking.i"
+	@echo "... src/parallel_parking.s"
 	@echo "... src/small_static_obstacle.o"
 	@echo "... src/small_static_obstacle.i"
 	@echo "... src/small_static_obstacle.s"

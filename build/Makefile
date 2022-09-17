@@ -5186,6 +5186,19 @@ jinho_node/fast:
 .PHONY : jinho_node/fast
 
 #=============================================================================
+# Target rules for targets named parallel_parking
+
+# Build rule for target.
+parallel_parking: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 parallel_parking
+.PHONY : parallel_parking
+
+# fast build rule for target.
+parallel_parking/fast:
+	$(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/parallel_parking.dir/build
+.PHONY : parallel_parking/fast
+
+#=============================================================================
 # Target rules for targets named large_static_obstacle
 
 # Build rule for target.
@@ -5457,6 +5470,253 @@ lidar_team_erp42_gennodejs: cmake_check_build_system
 lidar_team_erp42_gennodejs/fast:
 	$(MAKE) -f lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gennodejs.dir/build.make lidar_team/lidar_team_erp42/CMakeFiles/lidar_team_erp42_gennodejs.dir/build
 .PHONY : lidar_team_erp42_gennodejs/fast
+
+#=============================================================================
+# Target rules for targets named static_obstacle_morai
+
+# Build rule for target.
+static_obstacle_morai: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 static_obstacle_morai
+.PHONY : static_obstacle_morai
+
+# fast build rule for target.
+static_obstacle_morai/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/static_obstacle_morai.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/static_obstacle_morai.dir/build
+.PHONY : static_obstacle_morai/fast
+
+#=============================================================================
+# Target rules for targets named dynamic_obstacle_morai
+
+# Build rule for target.
+dynamic_obstacle_morai: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dynamic_obstacle_morai
+.PHONY : dynamic_obstacle_morai
+
+# fast build rule for target.
+dynamic_obstacle_morai/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/dynamic_obstacle_morai.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/dynamic_obstacle_morai.dir/build
+.PHONY : dynamic_obstacle_morai/fast
+
+#=============================================================================
+# Target rules for targets named track_waypoint_morai
+
+# Build rule for target.
+track_waypoint_morai: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 track_waypoint_morai
+.PHONY : track_waypoint_morai
+
+# fast build rule for target.
+track_waypoint_morai/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/track_waypoint_morai.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/track_waypoint_morai.dir/build
+.PHONY : track_waypoint_morai/fast
+
+#=============================================================================
+# Target rules for targets named lidar_team_morai_generate_messages_cpp
+
+# Build rule for target.
+lidar_team_morai_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lidar_team_morai_generate_messages_cpp
+.PHONY : lidar_team_morai_generate_messages_cpp
+
+# fast build rule for target.
+lidar_team_morai_generate_messages_cpp/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_cpp.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_cpp.dir/build
+.PHONY : lidar_team_morai_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named _lidar_team_morai_generate_messages_check_deps_Waypoint
+
+# Build rule for target.
+_lidar_team_morai_generate_messages_check_deps_Waypoint: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _lidar_team_morai_generate_messages_check_deps_Waypoint
+.PHONY : _lidar_team_morai_generate_messages_check_deps_Waypoint
+
+# fast build rule for target.
+_lidar_team_morai_generate_messages_check_deps_Waypoint/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/_lidar_team_morai_generate_messages_check_deps_Waypoint.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/_lidar_team_morai_generate_messages_check_deps_Waypoint.dir/build
+.PHONY : _lidar_team_morai_generate_messages_check_deps_Waypoint/fast
+
+#=============================================================================
+# Target rules for targets named lidar_team_morai_generate_messages_py
+
+# Build rule for target.
+lidar_team_morai_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lidar_team_morai_generate_messages_py
+.PHONY : lidar_team_morai_generate_messages_py
+
+# fast build rule for target.
+lidar_team_morai_generate_messages_py/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_py.dir/build
+.PHONY : lidar_team_morai_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named _lidar_team_morai_generate_messages_check_deps_DynamicVelocity
+
+# Build rule for target.
+_lidar_team_morai_generate_messages_check_deps_DynamicVelocity: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _lidar_team_morai_generate_messages_check_deps_DynamicVelocity
+.PHONY : _lidar_team_morai_generate_messages_check_deps_DynamicVelocity
+
+# fast build rule for target.
+_lidar_team_morai_generate_messages_check_deps_DynamicVelocity/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/_lidar_team_morai_generate_messages_check_deps_DynamicVelocity.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/_lidar_team_morai_generate_messages_check_deps_DynamicVelocity.dir/build
+.PHONY : _lidar_team_morai_generate_messages_check_deps_DynamicVelocity/fast
+
+#=============================================================================
+# Target rules for targets named lidar_team_morai_generate_messages
+
+# Build rule for target.
+lidar_team_morai_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lidar_team_morai_generate_messages
+.PHONY : lidar_team_morai_generate_messages
+
+# fast build rule for target.
+lidar_team_morai_generate_messages/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages.dir/build
+.PHONY : lidar_team_morai_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named lidar_team_morai_gencpp
+
+# Build rule for target.
+lidar_team_morai_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lidar_team_morai_gencpp
+.PHONY : lidar_team_morai_gencpp
+
+# fast build rule for target.
+lidar_team_morai_gencpp/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_gencpp.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_gencpp.dir/build
+.PHONY : lidar_team_morai_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named lidar_team_morai_generate_messages_eus
+
+# Build rule for target.
+lidar_team_morai_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lidar_team_morai_generate_messages_eus
+.PHONY : lidar_team_morai_generate_messages_eus
+
+# fast build rule for target.
+lidar_team_morai_generate_messages_eus/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_eus.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_eus.dir/build
+.PHONY : lidar_team_morai_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named lidar_team_morai_geneus
+
+# Build rule for target.
+lidar_team_morai_geneus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lidar_team_morai_geneus
+.PHONY : lidar_team_morai_geneus
+
+# fast build rule for target.
+lidar_team_morai_geneus/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_geneus.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_geneus.dir/build
+.PHONY : lidar_team_morai_geneus/fast
+
+#=============================================================================
+# Target rules for targets named _lidar_team_morai_generate_messages_check_deps_Boundingbox
+
+# Build rule for target.
+_lidar_team_morai_generate_messages_check_deps_Boundingbox: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _lidar_team_morai_generate_messages_check_deps_Boundingbox
+.PHONY : _lidar_team_morai_generate_messages_check_deps_Boundingbox
+
+# fast build rule for target.
+_lidar_team_morai_generate_messages_check_deps_Boundingbox/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/_lidar_team_morai_generate_messages_check_deps_Boundingbox.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/_lidar_team_morai_generate_messages_check_deps_Boundingbox.dir/build
+.PHONY : _lidar_team_morai_generate_messages_check_deps_Boundingbox/fast
+
+#=============================================================================
+# Target rules for targets named lidar_team_morai_gencfg
+
+# Build rule for target.
+lidar_team_morai_gencfg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lidar_team_morai_gencfg
+.PHONY : lidar_team_morai_gencfg
+
+# fast build rule for target.
+lidar_team_morai_gencfg/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_gencfg.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_gencfg.dir/build
+.PHONY : lidar_team_morai_gencfg/fast
+
+#=============================================================================
+# Target rules for targets named lidar_team_morai_genpy
+
+# Build rule for target.
+lidar_team_morai_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lidar_team_morai_genpy
+.PHONY : lidar_team_morai_genpy
+
+# fast build rule for target.
+lidar_team_morai_genpy/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_genpy.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_genpy.dir/build
+.PHONY : lidar_team_morai_genpy/fast
+
+#=============================================================================
+# Target rules for targets named lidar_team_morai_generate_messages_lisp
+
+# Build rule for target.
+lidar_team_morai_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lidar_team_morai_generate_messages_lisp
+.PHONY : lidar_team_morai_generate_messages_lisp
+
+# fast build rule for target.
+lidar_team_morai_generate_messages_lisp/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_lisp.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_lisp.dir/build
+.PHONY : lidar_team_morai_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named lidar_team_morai_gennodejs
+
+# Build rule for target.
+lidar_team_morai_gennodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lidar_team_morai_gennodejs
+.PHONY : lidar_team_morai_gennodejs
+
+# fast build rule for target.
+lidar_team_morai_gennodejs/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_gennodejs.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_gennodejs.dir/build
+.PHONY : lidar_team_morai_gennodejs/fast
+
+#=============================================================================
+# Target rules for targets named lidar_team_morai_genlisp
+
+# Build rule for target.
+lidar_team_morai_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lidar_team_morai_genlisp
+.PHONY : lidar_team_morai_genlisp
+
+# fast build rule for target.
+lidar_team_morai_genlisp/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_genlisp.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_genlisp.dir/build
+.PHONY : lidar_team_morai_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named _lidar_team_morai_generate_messages_check_deps_ObjectInfo
+
+# Build rule for target.
+_lidar_team_morai_generate_messages_check_deps_ObjectInfo: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _lidar_team_morai_generate_messages_check_deps_ObjectInfo
+.PHONY : _lidar_team_morai_generate_messages_check_deps_ObjectInfo
+
+# fast build rule for target.
+_lidar_team_morai_generate_messages_check_deps_ObjectInfo/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/_lidar_team_morai_generate_messages_check_deps_ObjectInfo.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/_lidar_team_morai_generate_messages_check_deps_ObjectInfo.dir/build
+.PHONY : _lidar_team_morai_generate_messages_check_deps_ObjectInfo/fast
+
+#=============================================================================
+# Target rules for targets named lidar_team_morai_generate_messages_nodejs
+
+# Build rule for target.
+lidar_team_morai_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lidar_team_morai_generate_messages_nodejs
+.PHONY : lidar_team_morai_generate_messages_nodejs
+
+# fast build rule for target.
+lidar_team_morai_generate_messages_nodejs/fast:
+	$(MAKE) -f lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_nodejs.dir/build.make lidar_team/lidar_team_morai/CMakeFiles/lidar_team_morai_generate_messages_nodejs.dir/build
+.PHONY : lidar_team_morai_generate_messages_nodejs/fast
 
 #=============================================================================
 # Target rules for targets named object_detector_geneus
@@ -10017,6 +10277,7 @@ help:
 	@echo "... jinho_gennodejs"
 	@echo "... jinho_genpy"
 	@echo "... jinho_node"
+	@echo "... parallel_parking"
 	@echo "... large_static_obstacle"
 	@echo "... small_static_obstacle"
 	@echo "... dynamic_obstacle"
@@ -10038,6 +10299,25 @@ help:
 	@echo "... lidar_team_erp42_generate_messages_py"
 	@echo "... lidar_team_erp42_genlisp"
 	@echo "... lidar_team_erp42_gennodejs"
+	@echo "... static_obstacle_morai"
+	@echo "... dynamic_obstacle_morai"
+	@echo "... track_waypoint_morai"
+	@echo "... lidar_team_morai_generate_messages_cpp"
+	@echo "... _lidar_team_morai_generate_messages_check_deps_Waypoint"
+	@echo "... lidar_team_morai_generate_messages_py"
+	@echo "... _lidar_team_morai_generate_messages_check_deps_DynamicVelocity"
+	@echo "... lidar_team_morai_generate_messages"
+	@echo "... lidar_team_morai_gencpp"
+	@echo "... lidar_team_morai_generate_messages_eus"
+	@echo "... lidar_team_morai_geneus"
+	@echo "... _lidar_team_morai_generate_messages_check_deps_Boundingbox"
+	@echo "... lidar_team_morai_gencfg"
+	@echo "... lidar_team_morai_genpy"
+	@echo "... lidar_team_morai_generate_messages_lisp"
+	@echo "... lidar_team_morai_gennodejs"
+	@echo "... lidar_team_morai_genlisp"
+	@echo "... _lidar_team_morai_generate_messages_check_deps_ObjectInfo"
+	@echo "... lidar_team_morai_generate_messages_nodejs"
 	@echo "... object_detector_geneus"
 	@echo "... object_detector_gencpp"
 	@echo "... object_detector_generate_messages_eus"

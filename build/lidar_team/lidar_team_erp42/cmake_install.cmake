@@ -96,6 +96,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/lidar_team_erp42" TYPE FILE FILES "/home/foscar/ISCC_2022/devel/include/lidar_team_erp42/pk_hyper_parameterConfig.h")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages/lidar_team_erp42" TYPE FILE FILES "/home/foscar/ISCC_2022/devel/lib/python2.7/dist-packages/lidar_team_erp42/__init__.py")
 endif()
 

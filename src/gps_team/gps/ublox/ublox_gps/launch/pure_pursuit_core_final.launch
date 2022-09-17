@@ -57,6 +57,7 @@
   <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" />
   <node pkg="lidar_team_erp42" type="large_static_obstacle" name="large_static_obstacle"/>
   <node pkg="lidar_team_erp42" type="delivery" name="delivery" />
+  <node pkg="lidar_team_erp42" type="parallel_parking" name="parallel_parking" />
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find lidar_team_erp42)/rviz/delivery.rviz" />
 
   <!-- for serial control -->

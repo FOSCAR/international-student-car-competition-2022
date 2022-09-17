@@ -435,7 +435,7 @@ objectDetectorConfig::GroupDescription<objectDetectorConfig::DEFAULT, objectDete
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.xMin = 10.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.xMin = 1.0;
+      __default__.xMin = 0.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(objectDetectorConfig::AbstractParamDescriptionConstPtr(new objectDetectorConfig::ParamDescription<double>("xMin", "double", 0, "xMinValue", "", &objectDetectorConfig::xMin)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -475,7 +475,7 @@ objectDetectorConfig::GroupDescription<objectDetectorConfig::DEFAULT, objectDete
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.zMin = 0.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.zMin = -0.6974;
+      __default__.zMin = -0.6;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(objectDetectorConfig::AbstractParamDescriptionConstPtr(new objectDetectorConfig::ParamDescription<double>("zMin", "double", 0, "zMinValue", "", &objectDetectorConfig::zMin)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -485,7 +485,7 @@ objectDetectorConfig::GroupDescription<objectDetectorConfig::DEFAULT, objectDete
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.zMax = 100.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.zMax = 2.0;
+      __default__.zMax = 4.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(objectDetectorConfig::AbstractParamDescriptionConstPtr(new objectDetectorConfig::ParamDescription<double>("zMax", "double", 0, "zMaxValue", "", &objectDetectorConfig::zMax)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -515,7 +515,7 @@ objectDetectorConfig::GroupDescription<objectDetectorConfig::DEFAULT, objectDete
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.minClusterSize = 100.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.minClusterSize = 10.0;
+      __default__.minClusterSize = 30.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(objectDetectorConfig::AbstractParamDescriptionConstPtr(new objectDetectorConfig::ParamDescription<double>("minClusterSize", "double", 0, "minClusterSizeValue", "", &objectDetectorConfig::minClusterSize)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
@@ -525,7 +525,7 @@ objectDetectorConfig::GroupDescription<objectDetectorConfig::DEFAULT, objectDete
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.maxClusterSize = 10000.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.maxClusterSize = 1000.0;
+      __default__.maxClusterSize = 300.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(objectDetectorConfig::AbstractParamDescriptionConstPtr(new objectDetectorConfig::ParamDescription<double>("maxClusterSize", "double", 0, "maxClusterSizeValue", "", &objectDetectorConfig::maxClusterSize)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"

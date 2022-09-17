@@ -286,8 +286,10 @@ void PurePursuitNode::run(char** argv) {
 
       // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
       if((pp_.reachMissionIdx(slow_down_tf_idx_1) || pp_.reachMissionIdx(slow_down_tf_idx_2) || pp_.reachMissionIdx(slow_down_tf_idx_3) || pp_.reachMissionIdx(slow_down_tf_idx_5) || pp_.reachMissionIdx(slow_down_tf_idx_6) || pp_.reachMissionIdx(slow_down_tf_idx_7)) && !pp_.straight_go_flag){
-        can_get_curvature = pp_.canGetCurvature(&kappa);
-        publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.2);
+        for (int i = 0; i < 3; i++) {
+          publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.05);
+          usleep(100000);
+        }
         ROS_INFO_STREAM("*****RED LIGHT SLOWING DOWN*****");
       } 
       // When traffic lights are GREEN at slow_down_point -> SPEEDING UP
@@ -295,7 +297,6 @@ void PurePursuitNode::run(char** argv) {
         while(const_velocity_ < 10){
             const_velocity_ += 0.1;
             // pulishControlMsg(const_velocity_ , 0);
-            can_get_curvature = pp_.canGetCurvature(&kappa);
             publishPurePursuitDriveMsg(can_get_curvature, kappa);
             ROS_INFO_STREAM("*****GREEN LIGHT SPEEDING UP*****");
         }
