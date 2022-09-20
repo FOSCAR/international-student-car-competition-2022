@@ -66,7 +66,8 @@ private:
   ros::Subscriber dynamic_obstacle_long_sub;
   ros::Subscriber static_obstacle_short_sub;
   ros::Subscriber static_obstacle_long_sub;
- 
+  ros::Subscriber parking_rubbercone_sub;
+
   ros::Subscriber obstacle_sub2;
   ros::Subscriber delivery_obs_sub1;
   ros::Subscriber delivery_obs_sub2;
@@ -116,6 +117,7 @@ private:
   void callbackFromDynamicObstacleLong(const std_msgs::Bool& msg);
   void callbackFromStaticObstacleShort(const std_msgs::Bool& msg);
   void callbackFromStaticObstacleLong(const std_msgs::Bool& msg);
+  void callbackFromParkingRubberCone(const std_msgs::Bool& msg);
 
   void callbackFromObstacle2(const avoid_obstacle::DetectedObstacles& msg);   // 왼오
   void callbackFromObstacle3(const avoid_obstacle::DetectedObstacles& msg);   // 오왼

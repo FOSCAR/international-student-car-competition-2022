@@ -74,6 +74,7 @@ public:
   bool is_dynamic_obstacle_detected_long;
   bool is_static_obstacle_detected_short;
   bool is_static_obstacle_detected_long;
+  bool is_parking_rubbercone_detected;
 
   int static_obstacle_flag;
   bool straight_go_flag;
@@ -104,11 +105,6 @@ public:
   // int a3_cnt = 0;
 
   std::vector<Obstacle> obstacles;
-
-
-  
-
-
 
 
   // functions

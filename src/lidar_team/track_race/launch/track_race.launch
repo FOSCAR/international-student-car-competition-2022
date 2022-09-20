@@ -18,8 +18,8 @@
     <!-- <node pkg="lidar_team_erp42" type="pure_pursuit_camera.py" name="pure_pursuit_camera" output="screen"/> -->
 
     <!--GPS VELOCITY-->
-    <!-- <node pkg="pure_pursuit" type="gps_velocity.py" name="gps_velocity"/> -->
-    <node pkg="track_race" type="real_velocity.py" name="real_velocity"/>
+    <node pkg="pure_pursuit" type="gps_velocity.py" name="gps_velocity"/>
+    <!-- <node pkg="track_race" type="real_velocity.py" name="real_velocity"/> -->
 
     <!-- GPS -->
     <node pkg="pure_pursuit" type="pure_pursuit_gps.py" name="pure_pursuit_gps" output="screen"/>

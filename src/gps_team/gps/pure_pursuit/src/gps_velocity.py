@@ -30,7 +30,7 @@ class GpsVelocity:
         self.zVelocity = msg.twist.twist.linear.z
 
     def calcSpeed(self):
-        self.speed = sqrt(self.xVelocity * self.xVelocity + self.yVelocity * self.yVelocity + self.zVelocity * self.zVelocity) * 3.6
+        self.speed = sqrt(self.xVelocity * self.xVelocity + self.yVelocity * self.yVelocity) * 3.6
 
     def speedPub(self):
         self.speedPublisher.publish(self.speed)

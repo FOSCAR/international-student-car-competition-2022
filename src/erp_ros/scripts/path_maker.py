@@ -55,13 +55,13 @@ class test :
             self.prev_x=x
             self.prev_y=y
 
-            # x = float(x) + 302459.942
-            # y = float(y) + 4122635.537
+            x = float(x) + 302459.942
+            y = float(y) + 4122635.537
             
-            # proj_UTMK = Proj(init='epsg:5179')
-            # proj_UTM52N = Proj(init='epsg:32652')
+            proj_UTMK = Proj(init='epsg:5179')
+            proj_UTM52N = Proj(init='epsg:32652')
 
-            # x, y = transform(proj_UTM52N, proj_UTMK, x, y)
+            x, y = transform(proj_UTM52N, proj_UTMK, x, y)
 
             data='{0} {1} {2}\n'.format(x,y,z)
             self.f.write(data)

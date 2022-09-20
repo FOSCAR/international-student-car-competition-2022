@@ -114,19 +114,23 @@ const float cw_coord_1[2] = {935623.59424, 1916230.0299};
 const float cw_coord_2[2] = {935640.993628, 1916218.80811};
 
 /* Parking index */
-int pk_idx1 = 1000;
-int pk_idx2 = 1000;
-int pk_idx3 = 1000;
-int pk_idx4 = 1000;
-int pk_idx5 = 1000;
+int pk_idx[7] = {0, 0, 0, 0, 0, 0, 0};
 
-const float pk_coord1[2] = {955454.673469, 1956997.3354};
+// const float pk_coord[4][2] = { {935539.0990105674, 1915871.7621510457},
+//                                {935536.7996612387, 1915867.4861468808},
+//                                {935534.4555976985, 1915863.1177870466},
+//                                {935532.1403489476, 1915858.7401213772} };
+
+const float pk_coord[4][2] = { {955594.816762, 1956892.06916},
+                               {955591.028068, 1956894.95195},
+                               {955587.151474, 1956897.90179},
+                               {955583.256873, 1956900.78515} };
 
 // const float pk_coord1[2] = {935537.101828, 1915867.54744};
-const float pk_coord2[2] = {935534.641037, 1915863.05751};
-const float pk_coord3[2] = {935525.445681, 1915845.94072};
-const float pk_coord4[2] = {935520.003677, 1915835.89874};
-const float pk_coord5[2] = {935517.529914, 1915831.50221};
+// const float pk_coord2[2] = {935534.641037, 1915863.05751};
+// const float pk_coord3[2] = {935525.445681, 1915845.94072};
+// const float pk_coord4[2] = {935520.003677, 1915835.89874};
+// const float pk_coord5[2] = {935517.529914, 1915831.50221};
 
 bool is_parked = false;
 
@@ -140,11 +144,11 @@ double min_b_dist = 9999999;
 
 // Delivery var
 double delivery_x_dist;
-double delivery_angle;
 
 // max index of pp_.a_cnt array
 int a_max_index = -1;
 int b_max_index = -1;
+
 // calc max index flag
 bool a_cnt_flag = false;
 bool b_cnt_flag = false;
@@ -154,7 +158,13 @@ bool delivery_B_brake_flag = false;
 
 bool delivery_distance_init_flag = true;
 
-int b_idx_cnt = 0;
+// Parallel Parking flag
+bool parking_available_flag = false;
+bool once_flag = false;
+int check_point_index = 0;
+double moved_distance = 0.0;
+bool final_parking_flag = false;
+int step = 1;
 
 std::vector<int> passed_index;
 
@@ -178,6 +188,8 @@ void PurePursuitNode::initForROS() {
   static_obstacle_long_sub = nh_.subscribe("/static_obs_flag_long", 1, &PurePursuitNode::callbackFromStaticObstacleLong, this);
   dynamic_obstacle_short_sub = nh_.subscribe("/dynamic_obs_flag_short", 1, &PurePursuitNode::callbackFromDynamicObstacleShort, this);
   dynamic_obstacle_long_sub = nh_.subscribe("/dynamic_obs_flag_long", 1, &PurePursuitNode::callbackFromDynamicObstacleLong, this);
+  parking_rubbercone_sub = nh_.subscribe("/is_parking_rubbercone", 1, &PurePursuitNode::callbackFromParkingRubberCone, this);
+
   gps_velocity_raw_sub = nh_.subscribe("/gps_front/fix_velocity", 1, &PurePursuitNode::callbackFromGpsVelocityRawdata, this);
 
   traffic_light_sub = nh_.subscribe("darknet_ros/bounding_boxes",1, &PurePursuitNode::callbackFromTrafficLight, this);
@@ -247,16 +259,15 @@ void PurePursuitNode::run(char** argv) {
       cw_idx_1 = pp_.getPosIndex(cw_coord_1[0], cw_coord_1[1]);
       cw_idx_2 = pp_.getPosIndex(cw_coord_2[0], cw_coord_2[1]);
 
-      pk_idx1 = pp_.getPosIndex(pk_coord1[0] , pk_coord1[1]);
-      pk_idx2 = pp_.getPosIndex(pk_coord2[0] , pk_coord2[1]);
-      pk_idx3 = pp_.getPosIndex(pk_coord3[0] , pk_coord3[1]);
-      pk_idx4 = pp_.getPosIndex(pk_coord4[0] , pk_coord4[1]);
-      pk_idx5 = pp_.getPosIndex(pk_coord5[0] , pk_coord5[1]);
+      pk_idx[0] = pp_.getPosIndex(pk_coord[0][0], pk_coord[0][1]);
+      pk_idx[1] = pp_.getPosIndex(pk_coord[1][0], pk_coord[1][1]);
+      pk_idx[2] = pp_.getPosIndex(pk_coord[2][0], pk_coord[2][1]);
+      pk_idx[3] = pp_.getPosIndex(pk_coord[3][0], pk_coord[3][1]);
 
       slow_down_before_delivery_idx = pp_.getPosIndex(slow_down_coord[0], slow_down_coord[1]);
     }
 
-    ROS_INFO("MODE=%d, MISSION_FLAG=%d", pp_.mode, pp_.mission_flag);
+    // ROS_INFO("MODE=%d, MISSION_FLAG=%d", pp_.mode, pp_.mission_flag);
 
     // MODE 0 - 직진
     // MODE 1 - 신호등(직진)
@@ -492,7 +503,7 @@ void PurePursuitNode::run(char** argv) {
       final_constant = 1.0;
 
       if(pp_.reachMissionIdx(cw_idx_1) && !first_cw){
-        for(int i = 0; i < 55; i++){
+        for(int i = 0; i < 35; i++){
           pulishControlMsg(0, 0);
           usleep(100000);
         }
@@ -500,7 +511,7 @@ void PurePursuitNode::run(char** argv) {
       }
 
       if(pp_.reachMissionIdx(cw_idx_2) && !second_cw){
-        for(int i = 0; i < 55; i++){
+        for(int i = 0; i < 35; i++){
           pulishControlMsg(0, 0);
           usleep(100000);
         }
@@ -595,154 +606,214 @@ void PurePursuitNode::run(char** argv) {
 
     // MODE 9 : 수평주차
     if (pp_.mode == 9) {
-      pp_.is_finish = false;
-
       if (pp_.mission_flag == 0)  {
+        const_lookahead_distance_ = 5;
+        const_velocity_ = 6;
+      } 
+      else if (pp_.mission_flag == 1)  {
         const_lookahead_distance_ = 6;
         const_velocity_ = 6;
       }
-      
-      if (pp_.mission_flag == 4)  {
-        const_lookahead_distance_ = 5;
-        const_velocity_ = 10;
+
+      if (pp_.reachMissionIdx(pk_idx[check_point_index]) && is_parked == false) {
+        if (pp_.is_parking_rubbercone_detected == false) {
+          parking_available_flag = true;
+          once_flag = false;
+          // std::cout << "주차가능\n";
+        }
+        else if (pp_.is_parking_rubbercone_detected == true && once_flag == true) {
+          // std::cout << "주차불가\n";
+          once_flag = false;
+          parking_available_flag = false;
+          check_point_index = (check_point_index + 1) % 4;
+        }
       }
-
-      if (!is_parked) {
-        // first
-        if (parking_num == 1) {
-          if (pp_.reachMissionIdx(pk_idx1)) {
-            for(int i = 0; i < 12; i++) {
-              pulishControlMsg(7, -20); 
-              usleep(100000);
-            }
-
-            for(int i = 0; i < 10; i++) {
-              pulishControlMsg(0, 0); 
-              usleep(100000);
-            }
-            pp_.mission_flag = 1;
+      else {
+        once_flag = true;
+        // std::cout << "주차탐색\n";
+      }
+      // start
+      if (pp_.reachMissionIdx(pk_idx[check_point_index + 1]) && parking_available_flag == true && is_parked == false && final_parking_flag == false) {
+        if (pp_.mission_flag == 0) {
+          final_parking_flag = true;
+          // 일시 정지
+          for(int i = 0; i < 10; i++) {
+            pulishControlMsg(0, 0); 
+            std::cout << "일시정지\n";
+            usleep(100000);
           }
-        }
-
-        // second
-        else if (parking_num == 2) {
-          if (pp_.reachMissionIdx(pk_idx2)) {
-            for(int i = 0; i < 12; i++) {
-              pulishControlMsg(7, -20); 
-              usleep(100000);
-            }
-
-            for(int i = 0; i < 10; i++) {
-              pulishControlMsg(0, 0); 
-              usleep(100000);
-            }
-            pp_.mission_flag = 1;
-          }
-        }
-
-        // third
-        else if (parking_num == 3) {
-          if (pp_.reachMissionIdx(pk_idx3)) {
-            for(int i = 0; i < 12; i++) {
-              pulishControlMsg(7, -20); 
-              usleep(100000);
-            }
-
-            for(int i = 0; i < 10; i++) {
-              pulishControlMsg(0, 0); 
-              usleep(100000);
-            }
-            pp_.mission_flag = 1;
-          }
-        }  
-
-        // forth
-        else if (parking_num == 4) {     
-          if (pp_.reachMissionIdx(pk_idx4)) {
-            for(int i = 0; i < 12; i++) {
-              pulishControlMsg(7, -20); 
-              usleep(100000);
-            }
-
-            for(int i = 0; i < 10; i++) {
-              pulishControlMsg(0, 0); 
-              usleep(100000);
-            }
-            pp_.mission_flag = 1;
-          }
-        }
-
-        // fifth
-        else if (parking_num == 5) {
-          if (pp_.reachMissionIdx(pk_idx5)) {
-            for(int i = 0; i < 12; i++) {
-              pulishControlMsg(7, -20); 
-              usleep(100000);
-            }
-
-            for(int i = 0; i < 10; i++) {
-              pulishControlMsg(0, 0); 
-              usleep(100000);
-            }
-            pp_.mission_flag = 1;
-          }
+          moved_distance = 0.0;
         }
       }
 
-      if (pp_.mission_flag == 1) {
-        // 우측 후진
-        for (int i = 0; i < 37; i++) {
-          pulishControlMsg(-7, 27);
-          usleep(100000);
-        }
-        // 평행 후진
-        for (int i = 0; i < 10; i++) {
-          pulishControlMsg(-7, 0);
-          usleep(100000);
-        }
-        // 좌측 후진
-        for (int i = 0; i < 27; i++) {
-          pulishControlMsg(-7, -30);
-          usleep(100000);
-        }
-        pp_.mission_flag = 2;
-      }
-
-      // 10초 정지
-      else if (pp_.mission_flag == 2) {
-        for (int i = 0; i < 110; i++) {
-          pulishControlMsg(0, 0);
-          usleep(100000);
-        }
-        pp_.mission_flag = 3;
-      }
-
-      else if (pp_.mission_flag == 3) {
-        // 좌측 전진
-        for (int i = 0; i < 46; i++) {
-          pulishControlMsg(7, -30);
-          usleep(100000);
-        }
-        // 평행 전진
-        for (int i = 0; i < 8; i++) {
+      if (final_parking_flag == true) {
+        // 직진
+        if (moved_distance < 0.2 && step == 1) {
           pulishControlMsg(7, 0);
-          usleep(100000);
+          std::cout << "STEP 1\n";
+          continue;
+        } else if (0.2 <= moved_distance && step == 1) {
+          step = 2;
+          moved_distance = 0.0;
+          std::cout << "STEP 1 초기화\n";
         }
+        
+        // 좌측 정렬
+        if (moved_distance < 1.2 && step == 2) {
+          pulishControlMsg(7, -20);
+          std::cout << "STEP 2\n";
+          continue;
+        } else if (1.2 <= moved_distance && step == 2) {
+          for(int i = 0; i < 10; i++) {
+            pulishControlMsg(0, 0); 
+            std::cout << "일시정지\n";
+            usleep(100000);
+          }
+          step = 3;
+          moved_distance = 0.0;
+          std::cout << "STEP 2 초기화\n";
+        }
+        
+        // // 우측 후진
+        if (moved_distance < 2.5 && step == 3) {
+          pulishControlMsg(-7, 27);
+          std::cout << "STEP 3\n";
+          continue;
+        } else if (2.5 <= moved_distance && step == 3) {
+          step = 4;
+          moved_distance = 0.0;
+          std::cout << "STEP 3 초기화\n";
+        }
+
+        // // 후진
+        if (moved_distance < 0.8 && step == 4) {
+          pulishControlMsg(-7, -20);
+          std::cout << "STEP 4\n";
+          continue;
+        } else if (0.8 <= moved_distance && step == 4) {
+          step = 5;
+          moved_distance = 0.0;
+          std::cout << "STEP 4 초기화\n";
+        }
+
+        // // 좌측 후진
+        if (moved_distance < 0.8 && step == 5) {
+          pulishControlMsg(-7, -30);
+          std::cout << "STEP 5\n";
+          continue;
+        } else if (0.8 <= moved_distance && step == 5) {
+          for(int i = 0; i < 110; i++) {
+            pulishControlMsg(0, 0); 
+            std::cout << "일시정지\n";
+            usleep(100000);
+          }
+          step = 6;
+          moved_distance = 0.0;
+          std::cout << "STEP 5 초기화\n";
+        }
+
+        // 좌측 전진
+        if (moved_distance < 3.0 && step == 6) {
+          pulishControlMsg(7, -20);
+          std::cout << "STEP 6\n";
+          continue;
+        } else if (3.0 <= moved_distance && step == 6) {
+          step = 7;
+          moved_distance = 0.0;
+          std::cout << "STEP 6 초기화\n";
+        }
+
+        // 평행 전진
+        if (moved_distance < 0.5 && step == 7) {
+          pulishControlMsg(7, -20);
+          std::cout << "STEP 7\n";
+          continue;
+        } else if (0.5 <= moved_distance && step == 7) {
+          step = 8;
+          moved_distance = 0.0;
+          std::cout << "STEP 7 초기화\n";
+        }
+
         // 우측 전진
-        for (int i = 0; i < 35; i++) {
-          pulishControlMsg(7, 30);
-          usleep(100000);
+        if (moved_distance < 0.5 && step == 8) { // 찐막
+          pulishControlMsg(7, 0);
+          std::cout << "찐막! \n";
+          continue;
+        } else if (1.0 < moved_distance && step == 8) {
+          pp_.mission_flag = 1;
+          is_parked = true;
+          final_parking_flag = false;
+          if (is_parked) {
+            pp_.setWaypoints(global_path);
+          }
         }
-
-        pp_.mission_flag = 4;
-        is_parked = true;
       }
+      //end
 
-      ROS_INFO_STREAM(is_parked);
-      if (is_parked) {
-        pp_.setWaypoints(global_path);
-        ROS_INFO_STREAM("******* Parking Ended *******");
-      }
+      // if (pp_.reachMissionIdx(pk_idx[check_point_index + 1]) && parking_available_flag == true && is_parked == false) {
+      //   if (pp_.mission_flag == 0) {
+      //     for(int i = 0; i < 2; i++) {
+      //       pulishControlMsg(7, 0); 
+      //       usleep(100000);
+      //     }
+          
+      //     // 주차를 위한 좌측 정렬
+      //     for(int i = 0; i < 12; i++) {
+      //       pulishControlMsg(7, -20); 
+      //       usleep(100000);
+      //     }
+      //     // 일시 정지
+      //     for(int i = 0; i < 10; i++) {
+      //       pulishControlMsg(0, 0); 
+      //       usleep(100000);
+      //     }
+
+      //     // 우측 후진
+      //     for (int i = 0; i < 37; i++) {
+      //       pulishControlMsg(-7, 27);
+      //       usleep(100000);
+      //     }
+      //     // 평행 후진
+      //     for (int i = 0; i < 10; i++) {
+      //       pulishControlMsg(-7, 0);
+      //       usleep(100000);
+      //     }
+      //     // 좌측 후진
+      //     for (int i = 0; i < 27; i++) {
+      //       pulishControlMsg(-7, -30);
+      //       usleep(100000);
+      //     }
+
+      //     // 주차 후 10초 정지
+      //     for (int i = 0; i < 110; i++) {
+      //       pulishControlMsg(0, 0);
+      //       usleep(100000);
+      //     }
+
+      //     // 좌측 전진
+      //     for (int i = 0; i < 51; i++) {
+      //       pulishControlMsg(7, -30);
+      //       usleep(100000);
+      //     }
+      //     // 평행 전진
+      //     for (int i = 0; i < 8; i++) {
+      //       pulishControlMsg(7, 0);
+      //       usleep(100000);
+      //     }
+      //     // 우측 전진
+      //     for (int i = 0; i < 35; i++) {
+      //       pulishControlMsg(7, 30);
+      //       usleep(100000);
+      //     }
+
+      //     pp_.mission_flag = 1;
+      //     is_parked = true;
+
+      //     if (is_parked) {
+      //       pp_.setWaypoints(global_path);
+      //     }
+      //   }
+      // }
     }
 
     // 마지막 waypoint 에 다다랐으면 점차 속도를 줄이기
@@ -862,7 +933,9 @@ void PurePursuitNode::publishSteeringVisualizationMsg (const double& steering_ra
 }
 
 void PurePursuitNode::callbackFromGpsVelocity(const std_msgs::Float64& msg) {
-  pp_.gps_velocity = msg.data;
+  pp_.gps_velocity = msg.data / 3.6;
+  moved_distance += pp_.gps_velocity * 0.125;
+  std::cout << moved_distance << '\n';
 }
 
 void PurePursuitNode::callbackFromYaw(const std_msgs::Float64& msg) {
@@ -883,6 +956,10 @@ void PurePursuitNode::callbackFromStaticObstacleShort(const std_msgs::Bool& msg)
 
 void PurePursuitNode::callbackFromStaticObstacleLong(const std_msgs::Bool& msg) {
   pp_.is_static_obstacle_detected_long = msg.data;
+}
+
+void PurePursuitNode::callbackFromParkingRubberCone(const std_msgs::Bool& msg) {
+  pp_.is_parking_rubbercone_detected = msg.data;
 }
 
 // for delivery obstacle (stop) - 멈추는 로직
