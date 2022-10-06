@@ -515,7 +515,7 @@ pk_hyper_parameterConfig::GroupDescription<pk_hyper_parameterConfig::DEFAULT, pk
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       __max__.pk_yMinROI = 10.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
-      __default__.pk_yMinROI = -2.0;
+      __default__.pk_yMinROI = -3.0;
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
       Default.abstract_parameters.push_back(pk_hyper_parameterConfig::AbstractParamDescriptionConstPtr(new pk_hyper_parameterConfig::ParamDescription<double>("pk_yMinROI", "double", 0, "pk_yMinROI", "", &pk_hyper_parameterConfig::pk_yMinROI)));
 //#line 291 "/opt/ros/melodic/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"

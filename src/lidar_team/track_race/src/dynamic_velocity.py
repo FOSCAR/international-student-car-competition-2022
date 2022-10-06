@@ -48,7 +48,9 @@ class DynamicVelocity:
         self.setObjectInfoArray(msg)
         self.calcVelocity()
         self.publishVelocity()
-        self.visualizeInRange()
+
+        #1006
+        # self.visualizeInRange()
 
     def setObjectInfoArray(self, msg):
         self.objectTotal = msg.objectCounts
@@ -81,8 +83,8 @@ class DynamicVelocity:
         self.setVelocity(velocity)
 
     def setVelocity(self, velocity):
-        if velocity < 9:
-            self.velocity = 9
+        if velocity < 8:
+            self.velocity = 8
         elif 12 < velocity:
             self.velocity = 12
         else:

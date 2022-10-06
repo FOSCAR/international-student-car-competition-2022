@@ -4,7 +4,7 @@
   <arg name="path" />
   <arg name="ld" default="4"/>
   <arg name="vel" default="5"/>
-  <arg name="final_constant" default="1.25" />
+  <arg name="final_constant" default="1.0" />
   <arg name="obs_order" default="1" />
   <arg name="pk" default="1" />
 

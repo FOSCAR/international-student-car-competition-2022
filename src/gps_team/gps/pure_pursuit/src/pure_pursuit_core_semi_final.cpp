@@ -52,9 +52,9 @@ int tf_idx_1 = 1000; // 1180
 
 int slow_down_tf_idx_1 = 1000;
 
-const float tf_coord1[2] = {935574.25, 1915924.125};
+const float tf_coord1[2] = {935572.7866943456, 1915921.7229049096};
 
-const float slow_down_tf_coord1[2] = {935565.651362, 1915908.85769};
+const float slow_down_tf_coord1[2] = {935565.651362, 1915908.8576};
 
 bool index_flag = false;
 bool is_parked = false;
@@ -170,8 +170,8 @@ void PurePursuitNode::run(char** argv) {
     // MODE 0 - 직진구간
     if (pp_.mode == 0) {
       pp_.mission_flag = 0;
-      const_lookahead_distance_ = 12;
-      const_velocity_ = 10;
+      const_lookahead_distance_ = 6;
+      const_velocity_ = 14;
       final_constant = 1.0;
     }
 
@@ -247,7 +247,7 @@ void PurePursuitNode::run(char** argv) {
 
         // 주차 끝
         if (pp_.mission_flag == 1 && pp_.reachMissionIdx(end_parking_idx)) {
-          // 5초 멈춤
+          // 10초 멈춤
           for (int i = 0; i < 110; i++) {
             pulishControlMsg(0, 0);
             usleep(100000); // 0.1초
@@ -274,7 +274,6 @@ void PurePursuitNode::run(char** argv) {
             // 0.1초
             usleep(100000);
           }
-          ROS_INFO("PATH SWITCHING");
           pp_.setWaypoints(global_path);
           pp_.mission_flag = 3;
         }
@@ -299,7 +298,7 @@ void PurePursuitNode::run(char** argv) {
     if (pp_.mode == 2) {
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 5;
-      const_velocity_ = 7;
+      const_velocity_ = 10;
       final_constant = 1.0;
 
       // When traffic lights are RED at slow_down_point -> SLOWNIG DOWN
@@ -322,7 +321,11 @@ void PurePursuitNode::run(char** argv) {
 
       // 첫 신호등 인덱스 : tf_idx_1
       if (pp_.reachMissionIdx(tf_idx_1) && !pp_.straight_go_flag) {
-        pulishControlMsg(0,0);
+        while(!pp_.straight_go_flag)
+        {
+          publishPurePursuitDriveMsg(can_get_curvature, kappa, 1.0);
+          ros::spinOnce();
+        }
         continue;
       }
     }
@@ -331,39 +334,37 @@ void PurePursuitNode::run(char** argv) {
     if (pp_.mode == 3) {
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 5;
-      const_velocity_ = 12;
-      final_constant = 1.0;
+      const_velocity_ = 10;
+      final_constant = 1.2;
     }
 
     //  MODE 4 : 정적장애물 감지되면 avoidance path로 진로변경 후 원래 global path로 복귀 (드럼통)
     if (pp_.mode == 4) {
-      std::cout << "LEFT_RIGHT: " << left_right << '\n';
       if (left_right == 0) { // 장애물 오왼
         if (pp_.mission_flag == 0) {
           pp_.setWaypoints(left_path);
           const_lookahead_distance_ = 3;
-          const_velocity_ = 7;
+          const_velocity_ = 5;
           final_constant = 1.0;
           pp_.mission_flag = 1;
         }
 
         if (pp_.mission_flag == 1 && pp_.is_static_obstacle_detected_short) {
           pp_.mission_flag = 2;
-          pulishControlMsg(3.0, 28);
+          pulishControlMsg(2.0, 26);
           continue;
         }
 
         else if (pp_.mission_flag == 2 && pp_.is_static_obstacle_detected_short) {
-          pulishControlMsg(3.0, 28);
+          pulishControlMsg(2.0, 26);
           continue;
         }
 
         else if (pp_.mission_flag == 2 && !pp_.is_static_obstacle_detected_short) {
-          const_lookahead_distance_ = 5.5;
+          const_lookahead_distance_ = 5;
           pp_.setWaypoints(right_path);
           pp_.mission_flag = 3;
-          ROS_INFO("PAIH SWITCHNG");
-          pulishControlMsg(4, -24);
+          pulishControlMsg(2, -26);
           continue;
         }
 
@@ -387,28 +388,27 @@ void PurePursuitNode::run(char** argv) {
         if (pp_.mission_flag == 0) {
           const_lookahead_distance_ = 3;
           pp_.setWaypoints(right_path);
-          const_velocity_ = 7;
+          const_velocity_ = 5;
           final_constant = 1.0;
           pp_.mission_flag = 1;
         }
 
         if (pp_.mission_flag == 1 && pp_.is_static_obstacle_detected_short) {
           pp_.mission_flag = 2;
-          pulishControlMsg(3.0, -28);
+          pulishControlMsg(2.0, -26);
           continue;
         }
 
         else if (pp_.mission_flag == 2 && pp_.is_static_obstacle_detected_short) {
-          pulishControlMsg(3.0, -28);
+          pulishControlMsg(2.0, -26);
           continue;
         }
 
         else if (pp_.mission_flag == 2  && !pp_.is_static_obstacle_detected_short) {
-          const_lookahead_distance_ = 5.5;
+          const_lookahead_distance_ = 5;
           pp_.setWaypoints(left_path);
           pp_.mission_flag = 3;
-          ROS_INFO("PAIH SWITCHNG");
-          pulishControlMsg(4, 28);
+          pulishControlMsg(2, 26);
           continue;
         }
 
@@ -437,7 +437,7 @@ void PurePursuitNode::run(char** argv) {
       
       if (pp_.mission_flag == 0) {  
         for (int i = 0; i < 3; i++) {
-          publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.05);
+          publishPurePursuitDriveMsg(can_get_curvature, kappa, 0.03);
           usleep(100000);
         }
         pp_.mission_flag = 1;
@@ -468,7 +468,7 @@ void PurePursuitNode::run(char** argv) {
     if (pp_.mode == 6) {
       pp_.mission_flag = 0;
       const_lookahead_distance_ = 8;
-      const_velocity_ = 12;
+      const_velocity_ = 16;
       final_constant = 1.0;
     }
 
@@ -659,7 +659,6 @@ void PurePursuitNode::callbackFromTrafficLight(const darknet_ros_msgs::BoundingB
       }
 
       if (pp_.left_go_flag) {
-        std::cout << "left go" << std::endl;
       }
       return;
     }

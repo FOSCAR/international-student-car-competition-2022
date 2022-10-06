@@ -49,7 +49,7 @@ class test :
         x=self.status_msg.position.x
         y=self.status_msg.position.y
         #z=self.status_msg.position.z
-        z = 0
+        z = 9
         distance=sqrt(pow(x-self.prev_x,2)+pow(y-self.prev_y,2))
         if distance > 0.2:
             self.prev_x=x

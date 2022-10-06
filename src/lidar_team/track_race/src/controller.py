@@ -32,10 +32,6 @@ class control:
         self.currentTime = time()
         self.brakeCoolTime = time()
 
-        # for _ in range(self.bufferSize):
-        #     self.velocityBuffer.put(0)
-
-
         # Subscribe
         rospy.Subscriber("/is_one_lap_finished", Bool, self.oneLapFlagCallback)
 
@@ -85,16 +81,17 @@ class control:
             return self.velocityLidar - self.currentSpeed
     
     def decelerate(self):
+        # print("##############BRAKE##############")
         if self.oneLapFlag:
             ctrlMsg = drive_values()
             ctrlMsg.throttle = 0
             ctrlMsg.steering = self.steeringGps
-            ctrlMsg.brake = 0.0245
+            ctrlMsg.brake = 0.1 # 0.0245
         else:
             ctrlMsg = drive_values()
             ctrlMsg.throttle = 0
             ctrlMsg.steering = self.steeringLidar
-            ctrlMsg.brake = 0.0245
+            ctrlMsg.brake = 0.1 # 0.0245
 
         self.erp42ControlPublisher.publish(ctrlMsg)
 
@@ -130,8 +127,9 @@ class control:
 
         #     self.brakeCoolTime = time()
 
-        if self.currentSpeed > 12 and abs(self.steeringGps) > 15:
+        if ( self.currentSpeed > 10 and abs(self.steeringGps) > 3 ) or (self.gapThrottleAndCurrentSpeed < -3):
             self.decelerate()
+            return
 
         # if self.oneLapFlag == True:
         #     if self.currentSpeed > 11 and abs(self.steeringGps) > 16 and self.isNotBrakeCoolTime:

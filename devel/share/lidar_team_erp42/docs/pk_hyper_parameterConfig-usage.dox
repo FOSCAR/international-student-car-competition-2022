@@ -7,7 +7,7 @@
   <param name="pk_maxClusterSize" type="double" value="300.0" />
   <param name="pk_xMinROI" type="double" value="1.5" />
   <param name="pk_xMaxROI" type="double" value="4.0" />
-  <param name="pk_yMinROI" type="double" value="-2.0" />
+  <param name="pk_yMinROI" type="double" value="-3.0" />
   <param name="pk_yMaxROI" type="double" value="0.0" />
   <param name="pk_zMinROI" type="double" value="-0.65" />
   <param name="pk_zMaxROI" type="double" value="3.0" />

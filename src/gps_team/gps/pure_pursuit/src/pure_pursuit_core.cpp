@@ -20,7 +20,7 @@ PurePursuitNode::PurePursuitNode()
   , is_pose_set_(false)
   , const_lookahead_distance_(4.0)
   , const_velocity_(3.0)
-  , final_constant(1.5)
+  , final_constant(1.0)
   , obs_is_left(1)
 {
   initForROS();
@@ -104,8 +104,7 @@ void PurePursuitNode::run(char** argv) {
 
   // 0이면 오왼이므로 callback 함수를 바꿔줌
   if(!obs_is_left){
-    obstacle_sub2 = nh_.subscribe("detected_obs", 1,
-    &PurePursuitNode::callbackFromObstacle3, this);
+    obstacle_sub2 = nh_.subscribe("detected_obs", 1, &PurePursuitNode::callbackFromObstacle3, this);
   }
 
 
@@ -360,14 +359,25 @@ void PurePursuitNode::run(char** argv) {
   }
 }
 
-void PurePursuitNode::publishPurePursuitDriveMsg(const bool& can_get_curvature, const double& kappa){
-  double throttle_ = can_get_curvature ? const_velocity_ : 0;
+// void PurePursuitNode::publishPurePursuitDriveMsg(const bool& can_get_curvature, const double& kappa){
+//   double throttle_ = can_get_curvature ? const_velocity_ : 0;
 
+//   double steering_radian = convertCurvatureToSteeringAngle(wheel_base_, kappa);
+//   double steering_ = can_get_curvature ? (steering_radian * 180.0 / M_PI) * -1 * final_constant: 0;
+
+//   // std::cout << "steering : " << steering_ << "\tkappa : " << kappa <<std::endl;
+//   pulishControlMsg(throttle_, steering_);
+
+//   // for steering visualization
+//   publishSteeringVisualizationMsg(steering_radian);
+// }
+
+void PurePursuitNode::publishPurePursuitDriveMsg(const bool& can_get_curvature, const double& kappa, const double& brake) {
+  double throttle_ = can_get_curvature ? const_velocity_ : 0;
   double steering_radian = convertCurvatureToSteeringAngle(wheel_base_, kappa);
   double steering_ = can_get_curvature ? (steering_radian * 180.0 / M_PI) * -1 * final_constant: 0;
-
-  // std::cout << "steering : " << steering_ << "\tkappa : " << kappa <<std::endl;
-  pulishControlMsg(throttle_, steering_);
+  double brake_ = brake;
+  pulishControlMsg(throttle_, steering_, brake_);
 
   // for steering visualization
   publishSteeringVisualizationMsg(steering_radian);
@@ -379,14 +389,22 @@ double PurePursuitNode::computeLookaheadDistance() const {
   }
 }
 
-void PurePursuitNode::pulishControlMsg(double throttle, double steering) const
-{
+// void PurePursuitNode::pulishControlMsg(double throttle, double steering) const
+// {
+//   race::drive_values drive_msg;
+//   drive_msg.throttle = throttle;
+//   drive_msg.steering = steering;
+//   drive_msg_pub.publish(drive_msg);
+// }
+
+void PurePursuitNode::pulishControlMsg(double throttle, double steering, double brake) const {
   race::drive_values drive_msg;
   drive_msg.throttle = throttle;
   drive_msg.steering = steering;
+  drive_msg.brake = brake;
   drive_msg_pub.publish(drive_msg);
+  // steering_memory = drive_msg.steering;
 }
-
 
 void PurePursuitNode::callbackFromCurrentPose(const geometry_msgs::PoseStampedConstPtr& msg) {
   pp_.setCurrentPose(msg);

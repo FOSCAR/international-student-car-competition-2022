@@ -8,7 +8,7 @@ Reads and maintains the following parameters on the ROS server
 - \b "~pk_maxClusterSize" : \b [double] pk_maxClusterSize min: 1.0, default: 300.0, max: 100000.0
 - \b "~pk_xMinROI" : \b [double] pk_xMinROI min: -200.0, default: 1.5, max: 10.0
 - \b "~pk_xMaxROI" : \b [double] pk_xMaxROI min: -10.0, default: 4.0, max: 200.0
-- \b "~pk_yMinROI" : \b [double] pk_yMinROI min: -200.0, default: -2.0, max: 10.0
+- \b "~pk_yMinROI" : \b [double] pk_yMinROI min: -200.0, default: -3.0, max: 10.0
 - \b "~pk_yMaxROI" : \b [double] pk_yMaxROI min: -10.0, default: 0.0, max: 200.0
 - \b "~pk_zMinROI" : \b [double] pk_zMinROI min: -2.0, default: -0.65, max: 0.0
 - \b "~pk_zMaxROI" : \b [double] pk_zMaxROI min: -2.0, default: 3.0, max: 100.0

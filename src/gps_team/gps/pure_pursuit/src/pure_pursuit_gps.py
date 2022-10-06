@@ -28,8 +28,8 @@ from track_race.msg import Velocity, Steering
 # Lfc = 1.0 # [m] look-ahead distance     // 3.2
 # WB = 1.04  # [m] wheel base of vehicle
 
-k = 0.2  # look forward gain // 0.25 4.85 6.6
-Lfc = 3.0 # [m] look-ahead distance     // 3.2
+k = 0.3  # look forward gain // 0.25 4.85 6.6
+Lfc = 1.5 # [m] look-ahead distance     // 3.2
 WB = 1.04  # [m] wheel base of vehicle
 
 
@@ -141,7 +141,7 @@ def pure_pursuit_steer_control(state, trajectory, pind):
 
     alpha = math.atan2(ty - state.rear_y, tx - state.rear_x) - state.yaw
 
-    delta = math.atan2(2.0 * WB * math.sin(alpha), Lf) 
+    delta = math.atan2(2.0 * WB * math.sin(alpha), Lf) * 1.0
 
     return delta, ind, tx, ty
 
@@ -231,9 +231,9 @@ if __name__ == '__main__':
     path_y *= 2
 
     # initial state
-
+    print("@@@@@@@@@@@@@@@@@@@@@@@ GPS RUN @@@@@@@@@@@@@@@@@@@@@@@")
     while not rospy.is_shutdown():
-        print("GPS RUN")
+        # print("GPS RUN")
 
         (roll, pitch, yaw) = euler_from_quaternion((arData["AX"], arData["AY"], arData["AZ"], arData["AW"]))
         present_yaw = math.degrees(yaw)
@@ -249,8 +249,8 @@ if __name__ == '__main__':
             
             di, target_ind, target_x, target_y = pure_pursuit_steer_control(state, target_course, target_ind)
             
-            print("Lf = ", _)
-            print("di = ", di)
+            # print("Lf = ", _)
+            # print("di = ", di)
 
             throttle = dynamic_velocity * 2 - 9 # 현재 dynamic_velocity 속도 (최저: 9, 최대: 12) // 계산식 적용하면 (최저: 10, 최대: 15)
             if(throttle < 10.0):

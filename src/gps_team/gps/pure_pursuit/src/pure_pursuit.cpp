@@ -105,15 +105,7 @@ void PurePursuit::getNextWaypoint()
         min_distance = current_distance;
         next_waypoint_number_ = i;
       }
-    }
-    current_idx_flag = true;
-    // std::cout <<"********FIRST WAYPOINT*********" << std::endl;
-    // std::cout << waypoints.at(next_waypoint_number_).x << " " << waypoints.at(next_waypoint_number_).y << std::endl;
-    // std::cout <<"*******************************" << std::endl;
-  }
-
-  // 만약 처음 초기화를 한 상황이라면
-  if (current_idx_flag) {
+    } 
     current_idx = next_waypoint_number_;
   }
 

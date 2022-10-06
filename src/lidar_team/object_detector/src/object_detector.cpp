@@ -284,8 +284,10 @@ void mainCallback(const sensor_msgs::PointCloud2ConstPtr& input) {
     cluster(cloudPtr);
 
     // visualize method
-    visualizeCar();
-    visualizeObject();
+    
+    //1006
+    // visualizeCar();
+    // visualizeObject();
 }
 
 int main (int argc, char** argv) {

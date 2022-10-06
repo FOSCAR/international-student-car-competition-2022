@@ -207,9 +207,10 @@ void WaypointMaker::mainCallback(const object_detector::ObjectInfo& msg) {
     setLeftRightConeInfo();
     setWaypointInfo();
 
-    visualizeLeftRightCone();
-    visualizeWaypointInfoMsg();
-    visualizePivot();
+    //1006
+    // visualizeLeftRightCone();
+    // visualizeWaypointInfoMsg();
+    // visualizePivot();
 }
 
 void WaypointMaker::setObjectInfo(const object_detector::ObjectInfo& msg) {

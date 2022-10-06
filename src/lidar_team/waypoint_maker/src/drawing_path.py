@@ -51,35 +51,35 @@ class drawing_path():
 
                 for i in range(linspace_num):
                     array[i] = [x_new[i], y_new[i]]
-
-                waypoint_marker_arr = MarkerArray()
+                
+                #1006
+                # waypoint_marker_arr = MarkerArray()
+                # for i in range(linspace_num):
+                #     marker = Marker()
+                #     marker.header.frame_id = "/velodyne"
+                #     marker.id = i
+                #     marker.type = marker.SPHERE
+                #     marker.action = marker.ADD
+                #     marker.scale.x = 0.05
+                #     marker.scale.y = 0.05
+                #     marker.scale.z = 0.05
+                #     marker.color.a = 1.0
+                #     marker.color.r = 0.0
+                #     marker.color.g = 1.0
+                #     marker.color.b = 0.0
+                #     marker.pose.orientation.w = 1.0
+                #     marker.pose.position.x = array[i][0]
+                #     marker.pose.position.y = array[i][1]
+                #     marker.pose.position.z = 0.2
+                #     marker.lifetime = rospy.Duration(0.1)
+                #     waypoint_marker_arr.markers.append(marker)
 
                 for i in range(linspace_num):
-                    marker = Marker()
-                    marker.header.frame_id = "/velodyne"
-                    marker.id = i
-                    marker.type = marker.SPHERE
-                    marker.action = marker.ADD
-                    marker.scale.x = 0.05
-                    marker.scale.y = 0.05
-                    marker.scale.z = 0.05
-                    marker.color.a = 1.0
-                    marker.color.r = 0.0
-                    marker.color.g = 1.0
-                    marker.color.b = 0.0
-                    marker.pose.orientation.w = 1.0
-                    marker.pose.position.x = array[i][0]
-                    marker.pose.position.y = array[i][1]
-                    marker.pose.position.z = 0.2
-
-                    marker.lifetime = rospy.Duration(0.1)
-
-                    waypoint_marker_arr.markers.append(marker)
-                
                     local_path.x_arr[i] = array[i][0]
                     local_path.y_arr[i] = array[i][1]
 
-                pub1.publish(waypoint_marker_arr)
+                #1006
+                # pub1.publish(waypoint_marker_arr)
                 pub2.publish(local_path)
 
             rate.sleep()

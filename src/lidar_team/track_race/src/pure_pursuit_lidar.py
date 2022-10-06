@@ -22,8 +22,8 @@ from track_race.msg import Steering
 # Parameters
 # 도로 폭이 좁을 때 k = 0.09 Lfc = 2.25
 # 도록 폭이 넓을 때 k = 0.09 Lfc = 2.5
-k = 0.09  # look forward gain 0.09
-Lfc = 2.5 # [m] look-ahead distance 2.25
+k = 0.22  # look forward gain 0.09
+Lfc = 1.75 # [m] look-ahead distance 2.25
 WB = 1.04  # [m] wheel base of vehicle
 
 # k = 0.09, Lfc = 2.5 KYUHYUN
@@ -63,7 +63,7 @@ class TargetCourse:
  
 
     def search_target_index(self, state):
-        global realVel
+        global realVel, gpsVel
         # To speed up nearest point search, doing it at only first time.  
         if self.old_nearest_point_index is None:
             # search nearest point index
@@ -90,7 +90,7 @@ class TargetCourse:
                 distance_this_index = distance_next_index
             self.old_nearest_point_index = ind
 
-        Lf = k * realVel + Lfc  # update look ahead distance
+        Lf = k * gpsVel + Lfc  # update look ahead distance
         # Lf = Lfc
 
         # search look ahead target point index
@@ -120,11 +120,11 @@ def pure_pursuit_steer_control(state, trajectory, pind):
 
     alpha = math.atan2(ty - state.rear_y, tx - state.rear_x) - state.yaw
 
-    delta = math.atan2(2.0 * WB * math.sin(alpha), Lf) * -100
+    delta = math.atan2(2.0 * WB * math.sin(alpha), Lf) * -100 #* 1.1
 
     curvature = 2.0 * math.sin(alpha) / Lf
 
-    print("Curvature : ", curvature)
+    # print("Curvature : ", curvature)
 
     return delta, ind, tx, ty
 
@@ -167,13 +167,13 @@ if __name__ == '__main__':
     steeringMsg = Steering()
 
     rate = rospy.Rate(60)
-    
+    print("###################### LiDAR RUN ######################")
     # initial state
     if is_one_lap_finished == False:
         while not rospy.is_shutdown():
-            print("LiDAR RUN")
+            # print("LiDAR RUN")
 
-            state = State(x = -1.1, y = 0.0, yaw = 0.0, v = realVel)
+            state = State(x = -1.1, y = 0.0, yaw = 0.0, v = gpsVel)
             
             if len(path_x) != 0:
                 # Calc control input
@@ -182,30 +182,33 @@ if __name__ == '__main__':
                 
                 di, target_ind, target_x, target_y = pure_pursuit_steer_control(state, target_course, target_ind)
 
-                marker = Marker()
-                marker.header.frame_id = "/velodyne"
-                marker.id = 1004
-                marker.type = marker.SPHERE
-                marker.action = marker.ADD
-                marker.scale.x = 1.05
-                marker.scale.y = 1.05
-                marker.scale.z = 1.05
-                marker.color.a = 1.0
-                marker.color.r = 1.0
-                marker.color.g = 0.0
-                marker.color.b = 1.0
-                marker.pose.orientation.w = 1.0
-                marker.pose.position.x = target_x
-                marker.pose.position.y = target_y
-                marker.pose.position.z = 0.2
+                #1006
+                # marker = Marker()
+                # marker.header.frame_id = "/velodyne"
+                # marker.id = 1004
+                # marker.type = marker.SPHERE
+                # marker.action = marker.ADD
+                # marker.scale.x = 1.0
+                # marker.scale.y = 1.0
+                # marker.scale.z = 1.0
+                # marker.color.a = 1.0
+                # marker.color.r = 1.0
+                # marker.color.g = 0.0
+                # marker.color.b = 1.0
+                # marker.pose.orientation.w = 1.0
+                # marker.pose.position.x = target_x + 1.1
+                # marker.pose.position.y = target_y
+                # marker.pose.position.z = 0.0
 
-                marker.lifetime = rospy.Duration(0.1)
+                # marker.lifetime = rospy.Duration(0.1)
 
-                target_pub.publish(marker)
+                # target_pub.publish(marker)
             
                 publishSteering(di)
 
-                print("LF :: ", _)
+                
+                # print("Di: ", di)
+                # print("LF :: ", _)
 
             if is_one_lap_finished == True:
                 break

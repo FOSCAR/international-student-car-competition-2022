@@ -195,11 +195,11 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& inputcloud) {
       
       sort(obstacle_vec.begin(), obstacle_vec.end());
       //2.5, 5
-      if (5 <= obstacle_vec[0][0] && obstacle_vec[0][0] < 8) {
+      if (6 <= obstacle_vec[0][0] && obstacle_vec[0][0] < 10) {
         staticObsLongDetected.data = true;
       }
 
-      else if (obstacle_vec[0][0] < 5) {
+      else if (obstacle_vec[0][0] < 6) {
         staticObsShortDetected.data = true;
       }
     }
