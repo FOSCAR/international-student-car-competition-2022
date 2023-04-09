@@ -30,7 +30,7 @@
 
 ![image](https://user-images.githubusercontent.com/54922827/230784997-1d782d0e-9d73-4588-b8f1-4d4e74576e0c.jpeg)
 
-## 대회 미션
+## ⛳️ 대회 미션
 ### 예선전
 - 사선주차
 - 신호등
